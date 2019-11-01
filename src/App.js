@@ -1,46 +1,52 @@
-import React, {
-  useState, useEffect
-} from 'react';
-import Sidebar from './components/Sidebar/index'
-import Canvas from './components/Canvas/index'
+import React, { useState } from "react";
+import Sidebar from "./components/Sidebar/index";
+import Canvas from "./components/Canvas/index";
+import defalutURl from "./static/example2.jpg";
+import useWindowSize from "./hooks/useWindowSize";
+import { awesome } from "./lib/awesome-poster";
+
+const poster = awesome.poster();
 
 function App(props) {
-  const windowSize = useWindowSize();
+  const [width, height] = useWindowSize();
+  const [isEdit, setIsEdit] = useState(false);
   const [params, setParams] = useState({
-    width: windowSize.width,
-    height: windowSize.height,
-    imageURL: 'https://cn.bing.com/th?id=OHR.CharlesNight_ZH-CN0933393880_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp',
+    imageURL: defalutURl,
     fontSize: 150,
-    fontFamily: 'myFont',
-    title: 'Charles Bridge',
-    textColor: '#f0f0f0',
-    content: 'Charles Bridge is the oldest bridge still standing over the Vltava river in Prague and the second oldest bridge in the Czech Republic.',
+    fontFamily: "Wawati SC",
+    title: "Upwords",
+    textColor: "#f0f0f0",
+    layout: 'middle',
+    content:
+      "Upwords is tool based on web to create awesome wallpaper like this!"
   });
 
+  function handleShowEdit() {
+      setIsEdit(true);
+  }
+
+  function handleHideEdit(){
+      setIsEdit(false);
+  }
+
   return (
-    <div> 
-      {/* <Sidebar/> */}
-      <Canvas params={params}/>
+    <div>
+      <Sidebar
+        isEdit={isEdit}
+        windowSize={{ width, height }}
+        handleChangeMode={handleShowEdit}
+        params={params}
+        setParams={setParams}
+        canvasToPng={poster.saveToPng}
+      />
+      <Canvas
+        params={params}
+        windowSize={{ width, height }}
+        handleChangeMode={handleHideEdit}
+        poster={poster}
+      />
     </div>
-  )
-}
-
-function useWindowSize(){
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
-  })
-
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setWindowSize(window.innerWidth, window.innerHeight)
-    })
-    return () => {
-      window.removeEventListener('resize', this);
-    }
-  })
-
-  return windowSize;
+  );
 }
 
 export default App;
