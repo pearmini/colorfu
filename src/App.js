@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar/index";
 import Canvas from "./components/Canvas/index";
-import defalutURl from "./static/example2.jpg";
+import defalutURl from "./static/images/example3.jpeg";
 import useWindowSize from "./hooks/useWindowSize";
 import { awesome } from "./lib/awesome-poster";
 
