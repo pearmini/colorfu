@@ -18,10 +18,11 @@ export default function({ params, windowSize, handleChangeMode, poster }) {
       .title(params.title)
       .content(params.content)
       .textColor(params.textColor)
+      .contentFontSize(params.contentFontSize)
       .layout(params.layout)
       .fontURL(params.fontURL)
       .on("end", console.log);
-
+    
     poster.draw();
   });
   return (

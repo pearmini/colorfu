@@ -51,7 +51,7 @@ export default function(props) {
   const panel = (
     <div style={panelStyle}>
       <h1>DIY</h1>
-      <form>
+      <div>
         标题：
         <input type="text" value={params.title} onChange={handleChangeTitle} />
         <br />
@@ -96,7 +96,7 @@ export default function(props) {
             fonts.map((item, index) => <option key={index}>{item.en}</option>)
           }
         </select>
-      </form>
+      </div>
       <button onClick={handleDowloadImage}>保存到本地</button>
     </div>
   );

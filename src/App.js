@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar/index";
 import Canvas from "./components/Canvas/index";
-import defalutURl from "./static/images/example3.jpeg";
+import defaultImageURL from "./static/images/example3.jpeg";
+import defaultFontURL from "./static/fonts/font.woff2"
 import useWindowSize from "./hooks/useWindowSize";
 import { awesome } from "./lib/awesome-poster";
 
@@ -11,14 +12,16 @@ function App(props) {
   const [width, height] = useWindowSize();
   const [isEdit, setIsEdit] = useState(false);
   const [params, setParams] = useState({
-    imageURL: defalutURl,
+    imageURL: defaultImageURL,
     fontSize: 150,
     fontFamily: "Wawati SC",
     title: "Upwords",
     textColor: "#f0f0f0",
     layout: 'middle',
+    contentFontSize: 40,
+    // fontURL: defaultFontURL,
     content:
-      "Upwords is tool based on web to create awesome wallpaper like this!"
+      "Upwords is web tool to create awesome wallpaper like this!"
   });
 
   function handleShowEdit() {
