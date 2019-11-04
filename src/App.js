@@ -19,9 +19,12 @@ function App(props) {
     textColor: "#f0f0f0",
     layout: 'middle',
     contentFontSize: 40,
+    contentFontFamily: "Wawati SC",
     // fontURL: defaultFontURL,
-    content:
-      "Upwords is web tool to create awesome wallpaper like this!"
+    contents:[
+      "Upwords is web tool to create awesome wallpaper like this!",
+      "You can edit, save or see more examples by click the top-left button."
+    ]
   });
 
   function handleShowEdit() {
