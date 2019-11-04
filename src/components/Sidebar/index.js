@@ -1,5 +1,6 @@
 import React from "react";
 import fonts from "../../lib/fonts"
+import Items from "../Items/index"
 
 export default function(props) {
   const { windowSize, isEdit, handleChangeMode, params, setParams, canvasToPng } = props;
@@ -38,6 +39,30 @@ export default function(props) {
     setParams({...params, fontFamily: e.target.value})
   }
 
+  function handleAddContent(e){
+    const content = e.target.value;
+    const contents = params.contents;
+    contents.push(content);
+    setParams({...params, contents})
+
+    // 清空输入
+    e.target.value = '';
+  }
+
+  function handleContentChange(e){
+    const content = e.target.value, index = e.target.name;
+    const contents = params.contents;
+    contents[index] = content;
+    setParams({...params, contents})
+  }
+
+  function handleDeleteContent(e){
+    const index = e.target.name;
+    const contents = params.contents;
+    contents.splice(index, 1);
+    setParams({...params, contents});
+  }
+
   function handleUploadImage(e) {
     const file = document.getElementById("imageInput").files[0];
     const reader = new FileReader();
@@ -48,6 +73,10 @@ export default function(props) {
     reader.readAsDataURL(file);
   }
 
+  function handleChangeContentFontFamily(e){
+    setParams({...params, contentFontFamily: e.target.value})
+  }
+
   const panel = (
     <div style={panelStyle}>
       <h1>DIY</h1>
@@ -56,10 +85,11 @@ export default function(props) {
         <input type="text" value={params.title} onChange={handleChangeTitle} />
         <br />
         内容:
-        <textarea
-          type="text"
-          value={params.content}
-          onChange={handleContentChange}
+        <Items
+          contents={params.contents}
+          onAddContent={handleAddContent}
+          handleContentChange={handleContentChange}
+          handleDeleteContent={handleDeleteContent}
         />
         <br />
         字体颜色：
@@ -90,8 +120,15 @@ export default function(props) {
           右边
         </label>
         <br />
-        字体
+        主标题字体
         <select onChange={handleChangeFontFamily}>
+          {
+            fonts.map((item, index) => <option key={index}>{item.en}</option>)
+          }
+        </select>
+        <br />
+        内容字体
+        <select onChange={handleChangeContentFontFamily}>
           {
             fonts.map((item, index) => <option key={index}>{item.en}</option>)
           }
