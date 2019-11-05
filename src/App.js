@@ -16,10 +16,11 @@ function App(props) {
     fontSize: 150,
     fontFamily: "Wawati SC",
     title: "Upwords",
-    textColor: "#f0f0f0",
+    textColor: "#ffffff",
     layout: 'middle',
     contentFontSize: 40,
     contentFontFamily: "Wawati SC",
+    contentTextColor: '#E3E3E3',
     // fontURL: defaultFontURL,
     contents:[
       "Upwords is web tool to create awesome wallpaper like this!",

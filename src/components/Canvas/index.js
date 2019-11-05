@@ -8,7 +8,6 @@ export default function({ params, windowSize, handleChangeMode, poster }) {
       canvas = document.getElementById("app");
       poster.canvas(canvas);
     }
-
     poster
       .width(windowSize.width)
       .height(windowSize.height)
@@ -22,6 +21,7 @@ export default function({ params, windowSize, handleChangeMode, poster }) {
       .contentFontSize(params.contentFontSize)
       .layout(params.layout)
       .fontURL(params.fontURL)
+      .contentTextColor(params.contentTextColor)
       .on("end", console.log);
     
     poster.draw();
