@@ -27,6 +27,10 @@ export default function(props) {
     setParams({ ...params, textColor: e.target.value });
   }
 
+  function handleContentTextColorChange(e){
+    setParams({...params, contentTextColor: e.target.value})
+  }
+
   function handleLayoutChange(e){
     setParams({...params, layout: e.target.value})
   }
@@ -92,11 +96,18 @@ export default function(props) {
           handleDeleteContent={handleDeleteContent}
         />
         <br />
-        字体颜色：
+        标题字体颜色：
         <input
           type="color"
           value={params.textColor}
           onChange={handleTextColorChange}
+        />
+        <br />
+        内容字体颜色：
+        <input
+          type="color"
+          value={params.contentTextColor}
+          onChange={handleContentTextColorChange}
         />
         <br />
         <input
