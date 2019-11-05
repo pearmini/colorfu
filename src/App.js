@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar/index";
 import Canvas from "./components/Canvas/index";
-import defaultImageURL from "./static/images/example3.jpeg";
+import defaultImageURL from "./static/images/example4.jpg";
 import defaultFontURL from "./static/fonts/font.woff2"
 import useWindowSize from "./hooks/useWindowSize";
 import { awesome } from "./lib/awesome-poster";
