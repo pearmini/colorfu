@@ -1,33 +1,43 @@
 import React, { useEffect } from "react";
 
+export default function(props) {
+  const { params, windowSize, editMode, poster } = props;
 
-let canvas = null;
-export default function({ params, windowSize, handleChangeMode, poster }) {
   useEffect(() => {
-    if (canvas === null) {
-      canvas = document.getElementById("app");
-      poster.canvas(canvas);
-    }
+    const canvas = document.getElementById("app");
+    poster.canvas(canvas);
+
+    // 设置内容
+    poster
+      .imageURL(params.imageURL.value)
+      .title(params.title.value)
+      .contents(params.contents.value);
+
+    // 设置样式
+    poster
+      .fontSize(params.fontSize.value)
+      .contentFontSize(params.contentFontSize.value)
+      .fontFamily(params.fontFamily.value)
+      .contentFontFamily(params.contentFontFamily.value)
+      .textColor(params.textColor.value)
+      .contentTextColor(params.contentTextColor.value);
+
+    // 设置布局
     poster
       .width(windowSize.width)
       .height(windowSize.height)
-      .imageURL(params.imageURL)
-      .fontSize(params.fontSize)
-      .fontFamily(params.fontFamily)
-      .contentFontFamily(params.contentFontFamily)
-      .title(params.title)
-      .contents(params.contents)
-      .textColor(params.textColor)
-      .contentFontSize(params.contentFontSize)
-      .layout(params.layout)
-      .fontURL(params.fontURL)
-      .contentTextColor(params.contentTextColor)
-      .on("end", console.log);
-    
+      .layout(params.layout.value);
+
+    // 设置生命周期监听函数
+    poster
+      .on("canvasWillDraw", console.log)
+      .on("canvasDidDraw", console.log);
+
     poster.draw();
   });
+
   return (
-    <div onClick={handleChangeMode}>
+    <div onClick={editMode.setFalse}>
       <canvas id="app"></canvas>
     </div>
   );
