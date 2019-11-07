@@ -31,7 +31,11 @@ export default function(props) {
     // 设置生命周期监听函数
     poster
       .on("canvasWillDraw", console.log)
-      .on("canvasDidDraw", console.log);
+      .on("canvasDidDraw", console.log)
+      .on("canvasWillLoadFont", console.log)
+      .on("canvasDidLoadFont", console.log)
+      .on("canvasWillLoadImage", console.log)
+      .on("canvasDidLoadImage", console.log)
 
     poster.draw();
   });
