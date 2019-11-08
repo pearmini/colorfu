@@ -27,7 +27,7 @@ function Items(props) {
         type="button"
         value="删除"
         onClick={e =>
-          dispatch({ type: "delelteContent", index: e.target.namex })
+          dispatch({ type: "deleteContent", index: e.target.name })
         }
         name={index}
       />
