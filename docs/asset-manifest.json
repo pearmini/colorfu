@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "./static/css/main.11a1eb2e.chunk.css",
-    "main.js": "./static/js/main.12f15b0a.chunk.js",
-    "main.js.map": "./static/js/main.12f15b0a.chunk.js.map",
+    "main.js": "./static/js/main.0b86d25a.chunk.js",
+    "main.js.map": "./static/js/main.0b86d25a.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.62125880.js",
     "runtime-main.js.map": "./static/js/runtime-main.62125880.js.map",
     "static/js/2.e44d65bd.chunk.js": "./static/js/2.e44d65bd.chunk.js",
     "static/js/2.e44d65bd.chunk.js.map": "./static/js/2.e44d65bd.chunk.js.map",
     "index.html": "./index.html",
-    "precache-manifest.2b6d1575aeb07d72e0f858994acaaa44.js": "./precache-manifest.2b6d1575aeb07d72e0f858994acaaa44.js",
+    "precache-manifest.57238da39b5fd26821b6669477acd6e3.js": "./precache-manifest.57238da39b5fd26821b6669477acd6e3.js",
     "service-worker.js": "./service-worker.js",
     "static/css/main.11a1eb2e.chunk.css.map": "./static/css/main.11a1eb2e.chunk.css.map",
     "static/media/Lord_of_Rings.jpg": "./static/media/Lord_of_Rings.a6eae001.jpg",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.62125880.js",
     "static/js/2.e44d65bd.chunk.js",
     "static/css/main.11a1eb2e.chunk.css",
-    "static/js/main.12f15b0a.chunk.js"
+    "static/js/main.0b86d25a.chunk.js"
   ]
 }
