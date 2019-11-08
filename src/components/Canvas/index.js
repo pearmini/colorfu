@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 export default function(props) {
-  const { params, windowSize, editMode, poster } = props;
+  const { canvasState, windowSize, editMode, poster } = props;
 
   useEffect(() => {
     const canvas = document.getElementById("app");
@@ -9,24 +9,24 @@ export default function(props) {
 
     // 设置内容
     poster
-      .imageURL(params.imageURL.value)
-      .title(params.title.value)
-      .contents(params.contents.value);
+      .imageURL(canvasState.imageURL)
+      .title(canvasState.title)
+      .contents(canvasState.contents);
 
     // 设置样式
     poster
-      .fontSize(params.fontSize.value)
-      .contentFontSize(params.contentFontSize.value)
-      .fontFamily(params.fontFamily.value)
-      .contentFontFamily(params.contentFontFamily.value)
-      .textColor(params.textColor.value)
-      .contentTextColor(params.contentTextColor.value);
+      .fontSize(canvasState.fontSize)
+      .contentFontSize(canvasState.contentFontSize)
+      .fontFamily(canvasState.fontFamily)
+      .contentFontFamily(canvasState.contentFontFamily)
+      .textColor(canvasState.textColor)
+      .contentTextColor(canvasState.contentTextColor);
 
     // 设置布局
     poster
       .width(windowSize.width)
       .height(windowSize.height)
-      .layout(params.layout.value);
+      .layout(canvasState.layout);
 
     // 设置生命周期监听函数
     poster

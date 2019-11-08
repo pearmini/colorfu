@@ -1,22 +1,23 @@
 {
   "files": {
     "main.css": "./static/css/main.11a1eb2e.chunk.css",
-    "main.js": "./static/js/main.38182613.chunk.js",
-    "main.js.map": "./static/js/main.38182613.chunk.js.map",
+    "main.js": "./static/js/main.12f15b0a.chunk.js",
+    "main.js.map": "./static/js/main.12f15b0a.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.62125880.js",
     "runtime-main.js.map": "./static/js/runtime-main.62125880.js.map",
-    "static/js/2.06b6869d.chunk.js": "./static/js/2.06b6869d.chunk.js",
-    "static/js/2.06b6869d.chunk.js.map": "./static/js/2.06b6869d.chunk.js.map",
+    "static/js/2.e44d65bd.chunk.js": "./static/js/2.e44d65bd.chunk.js",
+    "static/js/2.e44d65bd.chunk.js.map": "./static/js/2.e44d65bd.chunk.js.map",
     "index.html": "./index.html",
-    "precache-manifest.f61cbaf49c7c25efb62696fdd822d771.js": "./precache-manifest.f61cbaf49c7c25efb62696fdd822d771.js",
+    "precache-manifest.2b6d1575aeb07d72e0f858994acaaa44.js": "./precache-manifest.2b6d1575aeb07d72e0f858994acaaa44.js",
     "service-worker.js": "./service-worker.js",
     "static/css/main.11a1eb2e.chunk.css.map": "./static/css/main.11a1eb2e.chunk.css.map",
-    "static/media/example4.jpg": "./static/media/example4.d54e0cee.jpg"
+    "static/media/Lord_of_Rings.jpg": "./static/media/Lord_of_Rings.a6eae001.jpg",
+    "static/media/homepage.jpg": "./static/media/homepage.d54e0cee.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.62125880.js",
-    "static/js/2.06b6869d.chunk.js",
+    "static/js/2.e44d65bd.chunk.js",
     "static/css/main.11a1eb2e.chunk.css",
-    "static/js/main.38182613.chunk.js"
+    "static/js/main.12f15b0a.chunk.js"
   ]
 }

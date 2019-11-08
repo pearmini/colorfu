@@ -1,52 +1,56 @@
+import React from "react";
 import Sidebar from "./components/Sidebar/index";
 import Canvas from "./components/Canvas/index";
+import Footer from "./components/Footer/index";
 
 import useWindowSize from "./hooks/useWindowSize";
-import useFormInput from "./hooks/useFormInput";
-import useImage from "./hooks/useImage";
 import useBoolean from "./hooks/useBoolean";
-import useFormInputList from "./hooks/useFormInputList"
+import useCanvas from "./hooks/useCanvas";
+import useCounter from "./hooks/useCounter";
 
-import defaultImageURL from "./static/images/example4.jpg";
 import { awesome } from "./lib/awesome-poster";
-import React from "react";
+import data from "./data/index";
 
 const poster = awesome.poster();
 
 function App(props) {
   const [width, height] = useWindowSize();
   const editMode = useBoolean(false);
-  const params = {
-    title: useFormInput("Upwords"),
-    imageURL: useImage(defaultImageURL),
-    fontFamily: useFormInput("Wawati SC"),
-    textColor: useFormInput("#ffffff"),
-    fontSize: useFormInput(150),
-    layout: useFormInput("middle"),
-    contentFontSize: useFormInput(40),
-    contentFontFamily: useFormInput("Wawati SC"),
-    contentTextColor: useFormInput("#E3E3E3"),
-    contents: useFormInputList([
-      "Upwords is web tool to create awesome wallpaper like this!",
-      "You can edit, save or see more examples by click the top-left button."
-    ])
-  };
+  const [counterState, counterDispatch] = useCounter(0);
+  const initialCanvas = data[counterState.count];
+  const [canvasState, canvasDispatch] = useCanvas(initialCanvas);
+
+  function handleNext() {
+    if (counterState.count + 1 >= data.length) return;
+    const nextCanvas = data[counterState.count + 1];
+    counterDispatch({ type: "increment" });
+    canvasDispatch({ type: "update", canvas: nextCanvas });
+  }
+
+  function handlePre() {
+    if (counterState.count - 1 < 0) return;
+    const preCanvas = data[counterState.count - 1];
+    counterDispatch({ type: "decrement" });
+    canvasDispatch({ type: "update", canvas: preCanvas });
+  }
 
   return (
     <div>
       <Sidebar
         editMode={editMode}
-        windowSize={{width, height}}
-        params={params}
+        windowSize={{ width, height }}
+        canvasState={canvasState}
+        dispatch={canvasDispatch}
         canvasToPng={poster.saveToPng}
         poster={poster}
       />
       <Canvas
-        params={params}
-        windowSize={{width, height}}
+        canvasState={canvasState}
+        windowSize={{ width, height }}
         editMode={editMode}
         poster={poster}
       />
+      <Footer handleNext={handleNext} handlePre={handlePre} />
     </div>
   );
 }
