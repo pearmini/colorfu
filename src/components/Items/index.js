@@ -5,7 +5,7 @@ function Items(props) {
   function handleAddContent(e) {
     if (e.key === "Enter") {
       dispatch({ type: "addContent", value: e.target.value });
-      e.target.value = '';
+      e.target.value = "";
     }
   }
 
@@ -26,9 +26,7 @@ function Items(props) {
       <input
         type="button"
         value="删除"
-        onClick={e =>
-          dispatch({ type: "deleteContent", index: e.target.name })
-        }
+        onClick={e => dispatch({ type: "deleteContent", index: e.target.name })}
         name={index}
       />
       <br />
