@@ -1,9 +1,10 @@
 import homepage from "../static/images/homepage.jpg";
 export default {
-  title: "UpWords",
+  title: "WordsPaper",
   contents: [
-    "It is a web tool to create awesome poster like this",
-    "You can edit your own poster by click the top-left button"
+    "It is a web tool to create awesome pictures like this.",
+    "You can use them as wallpaper or event a gift.",
+    "You can DIY by click the top-left button or see more examples."
   ],
   imageURL: homepage,
   layout: "middle",

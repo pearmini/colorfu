@@ -1,12 +1,13 @@
 import Lord from "../static/images/Lord_of_Rings.jpg";
 
 export default {
-  title: "The Lord of the Rings",
+  title: "电影和台词",
   contents: [
-    "There is always something good in the world, and it's worth fighting for."
+    "That there's some good in this world, Mr. Frodo.",
+    "And it's worth fighting for.",
   ],
   imageURL: Lord,
-  layout: "middle",
+  layout: "left",
   fontFamily: "Wawati SC",
   textColor: "#ffffff",
   fontSize: 150,
