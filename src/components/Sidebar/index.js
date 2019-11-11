@@ -165,5 +165,5 @@ export default function(props) {
     </div>
   );
 
-  return <div>{loading && <div>{editMode.value ? panel : button}</div>}</div>;
+  return <div>{!loading.value && <div>{editMode.value ? panel : button}</div>}</div>;
 }
