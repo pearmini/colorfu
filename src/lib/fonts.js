@@ -377,5 +377,11 @@ for(var i in yxmDataFont){
 	}
   });
 }
+ 
+
+// 去重复
+const enlist = fontFamilyList.map(item => item.en);
+const fonts = fontFamilyList.filter((item, index) => index === enlist.indexOf(item.en));
+
 //此電腦字體列表
-export default fontFamilyList;
+export default fonts;

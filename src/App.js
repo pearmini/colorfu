@@ -16,6 +16,7 @@ const poster = awesome.poster();
 function App(props) {
   const [width, height] = useWindowSize();
   const editMode = useBoolean(false);
+  const loading = useBoolean(true);
   const [counterState, counterDispatch] = useCounter(0);
   const initialCanvas = data[counterState.count];
   const [canvasState, canvasDispatch] = useCanvas(initialCanvas);
@@ -43,14 +44,21 @@ function App(props) {
         dispatch={canvasDispatch}
         canvasToPng={poster.saveToPng}
         poster={poster}
+        loading={loading}
       />
       <Canvas
         canvasState={canvasState}
         windowSize={{ width, height }}
         editMode={editMode}
         poster={poster}
+        loading={loading}
       />
-      <Footer handleNext={handleNext} handlePre={handlePre} />
+      <Footer
+        handleNext={handleNext}
+        handlePre={handlePre}
+        poster={poster}
+        loading={loading}
+      />
     </div>
   );
 }

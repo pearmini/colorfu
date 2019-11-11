@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
+import { Spin } from "antd";
+import "antd/dist/antd.css";
 
 export default function(props) {
-  const { canvasState, windowSize, editMode, poster } = props;
+  const { canvasState, windowSize, editMode, poster, loading } = props;
+  const style ={
+    position: 'absolute',
+    left: window.innerWidth / 2 - 20,
+    top: window.innerHeight / 2 - 20
+  }
 
   useEffect(() => {
     const canvas = document.getElementById("app");
@@ -30,8 +37,8 @@ export default function(props) {
 
     // 设置生命周期监听函数
     poster
-      .on("canvasWillDraw", console.log)
-      .on("canvasDidDraw", console.log)
+      .on("canvasWillDraw", () => loading.setTrue())
+      .on("canvasDidDraw", () => loading.setFalse())
       .on("canvasWillLoadFont", console.log)
       .on("canvasDidLoadFont", console.log)
       .on("canvasWillLoadImage", console.log)
@@ -42,6 +49,9 @@ export default function(props) {
 
   return (
     <div onClick={editMode.setFalse}>
+      {
+        loading.value && <Spin size="large" tip="加载图片中..." style={style}/>
+      }
       <canvas id="app"></canvas>
     </div>
   );
