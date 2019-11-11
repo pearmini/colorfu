@@ -1,9 +1,11 @@
 import React from "react";
 import fonts from "../../lib/fonts";
 import Items from "../Items/index";
+import { Button } from "antd";
+import "antd/dist/antd.css";
 
 export default function(props) {
-  const { windowSize, editMode, canvasState, poster, dispatch } = props;
+  const { windowSize, editMode, canvasState, dispatch, loading } = props;
   const panelStyle = {
     position: "absolute",
     width: windowSize.width / 4,
@@ -12,12 +14,10 @@ export default function(props) {
   };
 
   const buttonStyle = {
-    position: "absolute"
+    position: "absolute",
+    left: 10,
+    top: 10
   };
-
-  function handleDowloadImage(e) {
-    poster.canvasToPng("wallpaper.png");
-  }
 
   function handleImageChange() {
     const file = document.getElementById("imageInput").files[0];
@@ -125,7 +125,9 @@ export default function(props) {
           }
         >
           {fonts.map((item, index) => (
-            <option key={index}>{item.en}</option>
+            <option key={index} value={item.en}>
+              {item.ch}
+            </option>
           ))}
         </select>
         <br />
@@ -141,19 +143,27 @@ export default function(props) {
           }
         >
           {fonts.map((item, index) => (
-            <option key={index}>{item.en}</option>
+            <option key={index} value={item.en}>
+              {item.ch}
+            </option>
           ))}
         </select>
       </div>
-      <button onClick={handleDowloadImage}>保存到本地</button>
     </div>
   );
 
   const button = (
     <div style={buttonStyle}>
-      <button onClick={editMode.setTrue}>编辑</button>
+      <Button
+        shape="circle"
+        icon="edit"
+        ghost
+        onClick={() => {
+          editMode.setTrue();
+        }}
+      />
     </div>
   );
 
-  return <div>{editMode.value ? panel : button}</div>;
+  return <div>{loading && <div>{editMode.value ? panel : button}</div>}</div>;
 }

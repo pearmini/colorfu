@@ -7,7 +7,7 @@ export default {
   ],
   imageURL: "https://i.loli.net/2019/11/11/qLXbkMHA8FmEg4B.jpg",
   layout: "middle",
-  fontFamily: "Wawati SC",
+  fontFamily: "Wawati SC ",
   textColor: "#ffffff",
   fontSize: 150,
   contentFontSize: 40,
