@@ -1,26 +1,21 @@
 {
   "files": {
     "main.css": "./static/css/main.11a1eb2e.chunk.css",
-    "main.js": "./static/js/main.b977a3b9.chunk.js",
-    "main.js.map": "./static/js/main.b977a3b9.chunk.js.map",
+    "main.js": "./static/js/main.defa36db.chunk.js",
+    "main.js.map": "./static/js/main.defa36db.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.62125880.js",
     "runtime-main.js.map": "./static/js/runtime-main.62125880.js.map",
-    "static/js/2.01a5b59f.chunk.js": "./static/js/2.01a5b59f.chunk.js",
-    "static/js/2.01a5b59f.chunk.js.map": "./static/js/2.01a5b59f.chunk.js.map",
+    "static/js/2.6c881c14.chunk.js": "./static/js/2.6c881c14.chunk.js",
+    "static/js/2.6c881c14.chunk.js.map": "./static/js/2.6c881c14.chunk.js.map",
     "index.html": "./index.html",
-    "precache-manifest.2d1a52c5240ce2d7b68010ee14381dfb.js": "./precache-manifest.2d1a52c5240ce2d7b68010ee14381dfb.js",
+    "precache-manifest.5dc12e0cc68ef6a766a3e79c5740751d.js": "./precache-manifest.5dc12e0cc68ef6a766a3e79c5740751d.js",
     "service-worker.js": "./service-worker.js",
-    "static/css/main.11a1eb2e.chunk.css.map": "./static/css/main.11a1eb2e.chunk.css.map",
-    "static/media/Lord_of_Rings.jpg": "./static/media/Lord_of_Rings.a6eae001.jpg",
-    "static/media/homepage.jpg": "./static/media/homepage.d54e0cee.jpg",
-    "static/media/poeam.jpg": "./static/media/poeam.0bd0dad8.jpg",
-    "static/media/sun.jpg": "./static/media/sun.442b21a2.jpg",
-    "static/media/view.jpg": "./static/media/view.4dfac1fe.jpg"
+    "static/css/main.11a1eb2e.chunk.css.map": "./static/css/main.11a1eb2e.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.62125880.js",
-    "static/js/2.01a5b59f.chunk.js",
+    "static/js/2.6c881c14.chunk.js",
     "static/css/main.11a1eb2e.chunk.css",
-    "static/js/main.b977a3b9.chunk.js"
+    "static/js/main.defa36db.chunk.js"
   ]
 }
