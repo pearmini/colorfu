@@ -26,7 +26,7 @@ export default function(props) {
 
   return (
     <div>
-      {loading && (
+      {!loading.value && (
         <div>
           <Button
             shape="circle"
@@ -34,6 +34,7 @@ export default function(props) {
             ghost
             style={leftButtonStyle}
             onClick={() => {
+              loading.setTrue()
               handlePre();
             }}
           />
@@ -43,6 +44,7 @@ export default function(props) {
             ghost
             style={middileButtonStyle}
             onClick={() => {
+              loading.setTrue()
               handleNext();
             }}
           />
@@ -52,6 +54,7 @@ export default function(props) {
             ghost
             style={rightButtonStyle}
             onClick={() => {
+              loading.setTrue();
               handleDowloadImage();
             }}
           />

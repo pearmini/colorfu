@@ -14,9 +14,9 @@ import data from "./data/index";
 const poster = awesome.poster();
 
 function App(props) {
+  const loading = useBoolean(true);
   const [width, height] = useWindowSize();
   const editMode = useBoolean(false);
-  const loading = useBoolean(true);
   const [counterState, counterDispatch] = useCounter(0);
   const initialCanvas = data[counterState.count];
   const [canvasState, canvasDispatch] = useCanvas(initialCanvas);

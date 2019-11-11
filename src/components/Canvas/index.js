@@ -4,54 +4,51 @@ import "antd/dist/antd.css";
 
 export default function(props) {
   const { canvasState, windowSize, editMode, poster, loading } = props;
-  const style ={
-    position: 'absolute',
+  const style = {
+    position: "absolute",
     left: window.innerWidth / 2 - 20,
     top: window.innerHeight / 2 - 20
-  }
+  };
+
+  // 设置生命周期监听函数
+  poster
+    .on("canvasWillDraw", console.log)
+    .on("canvasDidDraw", () => loading.setFalse())
+    .on("canvasWillLoadFont", console.log)
+    .on("canvasDidLoadFont", console.log)
+    .on("canvasWillLoadImage", console.log)
+    .on("canvasDidLoadImage", console.log);
+
+  // 设置内容
+  poster
+    .imageURL(canvasState.imageURL)
+    .title(canvasState.title)
+    .contents(canvasState.contents);
+
+  // 设置样式
+  poster
+    .fontSize(canvasState.fontSize)
+    .contentFontSize(canvasState.contentFontSize)
+    .fontFamily(canvasState.fontFamily)
+    .contentFontFamily(canvasState.contentFontFamily)
+    .textColor(canvasState.textColor)
+    .contentTextColor(canvasState.contentTextColor);
+
+  // 设置布局
+  poster
+    .width(windowSize.width)
+    .height(windowSize.height)
+    .layout(canvasState.layout);
 
   useEffect(() => {
     const canvas = document.getElementById("app");
     poster.canvas(canvas);
-
-    // 设置内容
-    poster
-      .imageURL(canvasState.imageURL)
-      .title(canvasState.title)
-      .contents(canvasState.contents);
-
-    // 设置样式
-    poster
-      .fontSize(canvasState.fontSize)
-      .contentFontSize(canvasState.contentFontSize)
-      .fontFamily(canvasState.fontFamily)
-      .contentFontFamily(canvasState.contentFontFamily)
-      .textColor(canvasState.textColor)
-      .contentTextColor(canvasState.contentTextColor);
-
-    // 设置布局
-    poster
-      .width(windowSize.width)
-      .height(windowSize.height)
-      .layout(canvasState.layout);
-
-    // 设置生命周期监听函数
-    poster
-      .on("canvasWillDraw", () => loading.setTrue())
-      .on("canvasDidDraw", () => loading.setFalse())
-      .on("canvasWillLoadFont", console.log)
-      .on("canvasDidLoadFont", console.log)
-      .on("canvasWillLoadImage", console.log)
-      .on("canvasDidLoadImage", console.log)
-
     poster.draw();
   });
 
   return (
     <div onClick={editMode.setFalse}>
-      {
-        loading.value && <Spin size="large" tip="加载图片中..." style={style}/>
-      }
+      {loading.value && <Spin size="large" tip="加载图片中..." style={style} />}
       <canvas id="app"></canvas>
     </div>
   );
