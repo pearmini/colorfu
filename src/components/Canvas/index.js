@@ -3,7 +3,7 @@ import { Spin } from "antd";
 import "antd/dist/antd.css";
 
 export default function(props) {
-  const { canvasState, windowSize, editMode, poster, loading } = props;
+  const { canvasState, windowSize, poster, loading } = props;
   const style = {
     position: "absolute",
     left: window.innerWidth / 2 - 20,
@@ -47,7 +47,7 @@ export default function(props) {
   });
 
   return (
-    <div onClick={editMode.setFalse}>
+    <div >
       {loading.value && <Spin size="large" tip="加载图片中..." style={style} />}
       <canvas id="app"></canvas>
     </div>

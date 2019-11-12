@@ -1,4 +1,6 @@
 import React from "react";
+import "antd/dist/antd.css";
+import { Button, Row, Col, Input } from "antd";
 
 function Items(props) {
   const { value, dispatch } = props;
@@ -10,32 +12,37 @@ function Items(props) {
   }
 
   const contents = value.map((item, index) => (
-    <div key={index}>
-      <input
-        type="text"
-        value={item}
-        onChange={e =>
-          dispatch({
-            type: "changeContent",
-            value: e.target.value,
-            index: e.target.name
-          })
-        }
-        name={index}
-      />
-      <input
-        type="button"
-        value="删除"
-        onClick={e => dispatch({ type: "deleteContent", index: e.target.name })}
-        name={index}
-      />
-      <br />
-    </div>
+    <Row key={index} gutter={8}>
+      <Col span={20}>
+        <Input
+          type="text"
+          value={item}
+          onChange={e =>
+            dispatch({
+              type: "changeContent",
+              value: e.target.value,
+              index: e.target.name
+            })
+          }
+          name={index}
+          allowClear
+        />
+      </Col>
+      <Col span={4}>
+        <Button
+          onClick={e =>
+            dispatch({ type: "deleteContent", index: e.target.name })
+          }
+          name={index}
+          icon="delete"
+        />
+      </Col>
+    </Row>
   ));
 
   return (
     <div>
-      <input type="text" placeholder="添加内容" onKeyDown={handleAddContent} />
+      <Input type="text" placeholder="添加内容" onKeyDown={handleAddContent} />
       <div>{contents}</div>
     </div>
   );
