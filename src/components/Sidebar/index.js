@@ -2,6 +2,9 @@ import React from "react";
 import fonts from "../../lib/fonts";
 import Items from "../Items/index";
 import { Button } from "antd";
+import { Drawer } from "antd";
+import { Input } from "antd";
+import { Select } from "antd";
 import "antd/dist/antd.css";
 
 export default function(props) {
@@ -29,129 +32,167 @@ export default function(props) {
     reader.readAsDataURL(file);
   }
 
-  const panel = (
-    <div style={panelStyle}>
-      <h1>DIY</h1>
-      <div>
-        标题：
-        <input
-          type="text"
-          value={canvasState.title}
-          onChange={e =>
-            dispatch({ type: "change", key: "title", value: e.target.value })
-          }
-        />
-        <br />
-        内容:
-        <Items value={canvasState.contents} dispatch={dispatch} />
-        <br />
-        标题字体颜色：
-        <input
-          type="color"
-          value={canvasState.textColor}
-          onChange={e =>
-            dispatch({
-              type: "change",
-              key: "textColor",
-              value: e.target.value
-            })
-          }
-        />
-        <br />
-        内容字体颜色：
-        <input
-          type="color"
-          value={canvasState.contentTextColor}
-          onChange={e =>
-            dispatch({
-              type: "change",
-              key: "contentTextColor",
-              value: e.target.value
-            })
-          }
-        />
-        <br />
-        <input
-          type="file"
-          onChange={handleImageChange}
-          accept="image/*"
-          id="imageInput"
-        />
-        <br />
-        位置：
-        <label>
-          <input
-            type="radio"
-            value="left"
-            name="layout"
-            onChange={e =>
-              dispatch({ type: "change", key: "layout", value: e.target.value })
-            }
-          />
-          左边
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="middle"
-            name="layout"
-            onChange={e =>
-              dispatch({ type: "change", key: "layout", value: e.target.value })
-            }
-          />
-          中间
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="right"
-            name="layout"
-            onChange={e =>
-              dispatch({ type: "change", key: "layout", value: e.target.value })
-            }
-          />
-          右边
-        </label>
-        <br />
-        主标题字体
-        <select
-          value={canvasState.fontFamily}
-          onChange={e =>
-            dispatch({
-              type: "change",
-              key: "fontFamily",
-              value: e.target.value
-            })
-          }
-        >
-          {fonts.map((item, index) => (
-            <option key={index} value={item.en}>
-              {item.ch}
-            </option>
-          ))}
-        </select>
-        <br />
-        内容字体
-        <select
-          value={canvasState.contentFontFamily}
-          onChange={e =>
-            dispatch({
-              type: "change",
-              key: "contentFontFamily",
-              value: e.target.value
-            })
-          }
-        >
-          {fonts.map((item, index) => (
-            <option key={index} value={item.en}>
-              {item.ch}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
-  );
+  // const panel = (
+  //   <div style={panelStyle}>
+  //     <h1>DIY</h1>
+  //     <div>
+  //       标题：
+  //       <input
+  //         type="text"
+  //         value={canvasState.title}
+  //         onChange={e =>
+  //           dispatch({ type: "change", key: "title", value: e.target.value })
+  //         }
+  //       />
+  //       <br />
+  //       内容:
+  //       <Items value={canvasState.contents} dispatch={dispatch} />
+  //       <br />
+  //       标题字体颜色：
+  //       <input
+  //         type="color"
+  //         value={canvasState.textColor}
+  //         onChange={e =>
+  //           dispatch({
+  //             type: "change",
+  //             key: "textColor",
+  //             value: e.target.value
+  //           })
+  //         }
+  //       />
+  //       <br />
+  //       内容字体颜色：
+  //       <input
+  //         type="color"
+  //         value={canvasState.contentTextColor}
+  //         onChange={e =>
+  //           dispatch({
+  //             type: "change",
+  //             key: "contentTextColor",
+  //             value: e.target.value
+  //           })
+  //         }
+  //       />
+  //       <br />
+  //       <input
+  //         type="file"
+  //         onChange={handleImageChange}
+  //         accept="image/*"
+  //         id="imageInput"
+  //       />
+  //       <br />
+  //       位置：
+  //       <label>
+  //         <input
+  //           type="radio"
+  //           value="left"
+  //           name="layout"
+  //           onChange={e =>
+  //             dispatch({ type: "change", key: "layout", value: e.target.value })
+  //           }
+  //         />
+  //         左边
+  //       </label>
+  //       <label>
+  //         <input
+  //           type="radio"
+  //           value="middle"
+  //           name="layout"
+  //           onChange={e =>
+  //             dispatch({ type: "change", key: "layout", value: e.target.value })
+  //           }
+  //         />
+  //         中间
+  //       </label>
+  //       <label>
+  //         <input
+  //           type="radio"
+  //           value="right"
+  //           name="layout"
+  //           onChange={e =>
+  //             dispatch({ type: "change", key: "layout", value: e.target.value })
+  //           }
+  //         />
+  //         右边
+  //       </label>
+  //       <br />
+  //       主标题字体
+  //       <select
+  //         value={canvasState.fontFamily}
+  //         onChange={e =>
+  //           dispatch({
+  //             type: "change",
+  //             key: "fontFamily",
+  //             value: e.target.value
+  //           })
+  //         }
+  //       >
+  //         {fonts.map((item, index) => (
+  //           <option key={index} value={item.en}>
+  //             {item.ch}
+  //           </option>
+  //         ))}
+  //       </select>
+  //       <br />
+  //       内容字体
+  //       <select
+  //         value={canvasState.contentFontFamily}
+  //         onChange={e =>
+  //           dispatch({
+  //             type: "change",
+  //             key: "contentFontFamily",
+  //             value: e.target.value
+  //           })
+  //         }
+  //       >
+  //         {fonts.map((item, index) => (
+  //           <option key={index} value={item.en}>
+  //             {item.ch}
+  //           </option>
+  //         ))}
+  //       </select>
+  //     </div>
+  //   </div>
+  // );
 
+  const panel = (
+    <Drawer
+      title="DIY Your Wordspaper"
+      placement="left"
+      closable={true}
+      onClose={() => editMode.setFalse()}
+      visible={editMode.value}
+      getContainer={false}
+      style={{ position: "absolute" }}
+      width={windowSize.width * 0.2 > 256 ? windowSize.width * 0.2 : 256}
+    >
+      <Input
+        type="text"
+        value={canvasState.title}
+        onChange={e =>
+          dispatch({ type: "change", key: "title", value: e.target.value })
+        }
+        allowClear
+      />
+      <Items value={canvasState.contents} dispatch={dispatch} />
+      <Select
+        value={canvasState.contentFontFamily}
+        onChange={e =>
+          dispatch({
+            type: "change",
+            key: "contentFontFamily",
+            value: e.target.value
+          })
+        }
+      >
+        {fonts.map((item, index) => (
+          <Select.Option key={index} value={item.en}>
+            {item.ch}
+          </Select.Option>
+        ))}
+      </Select>
+    </Drawer>
+  );
   const button = (
     <div style={buttonStyle}>
       <Button
@@ -165,5 +206,7 @@ export default function(props) {
     </div>
   );
 
-  return <div>{!loading.value && <div>{editMode.value ? panel : button}</div>}</div>;
+  return (
+    <div>{!loading.value && <div>{editMode.value ? panel : button}</div>}</div>
+  );
 }

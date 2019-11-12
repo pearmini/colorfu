@@ -49,7 +49,6 @@ function App(props) {
       <Canvas
         canvasState={canvasState}
         windowSize={{ width, height }}
-        editMode={editMode}
         poster={poster}
         loading={loading}
       />
