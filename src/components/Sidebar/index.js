@@ -1,13 +1,13 @@
 import React from "react";
 import fonts from "../../lib/fonts";
 import Items from "../Items/index";
-import { Button } from "antd";
 import { Drawer } from "antd";
-import { Input } from "antd";
 import { Select } from "antd";
+import { Form, Input, Button } from "antd";
+import { Radio, Upload, Icon } from "antd";
 import "antd/dist/antd.css";
 
-export default function(props) {
+function DrawerForm(props) {
   const { windowSize, editMode, canvasState, dispatch, loading } = props;
   const panelStyle = {
     position: "absolute",
@@ -22,14 +22,14 @@ export default function(props) {
     top: 10
   };
 
-  function handleImageChange() {
-    const file = document.getElementById("imageInput").files[0];
+  function handleImageChange(data) {
+    const file = data.file.originFileObj;
     const reader = new FileReader();
-    reader.onload = function(e) {
-      const imageURL = e.target.result;
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      const imageURL = reader.result;
       dispatch({ type: "changeImage", imageURL });
     };
-    reader.readAsDataURL(file);
   }
 
   // const panel = (
@@ -166,31 +166,105 @@ export default function(props) {
       style={{ position: "absolute" }}
       width={windowSize.width * 0.2 > 256 ? windowSize.width * 0.2 : 256}
     >
-      <Input
-        type="text"
-        value={canvasState.title}
-        onChange={e =>
-          dispatch({ type: "change", key: "title", value: e.target.value })
-        }
-        allowClear
-      />
-      <Items value={canvasState.contents} dispatch={dispatch} />
-      <Select
-        value={canvasState.contentFontFamily}
-        onChange={e =>
-          dispatch({
-            type: "change",
-            key: "contentFontFamily",
-            value: e.target.value
-          })
-        }
-      >
-        {fonts.map((item, index) => (
-          <Select.Option key={index} value={item.en}>
-            {item.ch}
-          </Select.Option>
-        ))}
-      </Select>
+      <Form layout="vertical" hideRequiredMark>
+        <Form.Item label="标题">
+          <Input
+            type="text"
+            value={canvasState.title}
+            onChange={e =>
+              dispatch({ type: "change", key: "title", value: e.target.value })
+            }
+            allowClear
+          />
+        </Form.Item>
+        {/* <Items value={canvasState.contents} dispatch={dispatch} /> */}
+        <Form.Item label="标题字体">
+          <Select
+            value={canvasState.contentFontFamily}
+            onChange={e =>
+              dispatch({
+                type: "change",
+                key: "contentFontFamily",
+                value: e.target.value
+              })
+            }
+          >
+            {fonts.map((item, index) => (
+              <Select.Option key={index} value={item.en}>
+                {item.ch}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item label="标题颜色">
+          <Input
+            type="color"
+            value={canvasState.textColor}
+            onChange={e =>
+              dispatch({
+                type: "change",
+                key: "textColor",
+                value: e.target.value
+              })
+            }
+          />
+        </Form.Item>
+        <Form.Item label="内容字体">
+          <Select
+            value={canvasState.contentFontFamily}
+            onChange={e =>
+              dispatch({
+                type: "change",
+                key: "contentFontFamily",
+                value: e.target.value
+              })
+            }
+          >
+            {fonts.map((item, index) => (
+              <Select.Option key={index} value={item.en}>
+                {item.ch}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item label="内容字体颜色">
+          <Input
+            type="color"
+            value={canvasState.contentTextColor}
+            onChange={e =>
+              dispatch({
+                type: "change",
+                key: "contentTextColor",
+                value: e.target.value
+              })
+            }
+          />
+        </Form.Item>
+        <Form.Item label="布局">
+          <Radio.Group
+            defaultValue={canvasState.layout}
+            buttonStyle="solid"
+            onChange={e =>
+              dispatch({ type: "change", key: "layout", value: e.target.value })
+            }
+          >
+            <Radio.Button value="left">左边</Radio.Button>
+            <Radio.Button value="middle">中间</Radio.Button>
+            <Radio.Button value="right">右边</Radio.Button>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="壁纸">
+          <Upload
+            accept="image/*"
+            onChange={handleImageChange}
+            listType="picture"
+          >
+            <Button>
+              <Icon type="upload" /> 上传图片
+            </Button>
+          </Upload>
+        </Form.Item>
+      </Form>
     </Drawer>
   );
   const button = (
@@ -210,3 +284,5 @@ export default function(props) {
     <div>{!loading.value && <div>{editMode.value ? panel : button}</div>}</div>
   );
 }
+
+export default DrawerForm;
