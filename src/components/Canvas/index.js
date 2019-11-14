@@ -13,11 +13,11 @@ export default function(props) {
   // 设置生命周期监听函数
   poster
     .on("canvasWillDraw", console.log)
-    .on("canvasDidDraw", () => loading.setFalse())
+    .on("canvasDidDraw", console.log)
     .on("canvasWillLoadFont", console.log)
     .on("canvasDidLoadFont", console.log)
     .on("canvasWillLoadImage", console.log)
-    .on("canvasDidLoadImage", console.log);
+    .on("canvasDidLoadImage", () => loading.setFalse());
 
   // 设置内容
   poster
@@ -47,7 +47,7 @@ export default function(props) {
   });
 
   return (
-    <div >
+    <div>
       {loading.value && <Spin size="large" tip="加载图片中..." style={style} />}
       <canvas id="app"></canvas>
     </div>

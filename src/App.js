@@ -1,28 +1,30 @@
-import React from "react";
+import React, { useReducer } from "react";
 import Sidebar from "./components/Sidebar/index";
 import Canvas from "./components/Canvas/index";
 import Footer from "./components/Footer/index";
 
 import useWindowSize from "./hooks/useWindowSize";
 import useBoolean from "./hooks/useBoolean";
-import useCanvas from "./hooks/useCanvas";
 import useCounter from "./hooks/useCounter";
+
+import reducer from "./hooks/useCanvas";
 
 import { awesome } from "./lib/awesome-poster";
 import data from "./data/index";
 
 const poster = awesome.poster();
 
-function App(props) {
+function App() {
   const loading = useBoolean(true);
-  const [width, height] = useWindowSize();
   const editMode = useBoolean(false);
+  const [width, height] = useWindowSize();
   const [counterState, counterDispatch] = useCounter(0);
   const initialCanvas = data[counterState.count];
-  const [canvasState, canvasDispatch] = useCanvas(initialCanvas);
+  const [canvasState, canvasDispatch] = useReducer(reducer, initialCanvas);
 
   function handleNext() {
     if (counterState.count + 1 >= data.length) return;
+    loading.setTrue();
     const nextCanvas = data[counterState.count + 1];
     counterDispatch({ type: "increment" });
     canvasDispatch({ type: "update", canvas: nextCanvas });
@@ -30,6 +32,7 @@ function App(props) {
 
   function handlePre() {
     if (counterState.count - 1 < 0) return;
+    loading.setFalse();
     const preCanvas = data[counterState.count - 1];
     counterDispatch({ type: "decrement" });
     canvasDispatch({ type: "update", canvas: preCanvas });
