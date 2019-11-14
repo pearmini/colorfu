@@ -17,7 +17,7 @@ function Items(props) {
         <Input
           type="text"
           value={item}
-          onChange={e =>
+          onChange={e => 
             dispatch({
               type: "changeContent",
               value: e.target.value,
@@ -30,7 +30,7 @@ function Items(props) {
       </Col>
       <Col span={4}>
         <Button
-          onClick={e =>
+          onClick={e => 
             dispatch({ type: "deleteContent", index: e.target.name })
           }
           name={index}

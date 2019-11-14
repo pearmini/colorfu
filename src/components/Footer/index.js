@@ -34,7 +34,6 @@ export default function(props) {
             ghost
             style={leftButtonStyle}
             onClick={() => {
-              loading.setTrue()
               handlePre();
             }}
           />
@@ -44,7 +43,6 @@ export default function(props) {
             ghost
             style={middileButtonStyle}
             onClick={() => {
-              loading.setTrue()
               handleNext();
             }}
           />
@@ -54,7 +52,6 @@ export default function(props) {
             ghost
             style={rightButtonStyle}
             onClick={() => {
-              loading.setTrue();
               handleDowloadImage();
             }}
           />
