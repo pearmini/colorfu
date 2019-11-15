@@ -1,7 +1,11 @@
 export default {
-  title: "美丽风景",
-  contents: ["我忘记这里是哪个地方了,", "这张图是来自 Bing 壁纸。"],
-  imageURL: "https://i.loli.net/2019/11/11/YRX1NdLaGgcqTKJ.jpg",
+  title: "Blackpool",
+  contents: [
+    "The vocalizations of starlings have long been considered similar to murmured human speech.",
+    "This led to the collective noun describing a group of the birds: ",
+    "a murmuration of starlings."
+  ],
+  imageURL: "https://i.loli.net/2019/11/15/chlomFCxTp5I1qZ.jpg",
   layout: "middle",
   fontFamily: "Wawati SC",
   textColor: "#ffffff",
