@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import Sidebar from "./components/Sidebar/index";
 import Canvas from "./components/Canvas/index";
 import Footer from "./components/Footer/index";
@@ -6,8 +6,7 @@ import Footer from "./components/Footer/index";
 import useWindowSize from "./hooks/useWindowSize";
 import useBoolean from "./hooks/useBoolean";
 import useCounter from "./hooks/useCounter";
-
-import reducer from "./hooks/useCanvas";
+import useCanvas from "./hooks/useCanvas"
 
 import { awesome } from "./lib/awesome-poster";
 import data from "./data/index";
@@ -20,7 +19,7 @@ function App() {
   const [width, height] = useWindowSize();
   const [counterState, counterDispatch] = useCounter(0);
   const initialCanvas = data[counterState.count];
-  const [canvasState, canvasDispatch] = useReducer(reducer, initialCanvas);
+  const [canvasState, canvasDispatch] = useCanvas(initialCanvas);
 
   function handleNext() {
     if (counterState.count + 1 >= data.length) return;

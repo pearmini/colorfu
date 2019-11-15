@@ -1,10 +1,18 @@
 import React from "react";
 import fonts from "../../lib/fonts";
 import Items from "../Items/index";
-import { Drawer } from "antd";
-import { Select } from "antd";
-import { Form, Input, Button } from "antd";
-import { Radio, Upload, Icon } from "antd";
+import {
+  Drawer,
+  Form,
+  Input,
+  Button,
+  Radio,
+  Upload,
+  Icon,
+  Select,
+  Row,
+  Col
+} from "antd";
 import "antd/dist/antd.css";
 
 function DrawerForm(props) {
@@ -48,9 +56,84 @@ function DrawerForm(props) {
             allowClear
           />
         </Form.Item>
+        <Row gutter={8}>
+          <Col span={12}>
+            <Form.Item label="标题字体">
+              <Select
+                value={canvasState.contentFontFamily}
+                onChange={value =>
+                  dispatch({
+                    type: "change",
+                    key: "fontFamily",
+                    value: value
+                  })
+                }
+              >
+                {fonts.map((item, index) => (
+                  <Select.Option key={index} value={item.en}>
+                    {item.ch}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="标题颜色">
+              <Input
+                type="color"
+                value={canvasState.textColor}
+                onChange={e =>
+                  dispatch({
+                    type: "change",
+                    key: "textColor",
+                    value: e.target.value
+                  })
+                }
+              />
+            </Form.Item>
+          </Col>
+        </Row>
         <Form.Item label="内容">
           <Items value={canvasState.contents} dispatch={dispatch} />
         </Form.Item>
+
+        <Row gutter={8}>
+          <Col span={12}>
+            <Form.Item label="内容字体">
+              <Select
+                value={canvasState.contentFontFamily}
+                onChange={value =>
+                  dispatch({
+                    type: "change",
+                    key: "contentFontFamily",
+                    value
+                  })
+                }
+              >
+                {fonts.map((item, index) => (
+                  <Select.Option key={index} value={item.en}>
+                    {item.ch}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="内容字体颜色">
+              <Input
+                type="color"
+                value={canvasState.contentTextColor}
+                onChange={e =>
+                  dispatch({
+                    type: "change",
+                    key: "contentTextColor",
+                    value: e.target.value
+                  })
+                }
+              />
+            </Form.Item>
+          </Col>
+        </Row>
         <Form.Item label="壁纸">
           <Upload
             accept="image/*"
@@ -62,68 +145,6 @@ function DrawerForm(props) {
               <Icon type="upload" /> 上传图片
             </Button>
           </Upload>
-        </Form.Item>
-        <Form.Item label="标题字体">
-          <Select
-            value={canvasState.contentFontFamily}
-            onChange={value =>
-              dispatch({
-                type: "change",
-                key: "fontFamily",
-                value: value
-              })
-            }
-          >
-            {fonts.map((item, index) => (
-              <Select.Option key={index} value={item.en}>
-                {item.ch}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item label="标题颜色">
-          <Input
-            type="color"
-            value={canvasState.textColor}
-            onChange={e =>
-              dispatch({
-                type: "change",
-                key: "textColor",
-                value: e.target.value
-              })
-            }
-          />
-        </Form.Item>
-        <Form.Item label="内容字体">
-          <Select
-            value={canvasState.contentFontFamily}
-            onChange={value =>
-              dispatch({
-                type: "change",
-                key: "contentFontFamily",
-                value
-              })
-            }
-          >
-            {fonts.map((item, index) => (
-              <Select.Option key={index} value={item.en}>
-                {item.ch}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item label="内容字体颜色">
-          <Input
-            type="color"
-            value={canvasState.contentTextColor}
-            onChange={e =>
-              dispatch({
-                type: "change",
-                key: "contentTextColor",
-                value: e.target.value
-              })
-            }
-          />
         </Form.Item>
         <Form.Item label="布局">
           <Radio.Group

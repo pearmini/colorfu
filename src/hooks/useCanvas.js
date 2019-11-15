@@ -1,26 +1,26 @@
+import {useReducer} from 'react'
 const handleAddContent = (state, action) => {
-  const contents = state.contents,
+  const contents = state.contents.slice(),
     content = action.value;
   contents.push(content);
   return { ...state, contents };
 };
 
 const handleDeleteContent = (state, action) => {
-  const contents = state.contents,
+  const contents = state.contents.slice(),
     index = action.index;
   contents.splice(index, 1);
   return { ...state, contents };
 };
 
 const handleChangeContent = (state, action) => {
-  const contents = state.contents,
+  const contents = state.contents.slice(),
     { index, value } = action;
   contents[index] = value;
   return { ...state, contents };
 };
 
 const reducer = (state, action) => {
-  console.log(state, action)
   switch (action.type) {
     case "update":
       return action.canvas;
@@ -37,4 +37,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default reducer
+export default function(initialState){
+  return useReducer(reducer, initialState)
+}
+

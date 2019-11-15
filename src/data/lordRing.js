@@ -1,5 +1,5 @@
 export default {
-  title: "电影和台词",
+  title: "The Lord of Rings",
   contents: [
     "That there's some good in this world, Mr. Frodo.",
     "And it's worth fighting for."
