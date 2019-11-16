@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Spin } from "antd";
 import "antd/dist/antd.css";
+import "./index.css";
 
 export default function(props) {
   const { canvasState, windowSize, poster, loading } = props;
@@ -50,6 +51,12 @@ export default function(props) {
     <div>
       {loading.value && <Spin size="large" tip="加载图片中..." style={style} />}
       <canvas id="app"></canvas>
+      <p className="title-font">
+        为了防止标题字体第一次在canvas绘制的时候不加载
+      </p>
+      <p className="content-font">
+        为了防止内容字体第一次在canvas绘制的时候不加载
+      </p>
     </div>
   );
 }
