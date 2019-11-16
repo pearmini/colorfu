@@ -57,10 +57,11 @@ function DrawerForm(props) {
           />
         </Form.Item>
         <Row gutter={8}>
-          <Col span={12}>
+          <Col span={16}>
             <Form.Item label="标题字体">
               <Select
-                value={canvasState.contentFontFamily}
+                value={canvasState.fontFamily}
+                style={{ fontFamily: canvasState.fontFamily }}
                 onChange={value =>
                   dispatch({
                     type: "change",
@@ -69,15 +70,32 @@ function DrawerForm(props) {
                   })
                 }
               >
-                {fonts.map((item, index) => (
-                  <Select.Option key={index} value={item.en}>
-                    {item.ch}
-                  </Select.Option>
-                ))}
+                <Select.OptGroup label="所有语言">
+                  {fonts.all.map((item, index) => (
+                    <Select.Option
+                      key={index}
+                      value={item.en}
+                      style={{ fontFamily: item.en }}
+                    >
+                      {item.ch}
+                    </Select.Option>
+                  ))}
+                </Select.OptGroup>
+                <Select.OptGroup label="英语">
+                  {fonts.en.map((item, index) => (
+                    <Select.Option
+                      key={index}
+                      value={item.en}
+                      style={{ fontFamily: item.en }}
+                    >
+                      {item.ch}
+                    </Select.Option>
+                  ))}
+                </Select.OptGroup>
               </Select>
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={8}>
             <Form.Item label="标题颜色">
               <Input
                 type="color"
@@ -98,10 +116,11 @@ function DrawerForm(props) {
         </Form.Item>
 
         <Row gutter={8}>
-          <Col span={12}>
+          <Col span={16}>
             <Form.Item label="内容字体">
               <Select
                 value={canvasState.contentFontFamily}
+                style={{ fontFamily: canvasState.contentFontFamily }}
                 onChange={value =>
                   dispatch({
                     type: "change",
@@ -110,15 +129,32 @@ function DrawerForm(props) {
                   })
                 }
               >
-                {fonts.map((item, index) => (
-                  <Select.Option key={index} value={item.en}>
-                    {item.ch}
-                  </Select.Option>
-                ))}
+                <Select.OptGroup label="所有语言">
+                  {fonts.all.map((item, index) => (
+                    <Select.Option
+                      key={index}
+                      value={item.en}
+                      style={{ fontFamily: item.en }}
+                    >
+                      {item.ch}
+                    </Select.Option>
+                  ))}
+                </Select.OptGroup>
+                <Select.OptGroup label="英语">
+                  {fonts.en.map((item, index) => (
+                    <Select.Option
+                      key={index}
+                      value={item.en}
+                      style={{ fontFamily: item.en }}
+                    >
+                      {item.ch}
+                    </Select.Option>
+                  ))}
+                </Select.OptGroup>
               </Select>
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={8}>
             <Form.Item label="内容字体颜色">
               <Input
                 type="color"

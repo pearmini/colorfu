@@ -5,8 +5,8 @@ export default {
         "春夏秋冬泯和灭，幕还未谢。"
     ],
     imageURL: "https://i.loli.net/2019/11/15/Umh8BTqs6nfCPeY.jpg",
-    layout: "middle",
-    fontFamily: "Wawati SC ",
+    layout: "right",
+    fontFamily: "Wawati SC",
     textColor: "#ffffff",
     fontSize: 150,
     contentFontSize: 40,
