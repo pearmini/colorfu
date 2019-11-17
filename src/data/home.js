@@ -7,10 +7,10 @@ export default {
   ],
   imageURL: "https://i.loli.net/2019/11/11/qLXbkMHA8FmEg4B.jpg",
   layout: "middle",
-  fontFamily: "庞门正道标题体2",
+  fontFamily: "Righteous",
   textColor: "#ffffff",
   fontSize: 150,
   contentFontSize: 40,
-  contentFontFamily: "站酷小薇体",
+  contentFontFamily: "Poiret One",
   contentTextColor: "#ffffff"
 };

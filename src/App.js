@@ -10,6 +10,7 @@ import useCanvas from "./hooks/useCanvas"
 
 import { awesome } from "./lib/awesome-poster";
 import data from "./data/index";
+import fonts from "./lib/fonts"
 
 const poster = awesome.poster();
 
@@ -47,12 +48,14 @@ function App() {
         canvasToPng={poster.saveToPng}
         poster={poster}
         loading={loading}
+        fonts={fonts}
       />
       <Canvas
         canvasState={canvasState}
         windowSize={{ width, height }}
         poster={poster}
         loading={loading}
+        fonts={fonts}
       />
       <Footer
         handleNext={handleNext}
