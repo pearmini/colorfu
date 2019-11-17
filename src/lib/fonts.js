@@ -541,32 +541,87 @@ const fonts = fontFamilyList.filter(
 // 添加自定义的字体
 const webfonts = [
   {
-    ch: "阿里巴巴-普惠体-Heavy",
-    en: "阿里巴巴-普惠体-Heavy"
+    ch: "Righteous",
+    en: "Righteous"
   },
   {
-    ch: "阿里巴巴-普惠体-Bold",
-    en: "阿里巴巴-普惠体-Bold"
+    ch: "Fascinate",
+    en: "Fascinate"
   },
   {
-    ch: "杨任东竹石体-Bold",
-    en: "杨任东竹石体-Bold"
+    ch: "Eater",
+    en: "Eater"
   },
   {
-    ch: "站酷小薇体",
-    en: "站酷小薇体"
+    ch: "Coiny",
+    en: "Coiny"
   },
   {
-    ch: "阿里汉仪智能黑体",
-    en: "阿里汉仪智能黑体"
+    ch: "Trade Winds",
+    en: "Trade Winds"
   },
   {
-    ch: "站酷高端黑",
-    en: "站酷高端黑"
+    ch: "Plaster",
+    en: "Plaster"
   },
   {
-    ch: "庞门正道标题体2",
-    en: "庞门正道标题体2"
+    ch: "Shojumaru",
+    en: "Shojumaru"
+  },
+  {
+    ch: "Barrio",
+    en: "Barrio"
+  },
+  {
+    ch: "Rock Salt",
+    en: "Rock Salt"
+  },
+  {
+    ch: "Molle",
+    en: "Molle"
+  },
+  {
+    ch: "Merienda One",
+    en: "Merienda One"
+  },
+  {
+    ch: "Finger Paint",
+    en: "Finger Paint"
+  },
+  {
+    ch: "MedievalSharp",
+    en: "MedievalSharp"
+  },
+  {
+    ch: "Clicker Script",
+    en: "Clicker Script"
+  },
+  {
+    ch: "Indie Flower",
+    en: "Indie Flower"
+  },
+  {
+    ch: "Annie Use Your Telescope",
+    en: "Annie Use Your Telescope"
+  },
+  {
+    ch: "Poiret One",
+    en: "Poiret One"
+  },
+
+  {
+    ch: "Mountains of Christmas",
+    en: "Mountains of Christmas"
+  },
+
+  {
+    ch: "Megrim",
+    en: "Megrim"
+  },
+
+  {
+    ch: "Snowburst One",
+    en: "Snowburst One"
   }
 ];
 

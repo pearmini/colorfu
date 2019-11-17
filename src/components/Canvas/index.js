@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 import { Spin } from "antd";
 import "antd/dist/antd.css";
-import "./index.css";
 
 export default function(props) {
-  const { canvasState, windowSize, poster, loading } = props;
+  const { canvasState, windowSize, poster, loading, fonts } = props;
   const style = {
     position: "absolute",
     left: window.innerWidth / 2 - 20,
     top: window.innerHeight / 2 - 20
   };
+  // // 获取字体
+  // const words = canvasState.title + canvasState.contents.join(" ");
+  // console.log(words);
 
   // 设置生命周期监听函数
   poster
@@ -51,12 +53,12 @@ export default function(props) {
     <div>
       {loading.value && <Spin size="large" tip="加载图片中..." style={style} />}
       <canvas id="app"></canvas>
-      <p className="title-font">
-        为了防止标题字体第一次在canvas绘制的时候不加载
-      </p>
-      <p className="content-font">
-        为了防止内容字体第一次在canvas绘制的时候不加载
-      </p>
+      {/* 初始化字体 */}
+      {[...fonts.all, ...fonts.en].map((font, index) => (
+        <p style={{fontFamily: font.en}} key={index}>
+          hello world
+        </p>
+      ))}
     </div>
   );
 }

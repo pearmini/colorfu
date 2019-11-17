@@ -1,5 +1,4 @@
 import React from "react";
-import fonts from "../../lib/fonts";
 import Items from "../Items/index";
 import {
   Drawer,
@@ -16,7 +15,7 @@ import {
 import "antd/dist/antd.css";
 
 function DrawerForm(props) {
-  const { windowSize, editMode, canvasState, dispatch, loading } = props;
+  const { windowSize, editMode, canvasState, dispatch, loading, fonts } = props;
 
   const buttonStyle = {
     position: "absolute",
