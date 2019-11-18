@@ -15,7 +15,7 @@ import fonts from "./lib/fonts"
 const poster = awesome.poster();
 
 function App() {
-  const loading = useBoolean(true);
+  const loading = useBoolean(false);
   const editMode = useBoolean(false);
   const [width, height] = useWindowSize();
   const [counterState, counterDispatch] = useCounter(0);
@@ -24,7 +24,6 @@ function App() {
 
   function handleNext() {
     if (counterState.count + 1 >= data.length) return;
-    loading.setTrue();
     const nextCanvas = data[counterState.count + 1];
     counterDispatch({ type: "increment" });
     canvasDispatch({ type: "update", canvas: nextCanvas });
@@ -32,7 +31,6 @@ function App() {
 
   function handlePre() {
     if (counterState.count - 1 < 0) return;
-    loading.setFalse();
     const preCanvas = data[counterState.count - 1];
     counterDispatch({ type: "decrement" });
     canvasDispatch({ type: "update", canvas: preCanvas });

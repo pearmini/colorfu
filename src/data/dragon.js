@@ -11,6 +11,7 @@ export default {
     fontSize: 150,
     contentFontSize: 40,
     contentFontFamily: "Hanzipen SC",
-    contentTextColor: "#ffffff"
+    contentTextColor: "#ffffff",
+    mode: "image"
   };
   
