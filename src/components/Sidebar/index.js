@@ -194,6 +194,19 @@ function DrawerForm(props) {
             <Radio.Button value="right">右边</Radio.Button>
           </Radio.Group>
         </Form.Item>
+        <Form.Item label="模式">
+          <Radio.Group
+            defaultValue={canvasState.mode}
+            buttonStyle="solid"
+            onChange={e =>
+              dispatch({ type: "change", key: "mode", value: e.target.value })
+            }
+          >
+            <Radio.Button value="image">图片</Radio.Button>
+            <Radio.Button value="color">颜色</Radio.Button>
+            <Radio.Button value="blend">混合</Radio.Button>
+          </Radio.Group>
+        </Form.Item>
       </Form>
     </Drawer>
   );

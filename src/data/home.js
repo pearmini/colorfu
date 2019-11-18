@@ -12,5 +12,6 @@ export default {
   fontSize: 150,
   contentFontSize: 40,
   contentFontFamily: "Poiret One",
-  contentTextColor: "#ffffff"
+  contentTextColor: "#ffffff",
+  mode:"blend"
 };

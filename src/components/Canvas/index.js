@@ -9,9 +9,6 @@ export default function(props) {
     left: window.innerWidth / 2 - 20,
     top: window.innerHeight / 2 - 20
   };
-  // // 获取字体
-  // const words = canvasState.title + canvasState.contents.join(" ");
-  // console.log(words);
 
   // 设置生命周期监听函数
   poster
@@ -19,12 +16,17 @@ export default function(props) {
     .on("canvasDidDraw", console.log)
     .on("canvasWillLoadFont", console.log)
     .on("canvasDidLoadFont", console.log)
-    .on("canvasWillLoadImage", console.log)
+    .on("canvasWillLoadImage", () => loading.setTrue())
     .on("canvasDidLoadImage", () => loading.setFalse());
+
+  if(canvasState.color){
+    poster.colors(canvasState.colors)
+  }
 
   // 设置内容
   poster
     .imageURL(canvasState.imageURL)
+    .mode(canvasState.mode)
     .title(canvasState.title)
     .contents(canvasState.contents);
 
