@@ -1,5 +1,7 @@
 import React from "react";
 import Items from "../Items/index";
+import Colors from "../Colors/index";
+import Palette from "../Palette/index"
 import {
   Drawer,
   Form,
@@ -15,7 +17,15 @@ import {
 import "antd/dist/antd.css";
 
 function DrawerForm(props) {
-  const { windowSize, editMode, canvasState, dispatch, loading, fonts } = props;
+  const {
+    windowSize,
+    editMode,
+    canvasState,
+    dispatch,
+    loading,
+    fonts,
+    poster
+  } = props;
 
   const buttonStyle = {
     position: "absolute",
@@ -43,6 +53,7 @@ function DrawerForm(props) {
       getContainer={false}
       style={{ position: "absolute" }}
       width={windowSize.width * 0.2 > 256 ? windowSize.width * 0.2 : 256}
+      mask={false}
     >
       <Form>
         <Form.Item label="标题">
@@ -169,18 +180,6 @@ function DrawerForm(props) {
             </Form.Item>
           </Col>
         </Row>
-        <Form.Item label="壁纸">
-          <Upload
-            accept="image/*"
-            onChange={handleImageChange}
-            showUploadList={false}
-            customRequest={() => {}}
-          >
-            <Button>
-              <Icon type="upload" /> 上传图片
-            </Button>
-          </Upload>
-        </Form.Item>
         <Form.Item label="布局">
           <Radio.Group
             defaultValue={canvasState.layout}
@@ -207,9 +206,26 @@ function DrawerForm(props) {
             <Radio.Button value="blend">混合</Radio.Button>
           </Radio.Group>
         </Form.Item>
+        <Form.Item label="壁纸">
+          <Upload
+            accept="image/*"
+            onChange={handleImageChange}
+            showUploadList={false}
+            customRequest={() => {}}
+          >
+            <Button>
+              <Icon type="upload" /> 上传图片
+            </Button>
+          </Upload>
+        </Form.Item>
+        <Form.Item label="颜色">
+          <Colors colors={canvasState.colors} dispatch={dispatch} />
+        </Form.Item>
       </Form>
+      {/* <Palette/> */}
     </Drawer>
   );
+
   const button = (
     <div style={buttonStyle}>
       <Button

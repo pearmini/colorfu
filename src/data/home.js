@@ -13,5 +13,11 @@ export default {
   contentFontSize: 40,
   contentFontFamily: "Poiret One",
   contentTextColor: "#ffffff",
-  mode:"blend"
+  mode:"blend",
+  colors:[
+    { value: "#233142", weight: 2 },
+    { value: "#4f9da6", weight: 1 },
+    { value: "#facf5a", weight: 1 },
+    { value: "#ff5959", weight: 1 }
+  ]
 };

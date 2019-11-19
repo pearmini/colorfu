@@ -1,4 +1,4 @@
-import {useReducer} from 'react'
+import { useReducer } from "react";
 const handleAddContent = (state, action) => {
   const contents = state.contents.slice(),
     content = action.value;
@@ -20,11 +20,36 @@ const handleChangeContent = (state, action) => {
   return { ...state, contents };
 };
 
+const handleChangeColor = (state, action) => {
+  const colors = state.colors.slice(),
+    { index, value } = action;
+  colors[index].value = value;
+  return { ...state, colors };
+};
+
+const handleAddColor = (state, action) => {
+  const colors = state.colors.slice(),
+    color = action.color;
+  colors.forEach(item => item.weight = 1);
+  colors.push({
+    value: color,
+    weight: 1
+  });
+  return { ...state, colors };
+};
+
+const handleDeleteColor = (state, action) => {
+  const colors = state.colors.slice(),
+    index = action.index;
+  colors.splice(index, 1);
+  return { ...state, colors };
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "update":
       return action.canvas;
-    case "change": 
+    case "change":
       return { ...state, [action.key]: action.value };
     case "changeImage":
       return { ...state, imageURL: action.imageURL };
@@ -34,10 +59,15 @@ const reducer = (state, action) => {
       return handleDeleteContent(state, action);
     case "changeContent":
       return handleChangeContent(state, action);
+    case "changeColor":
+      return handleChangeColor(state, action);
+    case "addColor":
+      return handleAddColor(state, action);
+    case "deleteColor":
+      return handleDeleteColor(state, action);
   }
 };
 
-export default function(initialState){
-  return useReducer(reducer, initialState)
+export default function(initialState) {
+  return useReducer(reducer, initialState);
 }
-

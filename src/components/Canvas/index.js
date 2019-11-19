@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { Spin } from "antd";
-import "antd/dist/antd.css";
 
 export default function(props) {
-  const { canvasState, windowSize, poster, loading, fonts } = props;
+  const { canvasState, windowSize, poster, loading, fonts ,editMode} = props;
   const style = {
     position: "absolute",
     left: window.innerWidth / 2 - 20,
@@ -19,7 +18,7 @@ export default function(props) {
     .on("canvasWillLoadImage", () => loading.setTrue())
     .on("canvasDidLoadImage", () => loading.setFalse());
 
-  if(canvasState.color){
+  if(canvasState.colors){
     poster.colors(canvasState.colors)
   }
 
@@ -52,7 +51,7 @@ export default function(props) {
   });
 
   return (
-    <div>
+    <div onClick={e => editMode.setFalse()}>
       {loading.value && <Spin size="large" tip="加载图片中..." style={style} />}
       <canvas id="app"></canvas>
       {/* 初始化字体 */}
