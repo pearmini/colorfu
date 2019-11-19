@@ -54,6 +54,7 @@ function App() {
         poster={poster}
         loading={loading}
         fonts={fonts}
+        editMode={editMode}
       />
       <Footer
         handleNext={handleNext}
