@@ -6,6 +6,8 @@ const reducer = function(state, action) {
       return { count: state.count + 1 };
     case "decrement":
       return { count: state.count - 1 };
+    case "switch":
+      return { count: action.index}
   }
 };
 
