@@ -2,13 +2,8 @@ import React from "react";
 import { Button } from "antd";
 import "antd/dist/antd.css";
 export default function(props) {
-  const { handleNext, handlePre, poster, loading } = props;
-  const leftButtonStyle = {
-      position: "absolute",
-      right: 110,
-      bottom: 10
-    },
-    rightButtonStyle = {
+  const { poster, loading, showExamples } = props;
+  const rightButtonStyle = {
       position: "absolute",
       bottom: 10,
       right: 10
@@ -30,20 +25,11 @@ export default function(props) {
         <div>
           <Button
             shape="circle"
-            icon="left"
-            ghost
-            style={leftButtonStyle}
-            onClick={() => {
-              handlePre();
-            }}
-          />
-          <Button
-            shape="circle"
-            icon="right"
+            icon="up"
             ghost
             style={middileButtonStyle}
             onClick={() => {
-              handleNext();
+                showExamples.setTrue();
             }}
           />
           <Button

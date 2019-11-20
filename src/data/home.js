@@ -19,5 +19,6 @@ export default {
     { value: "#4f9da6", weight: 1 },
     { value: "#facf5a", weight: 1 },
     { value: "#ff5959", weight: 1 }
-  ]
+  ],
+  exampleImageURL: "https://i.loli.net/2019/11/11/qLXbkMHA8FmEg4B.jpg"
 };

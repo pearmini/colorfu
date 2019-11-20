@@ -2,25 +2,30 @@ import React from "react";
 import Sidebar from "./components/Sidebar/index";
 import Canvas from "./components/Canvas/index";
 import Footer from "./components/Footer/index";
+import Examples from "./components/Examples/index";
 
 import useWindowSize from "./hooks/useWindowSize";
 import useBoolean from "./hooks/useBoolean";
 import useCounter from "./hooks/useCounter";
-import useCanvas from "./hooks/useCanvas"
+import useCanvas from "./hooks/useCanvas";
 
 import { awesome } from "./lib/awesome-poster";
 import data from "./data/index";
-import fonts from "./lib/fonts"
+import fonts from "./lib/fonts";
 
 const poster = awesome.poster();
 
 function App() {
   const loading = useBoolean(false);
   const editMode = useBoolean(false);
+  const showExamples = useBoolean(false);
   const [width, height] = useWindowSize();
   const [counterState, counterDispatch] = useCounter(0);
   const initialCanvas = data[counterState.count];
   const [canvasState, canvasDispatch] = useCanvas(initialCanvas);
+
+  // 获得案例图片
+  const images = data.map(item => item.exampleImageURL);
 
   function handleNext() {
     if (counterState.count + 1 >= data.length) return;
@@ -34,6 +39,12 @@ function App() {
     const preCanvas = data[counterState.count - 1];
     counterDispatch({ type: "decrement" });
     canvasDispatch({ type: "update", canvas: preCanvas });
+  }
+
+  function switchExample(index) {
+    const nextCanvas = data[index];
+    counterDispatch({ type: "switch", index });
+    canvasDispatch({ type: "update", canvas: nextCanvas });
   }
 
   return (
@@ -56,7 +67,13 @@ function App() {
         fonts={fonts}
         editMode={editMode}
       />
+      <Examples
+        showExamples={showExamples}
+        images={images}
+        switchExample={switchExample}
+      />
       <Footer
+        showExamples={showExamples}
         handleNext={handleNext}
         handlePre={handlePre}
         poster={poster}

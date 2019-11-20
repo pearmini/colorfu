@@ -9,5 +9,6 @@ export default {
   contentFontSize: 40,
   contentFontFamily: "Hanzipen SC",
   contentTextColor: "#ffffff",
-  mode: "image"
+  mode: "image",
+  exampleImageURL: "https://i.loli.net/2019/11/11/ve2RnJTb7P9G6NS.jpg"
 };
