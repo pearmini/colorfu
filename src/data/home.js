@@ -1,3 +1,4 @@
+import pic from "../static/images/homepage.jpg"
 export default {
   title: "WordsPaper",
   contents: [
@@ -5,7 +6,8 @@ export default {
     "You can use them as wallpaper or event a gift.",
     "You can DIY by click the top-left button or see more examples."
   ],
-  imageURL: "https://i.loli.net/2019/11/11/qLXbkMHA8FmEg4B.jpg",
+  // imageURL: "https://i.loli.net/2019/11/11/qLXbkMHA8FmEg4B.jpg",
+  imageURL: pic,
   layout: "middle",
   fontFamily: "Righteous",
   textColor: "#ffffff",
