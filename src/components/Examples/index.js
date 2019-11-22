@@ -15,6 +15,7 @@ export default function(props) {
         {images.map((item, index) => (
           <img
             src={item}
+            key={index}
             height={150}
             style={{ marginLeft: 10, margnRight: 10 }}
             onClick={e => {

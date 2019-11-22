@@ -29,19 +29,25 @@ const handleChangeColor = (state, action) => {
 
 const handleAddColor = (state, action) => {
   const colors = state.colors.slice(),
-    color = action.color;
-  colors.forEach(item => item.weight = 1);
+    color = action.color,
+    len = colors.length + 1;
+  colors.forEach(item => item.weight = (1 / len));
   colors.push({
     value: color,
-    weight: 1
+    weight: 1 / len
   });
   return { ...state, colors };
 };
 
 const handleDeleteColor = (state, action) => {
   const colors = state.colors.slice(),
-    index = action.index;
+    index = action.index,
+    len = colors.length - 1;
+  if(len === 0){
+    return { ...state, colors };
+  }
   colors.splice(index, 1);
+  colors.forEach(item => item.weight = (1 / len));
   return { ...state, colors };
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Items from "../Items/index";
 import Colors from "../Colors/index";
-import Palette from "../Palette/index"
+import Palette from "../Palette/index";
 import {
   Drawer,
   Form,
@@ -206,21 +206,25 @@ function DrawerForm(props) {
             <Radio.Button value="blend">混合</Radio.Button>
           </Radio.Group>
         </Form.Item>
-        <Form.Item label="壁纸">
-          <Upload
-            accept="image/*"
-            onChange={handleImageChange}
-            showUploadList={false}
-            customRequest={() => {}}
-          >
-            <Button>
-              <Icon type="upload" /> 上传图片
-            </Button>
-          </Upload>
-        </Form.Item>
-        <Form.Item label="颜色">
-          <Colors colors={canvasState.colors} dispatch={dispatch} />
-        </Form.Item>
+        {canvasState.mode != "color" && (
+          <Form.Item label="壁纸">
+            <Upload
+              accept="image/*"
+              onChange={handleImageChange}
+              showUploadList={false}
+              customRequest={() => {}}
+            >
+              <Button>
+                <Icon type="upload" /> 上传图片
+              </Button>
+            </Upload>
+          </Form.Item>
+        )}
+        {canvasState.mode != "image" && (
+          <Form.Item label="颜色">
+            <Colors colors={canvasState.colors} dispatch={dispatch} />
+          </Form.Item>
+        )}
       </Form>
       {/* <Palette/> */}
     </Drawer>
