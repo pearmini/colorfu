@@ -22,6 +22,10 @@ export default function(props) {
     poster.colors(canvasState.colors)
   }
 
+  if(canvasState.blendType){
+    poster.blendType(canvasState.blendType)
+  }
+
   // 设置内容
   poster
     .imageURL(canvasState.imageURL)

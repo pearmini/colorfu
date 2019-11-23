@@ -15,7 +15,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "docs": "rm -rf docs && mv ./build ./docs"
+    "docs": "rm -rf docs && mv ./build ./docs",
+    "dev": "npm run build && npm run docs"
   },
   "eslintConfig": {
     "extends": "react-app"
