@@ -37,17 +37,17 @@ function Colors(props) {
           .innerRadius(0)
           .outerRadius(70);
   
-  const piechart = (
-    <svg width={200} height={200}>
-      <g>
-        {arcs.map((d, index) => (
-          <g key={index} transform={`translate(${100}, ${100})`}>
-            <path d={pathGenerator(d)} fill={d.data.value}/>
-          </g>
-        ))}
-      </g>
-    </svg>
-  );
+  // const piechart = (
+  //   <svg width={200} height={200}>
+  //     <g>
+  //       {arcs.map((d, index) => (
+  //         <g key={index} transform={`translate(${100}, ${100})`}>
+  //           <path d={pathGenerator(d)} fill={d.data.value}/>
+  //         </g>
+  //       ))}
+  //     </g>
+  //   </svg>
+  // );
 
   return (
     <div>
@@ -70,8 +70,8 @@ function Colors(props) {
         </Col>
       </Row>
 
-      {/* <div>{contents}</div> */}
-      <div>{piechart}</div>
+      <div>{contents}</div>
+      {/* <div>{piechart}</div> */}
     </div>
   );
 }

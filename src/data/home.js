@@ -22,5 +22,6 @@ export default {
     { value: "#facf5a", weight: 1 },
     { value: "#ff5959", weight: 1 }
   ],
+  blendType: "right",
   exampleImageURL: "https://i.loli.net/2019/11/11/qLXbkMHA8FmEg4B.jpg"
 };
