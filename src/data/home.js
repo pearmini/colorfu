@@ -17,11 +17,11 @@ export default {
   contentTextColor: "#ffffff",
   mode:"blend",
   colors:[
-    { value: "#233142", weight: 2 },
-    { value: "#4f9da6", weight: 1 },
-    { value: "#facf5a", weight: 1 },
-    { value: "#ff5959", weight: 1 }
+    { value: "#233142", weight: 0.4 },
+    { value: "#4f9da6", weight: 0.2 },
+    { value: "#facf5a", weight: 0.2 },
+    { value: "#ff5959", weight: 0.2 }
   ],
-  blendType: "right",
+  blendType: "left",
   exampleImageURL: "https://i.loli.net/2019/11/11/qLXbkMHA8FmEg4B.jpg"
 };

@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import { Button, Row, Col, Input } from "antd";
-import { pie, arc} from "d3";
+import { Slider } from "antd";
 
 function Colors(props) {
   const { colors, dispatch } = props;
   const [currentColor, setCurrentColor] = useState("#ffffff");
+
+  let sum = 0;
+  const ranges = colors.map((item, index) => {
+    const start = sum,
+      end = sum + item.weight;
+    sum += item.weight;
+    return [start * 100, end * 100];
+  });
+
+  console.log(ranges[1][0])
   const contents = colors.map((item, index) => (
     <Row key={index} gutter={8}>
-      <Col span={20}>
+      <Col span={6}>
         <Input
           type="color"
           value={item.value}
@@ -28,26 +38,19 @@ function Colors(props) {
           icon="delete"
         />
       </Col>
+      <Col span={14}>
+        <Slider
+          key={index}
+          range
+          defaultValue={[ranges[index][0], ranges[index][1]]}
+          onChange={
+            e => console.log(e)
+            // e => dispatch({type: "changeColorRange", index, range: e})
+          }
+        />
+      </Col>
     </Row>
   ));
-
-  const pieLayout = pie().value(d => d.weight);
-  const arcs = pieLayout(colors);
-  const pathGenerator = arc()
-          .innerRadius(0)
-          .outerRadius(70);
-  
-  // const piechart = (
-  //   <svg width={200} height={200}>
-  //     <g>
-  //       {arcs.map((d, index) => (
-  //         <g key={index} transform={`translate(${100}, ${100})`}>
-  //           <path d={pathGenerator(d)} fill={d.data.value}/>
-  //         </g>
-  //       ))}
-  //     </g>
-  //   </svg>
-  // );
 
   return (
     <div>
@@ -71,7 +74,6 @@ function Colors(props) {
       </Row>
 
       <div>{contents}</div>
-      {/* <div>{piechart}</div> */}
     </div>
   );
 }
