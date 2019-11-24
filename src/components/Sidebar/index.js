@@ -57,7 +57,7 @@ function DrawerForm(props) {
       width={windowSize.width * 0.2 > 256 ? windowSize.width * 0.2 : 256}
       mask={false}
     >
-      <Tabs defaultActiveKey="1" onChange={() => {}}>
+      <Tabs defaultActiveKey="1" onChange={() => {}} type="card">
         <TabPane tab="文字" key="1">
           <Form>
             <Form.Item label="标题">

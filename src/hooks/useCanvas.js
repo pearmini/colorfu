@@ -31,7 +31,7 @@ const handleAddColor = (state, action) => {
   const colors = state.colors.slice(),
     color = action.color,
     len = colors.length + 1;
-  colors.forEach(item => item.weight = (1 / len));
+  colors.forEach(item => (item.weight = 1 / len));
   colors.push({
     value: color,
     weight: 1 / len
@@ -43,12 +43,29 @@ const handleDeleteColor = (state, action) => {
   const colors = state.colors.slice(),
     index = action.index,
     len = colors.length - 1;
-  if(len === 0){
+  if (len === 0) {
     return { ...state, colors };
   }
   colors.splice(index, 1);
-  colors.forEach(item => item.weight = (1 / len));
+  colors.forEach(item => (item.weight = 1 / len));
   return { ...state, colors };
+};
+
+const handleChangeColorRange = (state, action) => {
+  // const colors = state.colors.slice(),
+  //   index = action.index,
+  //   range = action.range,
+  //   ranges = action.ranges;
+
+  // const start = range[0] / 100,
+  //   end = range[1] / 100;
+  
+  // const cur = colors[index];
+  // if (index === 0 && colors.length > 1) {
+  //   const newStart = 0, newEnd = Math.min(end, next[])
+  // } else if (index === colors.length - 1) {
+  // } else {
+  // }
 };
 
 const reducer = (state, action) => {
@@ -71,6 +88,8 @@ const reducer = (state, action) => {
       return handleAddColor(state, action);
     case "deleteColor":
       return handleDeleteColor(state, action);
+    case "changeColorRange":
+      return handleChangeColorRange(state, action);
   }
 };
 
