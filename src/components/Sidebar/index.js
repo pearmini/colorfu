@@ -2,6 +2,7 @@ import React from "react";
 import Items from "../Items/index";
 import Colors from "../Colors/index";
 import Palette from "../Palette/index";
+import { Slider } from "antd";
 
 import {
   Drawer,
@@ -227,22 +228,35 @@ function DrawerForm(props) {
               </Radio.Group>
             </Form.Item>
             {canvasState.mode === "blend" && (
-              <Form.Item label="种类">
-                <Radio.Group
-                  defaultValue={canvasState.blendType}
-                  buttonStyle="solid"
-                  onChange={e =>
-                    dispatch({
-                      type: "change",
-                      key: "blendType",
-                      value: e.target.value
-                    })
-                  }
-                >
-                  <Radio.Button value="left">左边</Radio.Button>
-                  <Radio.Button value="right">右边</Radio.Button>
-                </Radio.Group>
-              </Form.Item>
+              <>
+                <Form.Item label="种类">
+                  <Radio.Group
+                    defaultValue={canvasState.blendType}
+                    buttonStyle="solid"
+                    onChange={e =>
+                      dispatch({
+                        type: "change",
+                        key: "blendType",
+                        value: e.target.value
+                      })
+                    }
+                  >
+                    <Radio.Button value="left">左边</Radio.Button>
+                    <Radio.Button value="right">右边</Radio.Button>
+                  </Radio.Group>
+                </Form.Item>
+                <Form.Item>
+                  <Slider
+                    value={canvasState.ratio * 100}
+                    onChange={e =>
+                      dispatch({
+                        type: "changeRatio",
+                        value: e
+                      })
+                    }
+                  />
+                </Form.Item>
+              </>
             )}
             {canvasState.mode != "color" && (
               <Form.Item label="壁纸">
