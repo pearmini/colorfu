@@ -7,17 +7,16 @@ function Colors(props) {
   const [currentColor, setCurrentColor] = useState("#ffffff");
 
   let sum = 0;
-  const ranges = colors.map((item, index) => {
-    const start = sum,
-      end = sum + item.weight;
+  const ticks = colors.map((item, index) => {
+    const tick = sum * 100;
     sum += item.weight;
-    return [start * 100, end * 100];
+    return tick;
   });
+  ticks.push(100);
 
-  console.log(ranges[1][0])
   const contents = colors.map((item, index) => (
     <Row key={index} gutter={8}>
-      <Col span={6}>
+      <Col span={4}>
         <Input
           type="color"
           value={item.value}
@@ -31,6 +30,19 @@ function Colors(props) {
           name={index}
         />
       </Col>
+      <Col span={16}>
+        <Slider
+          key={index}
+          range
+          value={[ticks[index], ticks[index + 1]]}
+          onChange={e =>
+            dispatch({
+              type: "changeColorRange",
+              payload: { index, range: e, ticks }
+            })
+          }
+        />
+      </Col>
       <Col span={4}>
         <Button
           onClick={e => dispatch({ type: "deleteColor", index: e.target.name })}
@@ -38,17 +50,7 @@ function Colors(props) {
           icon="delete"
         />
       </Col>
-      <Col span={14}>
-        <Slider
-          key={index}
-          range
-          defaultValue={[ranges[index][0], ranges[index][1]]}
-          onChange={
-            e => console.log(e)
-            // e => dispatch({type: "changeColorRange", index, range: e})
-          }
-        />
-      </Col>
+     
     </Row>
   ));
 
