@@ -52,20 +52,28 @@ const handleDeleteColor = (state, action) => {
 };
 
 const handleChangeColorRange = (state, action) => {
-  // const colors = state.colors.slice(),
-  //   index = action.index,
-  //   range = action.range,
-  //   ranges = action.ranges;
+  const { index, range, ticks } = action.payload;
+  const colors = state.colors.slice();
 
-  // const start = range[0] / 100,
-  //   end = range[1] / 100;
-  
-  // const cur = colors[index];
-  // if (index === 0 && colors.length > 1) {
-  //   const newStart = 0, newEnd = Math.min(end, next[])
-  // } else if (index === colors.length - 1) {
-  // } else {
-  // }
+  // 判断是否越界
+  if (
+    (index >= 1 && range[0] <= ticks[index - 1] ) ||
+    (index < ticks.length - 2 && range[1] >= ticks[index + 2] )
+  ) {
+    return state;
+  }
+
+  [ticks[index], ticks[index + 1]] = range;
+  const weight = [];
+  ticks.forEach((item, index) => {
+    if (index === 0) {
+      return;
+    }
+    weight.push((ticks[index] - ticks[index - 1]) / 100);
+  });
+  colors.forEach((item, index) => (item.weight = weight[index]));
+
+  return { ...state, colors };
 };
 
 const reducer = (state, action) => {
