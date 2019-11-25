@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Spin } from "antd";
 
 export default function(props) {
-  const { canvasState, windowSize, poster, loading, fonts ,editMode} = props;
+  const { canvasState, windowSize, poster, loading, fonts, editMode } = props;
   const style = {
     position: "absolute",
     left: window.innerWidth / 2 - 20,
@@ -18,14 +18,17 @@ export default function(props) {
     .on("canvasWillLoadImage", () => loading.setTrue())
     .on("canvasDidLoadImage", () => loading.setFalse());
 
-  if(canvasState.colors){
-    poster.colors(canvasState.colors)
+  if (canvasState.colors) {
+    poster.colors(canvasState.colors);
   }
 
-  if(canvasState.blendType){
-    poster.blendType(canvasState.blendType)
+  if (canvasState.blendType) {
+    poster.blendType(canvasState.blendType);
   }
 
+  if (canvasState.ratio) {
+    poster.ratio(canvasState.ratio);
+  }
   // 设置内容
   poster
     .imageURL(canvasState.imageURL)
@@ -60,7 +63,7 @@ export default function(props) {
       <canvas id="app"></canvas>
       {/* 初始化字体 */}
       {[...fonts.all, ...fonts.en].map((font, index) => (
-        <p style={{fontFamily: font.en}} key={index}>
+        <p style={{ fontFamily: font.en }} key={index}>
           hello world
         </p>
       ))}

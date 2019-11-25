@@ -76,6 +76,13 @@ const handleChangeColorRange = (state, action) => {
   return { ...state, colors };
 };
 
+function handleRatioChange(state, action){
+  console.log(action);
+  const value = action.value;
+  const ratio = value / 100;
+  return {...state, ratio};
+}
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "update":
@@ -98,6 +105,8 @@ const reducer = (state, action) => {
       return handleDeleteColor(state, action);
     case "changeColorRange":
       return handleChangeColorRange(state, action);
+    case "changeRatio":
+      return handleRatioChange(state, action);
   }
 };
 
