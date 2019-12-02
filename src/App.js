@@ -11,9 +11,9 @@ import useCanvas from "./hooks/useCanvas";
 
 import { awesome } from "./lib/awesome-poster";
 import data from "./data/index";
-import fonts from "./lib/fonts";
 
 const poster = awesome.poster();
+
 
 function App() {
   const loading = useBoolean(false);
@@ -27,25 +27,15 @@ function App() {
   // 获得案例图片
   const images = data.map(item => item.exampleImageURL);
 
-  function handleNext() {
-    if (counterState.count + 1 >= data.length) return;
-    const nextCanvas = data[counterState.count + 1];
-    counterDispatch({ type: "increment" });
-    canvasDispatch({ type: "update", canvas: nextCanvas });
-  }
-
-  function handlePre() {
-    if (counterState.count - 1 < 0) return;
-    const preCanvas = data[counterState.count - 1];
-    counterDispatch({ type: "decrement" });
-    canvasDispatch({ type: "update", canvas: preCanvas });
-  }
-
   function switchExample(index) {
     const nextCanvas = data[index];
     counterDispatch({ type: "switch", index });
     canvasDispatch({ type: "update", canvas: nextCanvas });
   }
+
+  // setInterval(() => {
+  //   canvasDispatch({type: "changeMode"})
+  // }, 1000);
 
   return (
     <div>
@@ -57,14 +47,12 @@ function App() {
         canvasToPng={poster.saveToPng}
         poster={poster}
         loading={loading}
-        fonts={fonts}
       />
       <Canvas
         canvasState={canvasState}
         windowSize={{ width, height }}
         poster={poster}
         loading={loading}
-        fonts={fonts}
         editMode={editMode}
       />
       <Examples
@@ -72,13 +60,7 @@ function App() {
         images={images}
         switchExample={switchExample}
       />
-      <Footer
-        showExamples={showExamples}
-        handleNext={handleNext}
-        handlePre={handlePre}
-        poster={poster}
-        loading={loading}
-      />
+      <Footer showExamples={showExamples} poster={poster} loading={loading} />
     </div>
   );
 }
