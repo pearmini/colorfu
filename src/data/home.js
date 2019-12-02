@@ -1,6 +1,9 @@
 import pic from "../static/images/homepage.jpg"
+
+const num = Math.random() * 2 | 0;
+const mode = num === 0 ? "image" : "colors";
 export default {
-  title: "WordsPaper",
+  title: "uPaper",
   contents: [
     "It is a web tool to create awesome pictures like this.",
     "You can use them as wallpaper or event a gift.",
@@ -15,12 +18,9 @@ export default {
   contentFontSize: 40,
   contentFontFamily: "Poiret One",
   contentTextColor: "#ffffff",
-  mode:"blend",
+  mode: mode,
   colors:[
-    { value: "#233142", weight: 0.4 },
-    { value: "#4f9da6", weight: 0.2 },
-    { value: "#facf5a", weight: 0.2 },
-    { value: "#ff5959", weight: 0.2 }
+    { value: "#000000", weight: 0.4 },
   ],
   ratio: 0.5,
   blendType: "left",

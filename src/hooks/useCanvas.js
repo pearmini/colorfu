@@ -57,8 +57,8 @@ const handleChangeColorRange = (state, action) => {
 
   // 判断是否越界
   if (
-    (index >= 1 && range[0] <= ticks[index - 1] ) ||
-    (index < ticks.length - 2 && range[1] >= ticks[index + 2] )
+    (index >= 1 && range[0] <= ticks[index - 1]) ||
+    (index < ticks.length - 2 && range[1] >= ticks[index + 2])
   ) {
     return state;
   }
@@ -76,15 +76,19 @@ const handleChangeColorRange = (state, action) => {
   return { ...state, colors };
 };
 
-function handleRatioChange(state, action){
+function handleRatioChange(state, action) {
   console.log(action);
   const value = action.value;
   const ratio = value / 100;
-  return {...state, ratio};
+  return { ...state, ratio };
 }
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "changeMode": {
+      const mode  = state.mode === "image" ? "colors": "image";
+      return {...state, mode};
+    }
     case "update":
       return action.canvas;
     case "change":
