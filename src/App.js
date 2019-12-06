@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Sidebar from "./components/Sidebar/index";
 import Canvas from "./components/Canvas/index";
 import Footer from "./components/Footer/index";
@@ -32,10 +32,6 @@ function App() {
     counterDispatch({ type: "switch", index });
     canvasDispatch({ type: "update", canvas: nextCanvas });
   }
-
-  // setInterval(() => {
-  //   canvasDispatch({type: "changeMode"})
-  // }, 1000);
 
   return (
     <div>
