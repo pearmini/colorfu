@@ -1,9 +1,6 @@
-// export default {
-//   namespace: "control",
-//   state: {
-//       mode:
-//   },
-//   reducers: {
-
-//   }
-// };
+export default {
+  namespace: "control",
+  state: {
+    extraHeight: 400
+  }
+};
