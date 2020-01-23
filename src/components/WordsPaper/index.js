@@ -4,7 +4,9 @@ export default function({
   height,
   color,
   backgroundColor,
-  fontSize
+  fontSize,
+  mode = "horizontal",
+  id
 }) {
   return (
     <div
@@ -12,33 +14,26 @@ export default function({
         width,
         height,
         backgroundColor,
-        color,
         display: "flex",
-        flexDirection: "column"
+        justifyContent: "center",
+        alignItems: "center"
       }}
+      id={id}
     >
       <div
+        id="text-container"
         style={{
-          flex: 1,
+          wordBbreak: "keep-all",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          writingMode: mode === "v" && "tb",
+          fontFamily: "Righteous",
           fontSize,
-          fontWeight: "bold",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontFamily: "Righteous"
+          color,
+          fontWeight: "bold"
         }}
       >
-        <div
-          id="text-container"
-          style={{
-            wordBbreak: "keep-all",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            writingMode: height > width && "tb"
-          }}
-        >
-          {title}
-        </div>
+        {title}
       </div>
     </div>
   );

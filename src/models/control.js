@@ -1,6 +1,16 @@
 export default {
   namespace: "control",
   state: {
-    extraHeight: 400
+    showPreview: false
+  },
+  reducers: {
+    displayPreview(state) {
+      state.showPreview = true;
+      return state;
+    },
+    hidePreview(state) {
+      state.showPreview = false;
+      return state;
+    }
   }
 };

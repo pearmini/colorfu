@@ -1,13 +1,27 @@
 import styles from "./index.css";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
+import Editor from "../../components/Editor";
+import Emulator from "../../components/Emulator";
+import Preview from "../../components/Preview";
+import { connect } from "dva";
 
-export default function() {
+function Create({ displayPreview }) {
   return (
-    <div style={{ marginTop: 48, background:"#f9f9f9" }}>
+    <div style={{ marginTop: 56, background: "#f9f9f9" }}>
       <Row>
-        <Col></Col>
-        <Col></Col>
+        <Col span={4}>
+          <Editor />
+        </Col>
+        <Col span={20}>
+          <Emulator />
+          <Button onClick={() => displayPreview()}>下载</Button>
+        </Col>
       </Row>
+      <Preview />
     </div>
   );
 }
+
+export default connect(null, {
+  displayPreview: () => ({ type: "control/displayPreview" })
+})(Create);
