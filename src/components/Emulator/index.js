@@ -2,9 +2,9 @@ import WordsPaper from "../WordsPaper";
 import useWindowSize from "../../hooks/useWindowSize";
 import { connect } from "dva";
 
-function Emulator({ value}) {
+function Emulator(props) {
   const [width, height] = useWindowSize();
-  const scale =  0.7;
+  const scale = 0.7;
   return (
     <div>
       <div
@@ -15,17 +15,12 @@ function Emulator({ value}) {
           height: height * scale
         }}
       >
-        <WordsPaper
-          {...value}
-          width={width}
-          height={height}
-          id="example-wordspaper"
-        />
+        <WordsPaper {...props} width={width} height={height} />
       </div>
     </div>
   );
 }
 
 export default connect(({ example }) => ({
-  value: example.value
+  ...example
 }))(Emulator);

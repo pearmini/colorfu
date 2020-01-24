@@ -13,7 +13,7 @@ function Create({ displayPreview }) {
           <Editor />
         </Col>
         <Col span={20}>
-          <Emulator />
+          <Emulator/>
           <Button onClick={() => displayPreview()}>下载</Button>
         </Col>
       </Row>

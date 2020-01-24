@@ -2,7 +2,8 @@ export default {
   namespace: "control",
   state: {
     showPreview: false,
-    imageUrl: ""
+    imageUrl: "",
+    selectedNav: "home"
   },
   reducers: {
     displayPreview(state) {
@@ -16,6 +17,11 @@ export default {
     setImageUrl(state, action) {
       const { imageUrl } = action.payload;
       state.imageUrl = imageUrl;
+      return state;
+    },
+    setSelectedNav(state, action) {
+      const { key } = action.payload;
+      state.selectedNav = key;
       return state;
     }
   }

@@ -82,7 +82,7 @@ function Editor({
 
 export default connect(
   ({ example, words, colors, control }) => ({
-    value: example.value,
+    value: example,
     wordsExamples: words,
     colorsExamples: colors,
     imageUrl: control.imageUrl

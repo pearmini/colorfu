@@ -2,20 +2,19 @@ import { Menu, Icon, Layout } from "antd";
 import router from "umi/router";
 import useWindowSize from "../../hooks/useWindowSize";
 import useScrollHeight from "../../hooks/useScrollHeight";
-import { useState } from "react";
+import { connect } from "dva";
 const { Item } = Menu;
 const { Header } = Layout;
 
-export default function({ pathname }) {
+function MyHeader({ pathname, selectedNav, setSelectedNav }) {
   const [width] = useWindowSize();
-  const [selectedKey, setSelectedKey] = useState("home");
   const scrollHeight = useScrollHeight();
 
   const color = scrollHeight < 56 && pathname === "/" && "#f9f9f9";
 
   function goto(path, key) {
     router.push(path);
-    setSelectedKey(key);
+    setSelectedNav(key);
   }
 
   return (
@@ -47,7 +46,7 @@ export default function({ pathname }) {
         style={{
           backgroundColor: "transparent"
         }}
-        selectedKeys={[selectedKey]}
+        selectedKeys={[selectedNav]}
       >
         <Item onClick={() => goto("./", "hmoe")} style={{ color }} key="home">
           <Icon type="home"></Icon>
@@ -62,9 +61,9 @@ export default function({ pathname }) {
           create
         </Item>
         <Item
-          onClick={() => goto("./gallery", "picture")}
+          onClick={() => goto("./gallery", "gallery")}
           style={{ color }}
-          key="picture"
+          key="gallery"
         >
           <Icon type="picture" />
           gallery
@@ -77,3 +76,13 @@ export default function({ pathname }) {
     </Header>
   );
 }
+
+export default connect(
+  ({ control }) => ({ selectedNav: control.selectedNav }),
+  {
+    setSelectedNav: key => ({
+      type: "control/setSelectedNav",
+      payload: { key }
+    })
+  }
+)(MyHeader);
