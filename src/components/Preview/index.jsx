@@ -40,27 +40,29 @@ function Preview({ showPreview, hidePreview, value }) {
           width: "100%",
           bottom: 30,
           display: "flex",
-          flexDirection: "row-reverse"
+          justifyContent: "center"
         }}
       >
         <div
           style={{
-            marginRight: 50
+            marginRight: 50,
+            background: "white",
+            width: 100,
+            height: 50,
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            borderRadius: 10
           }}
         >
           <Button
-            ghost
             type="primary"
             onClick={() => download()}
             icon="check"
             shape="circle"
-            style={{
-              marginRight: 20
-            }}
           />
           <Button
-            ghost
-            type="primary"
+            type="danger"
             onClick={() => hidePreview()}
             icon="close"
             shape="circle"

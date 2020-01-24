@@ -16,7 +16,8 @@ export default function({
         backgroundColor,
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        overflow: "hidden"
       }}
       id={id}
     >

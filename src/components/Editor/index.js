@@ -1,7 +1,16 @@
-import { Input, Slider, Radio, Button } from "antd";
+import { Slider, Radio, Button } from "antd";
 import MyInput from "../MyInput/index";
+import ColorPicker from "../ColorPicker/index";
 import { connect } from "dva";
-function Editor({ value, changeValue, swapColor, wordsExamples }) {
+function Editor({
+  value,
+  changeValue,
+  swapColor,
+  wordsExamples,
+  colorsExamples,
+  imageUrl,
+  setImageUrl
+}) {
   return (
     <div>
       <div>
@@ -34,16 +43,18 @@ function Editor({ value, changeValue, swapColor, wordsExamples }) {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-around",
-            flexDirection: "column"
+            justifyContent: "space-around"
           }}
         >
           <div>
             字体颜色
-            <Input
-              type="color"
+            <ColorPicker
               value={value.color}
-              onChange={e => changeValue("color", e.target.value)}
+              onChange={value => changeValue("color", value)}
+              examples={colorsExamples}
+              imageUrl={imageUrl}
+              onImageChange={setImageUrl}
+              placement="bottomLeft"
             />
           </div>
           <Button
@@ -54,10 +65,12 @@ function Editor({ value, changeValue, swapColor, wordsExamples }) {
           />
           <div>
             背景颜色
-            <Input
-              type="color"
+            <ColorPicker
               value={value.backgroundColor}
-              onChange={e => changeValue("backgroundColor", e.target.value)}
+              onChange={value => changeValue("backgroundColor", value)}
+              imageUrl={imageUrl}
+              onImageChange={setImageUrl}
+              placement="bottomRight"
             />
           </div>
         </div>
@@ -68,12 +81,21 @@ function Editor({ value, changeValue, swapColor, wordsExamples }) {
 }
 
 export default connect(
-  ({ example, words }) => ({ value: example.value, wordsExamples: words }),
+  ({ example, words, colors, control }) => ({
+    value: example.value,
+    wordsExamples: words,
+    colorsExamples: colors,
+    imageUrl: control.imageUrl
+  }),
   {
     changeValue: (type, value) => ({
       type: "example/changeValue",
       payload: { type, value }
     }),
-    swapColor: () => ({ type: "example/swapColor" })
+    swapColor: () => ({ type: "example/swapColor" }),
+    setImageUrl: imageUrl => ({
+      type: "control/setImageUrl",
+      payload: { imageUrl }
+    })
   }
 )(Editor);

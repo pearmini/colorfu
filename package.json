@@ -8,7 +8,9 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^3.26.7",
     "react": "^16.12.0",
+    "react-color": "^2.18.0",
     "react-dom": "^16.12.0",
+    "react-palette": "^1.0.1",
     "react-scripts": "3.3.0",
     "react-transition-group": "^4.3.0",
     "umi-plugin-react": "^1.15.2"
@@ -37,6 +39,7 @@
   "devDependencies": {
     "d3-scale": "^3.2.1",
     "dva": "^2.4.1",
-    "html2canvas": "^1.0.0-rc.5"
+    "html2canvas": "^1.0.0-rc.5",
+    "react-color": "^2.18.0"
   }
 }

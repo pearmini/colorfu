@@ -67,20 +67,20 @@ export default function() {
                   <WordsPaper
                     width={macWidth}
                     height={height}
-                    title="♞ell⦿"
+                    title="♞ell⦿ 2☯︎2零"
                     backgroundColor="#fd5e53"
                     color="white"
-                    fontSize={350}
+                    fontSize={250}
                   />
                 </div>
                 <div>
                   <WordsPaper
                     width={macWidth}
                     height={height}
-                    title="有钱"
+                    title="╭(●｀∀´●)╯"
                     backgroundColor="#ffd369"
-                    color="white"
-                    fontSize={600}
+                    color="purple"
+                    fontSize={200}
                   />
                 </div>
               </Carousel>

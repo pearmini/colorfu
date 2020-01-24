@@ -1,7 +1,8 @@
 export default {
   namespace: "control",
   state: {
-    showPreview: false
+    showPreview: false,
+    imageUrl: ""
   },
   reducers: {
     displayPreview(state) {
@@ -10,6 +11,11 @@ export default {
     },
     hidePreview(state) {
       state.showPreview = false;
+      return state;
+    },
+    setImageUrl(state, action) {
+      const { imageUrl } = action.payload;
+      state.imageUrl = imageUrl;
       return state;
     }
   }

@@ -2,10 +2,10 @@ export default {
   namespace: "example",
   state: {
     value: {
-      title: "♞ell⦿",
+      title: "♞ell⦿ 2☯︎2零",
       color: "#ffffff",
-      backgroundColor: "#000000",
-      fontSize: 400,
+      backgroundColor: "#fd5e53",
+      fontSize: 250,
       mode: "h"
     }
   },

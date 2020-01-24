@@ -40,7 +40,7 @@ export default function({ pathname }) {
         }}
         onClick={() => goto("./", "home")}
       >
-        WordsPaper
+        WordsInColor
       </div>
       <Menu
         mode="horizontal"
