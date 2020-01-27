@@ -76,7 +76,7 @@ function Preview({ showPreview, hidePreview, value }) {
 export default connect(
   ({ control, example }) => ({
     showPreview: control.showPreview,
-    value: example.value
+    value: example
   }),
   {
     hidePreview: () => ({ type: "control/hidePreview" })

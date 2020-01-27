@@ -43,14 +43,14 @@ export default function() {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            marginTop: 100
+            marginTop: 140
           }}
         >
-          <div style={{ fontSize: 80, color: "black", fontWeight: "bold" }}>
-            Make unique wallpaper.
+          <div style={{ fontSize: 60, color: "black", fontWeight: "bold" }}>
+            Make different wallpaper.
           </div>
-          <div style={{ fontSize: 80, color: "black", fontWeight: "bold" }}>
-            Express different.
+          <div style={{ fontSize: 60, color: "black", fontWeight: "bold" }}>
+            Express in words, enhance by color.
           </div>
         </div>
 

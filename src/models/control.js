@@ -3,7 +3,8 @@ export default {
   state: {
     showPreview: false,
     imageUrl: "",
-    selectedNav: "home"
+    selectedNav: "home",
+    showOverlayer: false
   },
   reducers: {
     displayPreview(state) {
@@ -22,6 +23,11 @@ export default {
     setSelectedNav(state, action) {
       const { key } = action.payload;
       state.selectedNav = key;
+      return state;
+    },
+    setOverlayer(state, action) {
+      const { value } = action.payload;
+      state.showOverlayer = value;
       return state;
     }
   }
