@@ -1,8 +1,7 @@
-import styles from "./index.css";
 import { Row, Col, Button } from "antd";
-import Editor from "../../components/Editor";
-import Emulator from "../../components/Emulator";
-import Preview from "../../components/Preview";
+import Editor from "../components/Editor";
+import Emulator from "../components/Emulator";
+import Preview from "../components/Preview";
 import { connect } from "dva";
 
 function Create({ displayPreview }) {

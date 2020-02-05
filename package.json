@@ -13,6 +13,7 @@
     "react-palette": "^1.0.1",
     "react-scripts": "3.3.0",
     "react-transition-group": "^4.3.0",
+    "styled-components": "^5.0.0",
     "umi-plugin-react": "^1.15.2"
   },
   "scripts": {
@@ -40,6 +41,7 @@
     "d3-scale": "^3.2.1",
     "dva": "^2.4.1",
     "html2canvas": "^1.0.0-rc.5",
-    "react-color": "^2.18.0"
+    "react-color": "^2.18.0",
+    "react-use": "^13.22.4"
   }
 }
