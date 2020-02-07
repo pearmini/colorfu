@@ -1,3 +1,4 @@
+import "./index.css";
 import styled from "styled-components";
 import Header from "../components/Header.js";
 
@@ -8,10 +9,8 @@ const Layout = styled.div`
 function App({ children, location: { pathname } }) {
   return (
     <Layout>
-      <Header></Header>
-      {
-        children
-      }
+      <Header />
+      {children}
     </Layout>
   );
 }

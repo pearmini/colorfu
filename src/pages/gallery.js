@@ -1,7 +1,7 @@
 import Dock from "../components/Dock/index";
 import { Row, Col } from "antd";
 import Wordspaper from "../components/WordsPaper/index";
-import useWindowSize from "../hooks/useWindowSize";
+import useWindowSize from "react-use";
 import { connect } from "dva";
 import router from "umi/router";
 

@@ -1,5 +1,5 @@
 import WordsPaper from "../WordsPaper";
-import useWindowSize from "../../hooks/useWindowSize";
+import useWindowSize from "react-use";
 import { connect } from "dva";
 
 function Emulator(props) {

@@ -1,9 +1,19 @@
 export default {
-  namespace: "control",
+  namespace: "global",
   state: {
     showPreview: false,
     imageUrl: "",
     selectedNav: "home",
+    headerTheme: {
+      dark: {
+        backgroundColor: "black",
+        color: "white"
+      },
+      light: {
+        backgroundColor: "transparent",
+        color: "black"
+      }
+    }
   },
   reducers: {
     displayPreview(state) {
@@ -23,6 +33,6 @@ export default {
       const { key } = action.payload;
       state.selectedNav = key;
       return state;
-    },
+    }
   }
 };
