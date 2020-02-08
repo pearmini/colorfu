@@ -1,47 +1,61 @@
 import styled from "styled-components";
 import { useWindowSize, useWindowScroll } from "react-use";
 import { useEffect, useState, useRef } from "react";
+import {Button} from "antd";
 import MacBook from "../components/MacBook";
+import WordsInColor from "../components/WordsInColor";
 import * as d3 from "d3-scale";
 
 const Container = styled.div`
+  height: 2000px;
+`;
+
+const Window = styled.div.attrs(props => ({
+  style: {
+    position: props.y < 200 ? "fixed" : "static",
+    marginTop: props.y < 200 ? 100 : 300
+  }
+}))`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: ${props => props.y + 100}px;
-  height: 2000px;
+  width: 100%;
 `;
+
 const Title = styled.h1`
   font-weight: bold;
   font-size: 5rem;
   margin-bottom: 0;
 `;
+
 const SubTitle = styled.h2``;
 
 const Box = styled.div`
   position: relative;
   width: 300px;
   height: 500px;
-  background: blue;
+  /* background: blue; */
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div.attrs(props => ({
+  style: {
+    transform: `translate(${props.x}px, ${props.y}px)`
+  }
+}))`
   position: absolute;
-  background: red;
-  height: inherit;
-  width: inherit;
-  transform: ${props =>
-    `translate(50%, 50%) translate(${props.x}px, ${props.y}px)`};
+  /* 相对与父亲的宽高，translate(50%, 50%) 是相对于自己的宽高 */
+  left: 50%;
+  top: 50%;
 `;
-const StyledMacBook = styled(MacBook)`
+
+const StyledMacBook = styled(MacBook).attrs(props => ({
+  style: {
+    transform: `translate(-50%, -50%) scale(${props.s})`
+  }
+}))`
   position: absolute;
-  transform: ${props => `translate(-50%, -50%) scale(${props.s})`};
 `;
-const Content = styled.div`
-  /* background: blue; */
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-`;
+
 
 function Index() {
   const { width, height } = useWindowSize();
@@ -51,7 +65,6 @@ function Index() {
     y: 0
   });
 
-  // const [scale, setScale] = useState(1);
   const scale = d3
     .scaleLinear()
     .domain([0, 200])
@@ -64,6 +77,10 @@ function Index() {
 
   const s = scale(y);
   const ref = useRef(null);
+  const macWidth = d3
+    .scaleLinear()
+    .domain([0, 200])
+    .range([width, height * 1.6]);
   const translate = {
     x: position.x,
     y: Math.max(scaleY(y), 0) * position.y
@@ -80,23 +97,34 @@ function Index() {
     });
   }, [width, height]);
 
+  const wordsProps = {
+    title: "♞ell⦿ 2☯︎2零",
+    backgroundColor: "#fd5e53",
+    color: "white",
+    fontSize: 250
+  };
+
   return (
-    <Container y={Math.min(200, y)}>
-      <Title>Words In Color</Title>
-      <SubTitle>
-        A tool to create unique wallpaper or use it as a special gift.
-      </SubTitle>
-      <Box>
-        <Wrapper ref={ref} {...translate}>
-          <StyledMacBook {...{ width, height }} s={Math.max(s, 0.4)}>
-            {(width, height) => (
-              <Content {...{ width, height}}  >
-                hello
-              </Content>
-            )}
-          </StyledMacBook>
-        </Wrapper>
-      </Box>
+    <Container>
+      <Window y={y}>
+        <Title>Words In Color</Title>
+        <SubTitle>
+          A tool to create unique wallpaper or use it as a special gift.
+        </SubTitle>
+        <Button type="primary">Create</Button>
+        <Box>
+          <Wrapper ref={ref} {...translate}>
+            <StyledMacBook
+              {...{ width: y > 200 ? height * 1.6 :macWidth(y), height }}
+              s={Math.max(s, 0.4)}
+            >
+              {(width, height) => (
+                <WordsInColor {...{ width, height }} {...wordsProps} />
+              )}
+            </StyledMacBook>
+          </Wrapper>
+        </Box>
+      </Window>
     </Container>
   );
 }

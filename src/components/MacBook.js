@@ -2,8 +2,10 @@ import styled from "styled-components";
 import useBorder from "../utils/useBorder";
 
 const Container = styled.div.attrs(props => ({
-  /* 防止添加过的类 */
+  /* 防止添加过多的的类 */
   style: {
+    // 将屏幕的中心成为该容器的中心
+    marginTop: (props.borderBottom - props.borderTop) / 2,
     width: props.width,
     height: props.height,
     borderTop: `${props.borderTop}px solid transparent`,
@@ -14,9 +16,10 @@ const Container = styled.div.attrs(props => ({
   }
 }))`
   box-sizing: content-box;
+  /* border:10px solid black; */
 `;
 
-function MacBook({ height, width, children, className }) {
+function MacBook({ height, width, children, ...rest }) {
   const border = useBorder({
     height,
     width
@@ -24,7 +27,7 @@ function MacBook({ height, width, children, className }) {
   const imageURL = "https://i.loli.net/2020/01/31/vZhQugfd5iVMIDO.jpg";
   const { width: contentWidth, height: contentHeight } = border;
   return (
-    <Container {...border} imageURL={imageURL} className={className}>
+    <Container {...border} imageURL={imageURL} {...rest}>
       {children && children(contentWidth, contentHeight)}
     </Container>
   );
