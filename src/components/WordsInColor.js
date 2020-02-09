@@ -10,7 +10,6 @@ const Contianer = styled.div.attrs(props => ({
   overflow: hidden;
 `;
 function WordsInColor({ title, mode, ...style }) {
-  console.log(style.height);
   return <Contianer style={style}>{title}</Contianer>;
 }
 

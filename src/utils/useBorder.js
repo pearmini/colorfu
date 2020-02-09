@@ -18,7 +18,7 @@ export default function(props) {
     imageScreenHeight = imageHeight - top - bottom;
 
   // 计算相应的 border
-  const borderLeft = width * (left / imageScreenWidth),
+  const borderLeft = (width * left) / imageScreenWidth,
     borderRight = borderLeft,
     borderTop = (height * top) / imageScreenHeight,
     borderBottom = (height * bottom) / imageScreenHeight;

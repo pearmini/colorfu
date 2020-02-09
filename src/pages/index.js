@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { useWindowSize, useWindowScroll } from "react-use";
-import { useEffect, useState, useRef } from "react";
-import {Button} from "antd";
+import { Button } from "antd";
 import MacBook from "../components/MacBook";
 import WordsInColor from "../components/WordsInColor";
-import * as d3 from "d3-scale";
+import Canvas from "../components/Canvas";
 
 const Container = styled.div`
   height: 2000px;
@@ -30,72 +29,22 @@ const Title = styled.h1`
 
 const SubTitle = styled.h2``;
 
-const Box = styled.div`
-  position: relative;
+const StyledCanvas = styled(Canvas)`
   width: 300px;
   height: 500px;
-  /* background: blue; */
-`;
-
-const Wrapper = styled.div.attrs(props => ({
-  style: {
-    transform: `translate(${props.x}px, ${props.y}px)`
-  }
-}))`
-  position: absolute;
-  /* 相对与父亲的宽高，translate(50%, 50%) 是相对于自己的宽高 */
-  left: 50%;
-  top: 50%;
 `;
 
 const StyledMacBook = styled(MacBook).attrs(props => ({
   style: {
-    transform: `translate(-50%, -50%) scale(${props.s})`
+    transform: `translate(-50%, -50%)`
   }
 }))`
   position: absolute;
 `;
 
-
 function Index() {
   const { width, height } = useWindowSize();
   const { y } = useWindowScroll();
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0
-  });
-
-  const scale = d3
-    .scaleLinear()
-    .domain([0, 200])
-    .range([1, 0.4]);
-
-  const scaleY = d3
-    .scaleLinear()
-    .domain([0, 200])
-    .range([1, 0]);
-
-  const s = scale(y);
-  const ref = useRef(null);
-  const macWidth = d3
-    .scaleLinear()
-    .domain([0, 200])
-    .range([width, height * 1.6]);
-  const translate = {
-    x: position.x,
-    y: Math.max(scaleY(y), 0) * position.y
-  };
-
-  useEffect(() => {
-    const box = ref.current;
-    const { x, y } = box.getBoundingClientRect();
-    const translateX = width / 2 - x,
-      translateY = height / 2 - y;
-    setPosition({
-      x: translateX,
-      y: translateY
-    });
-  }, [width, height]);
 
   const wordsProps = {
     title: "♞ell⦿ 2☯︎2零",
@@ -112,18 +61,23 @@ function Index() {
           A tool to create unique wallpaper or use it as a special gift.
         </SubTitle>
         <Button type="primary">Create</Button>
-        <Box>
-          <Wrapper ref={ref} {...translate}>
-            <StyledMacBook
-              {...{ width: y > 200 ? height * 1.6 :macWidth(y), height }}
-              s={Math.max(s, 0.4)}
-            >
-              {(width, height) => (
-                <WordsInColor {...{ width, height }} {...wordsProps} />
-              )}
-            </StyledMacBook>
-          </Wrapper>
-        </Box>
+        <StyledCanvas
+          from={{ x: width / 2, y: height / 2, scale: 1, width, height }}
+          to={{
+            x: 0,
+            y: 0,
+            scale: 0.4,
+            width: height * 1.6,
+            height
+          }}
+          progress={y > 200 ? 1 : y / 200}
+        >
+          <StyledMacBook>
+            {(width, height) => (
+              <WordsInColor {...{ width, height }} {...wordsProps} />
+            )}
+          </StyledMacBook>
+        </StyledCanvas>
       </Window>
     </Container>
   );
