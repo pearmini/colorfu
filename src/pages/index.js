@@ -9,10 +9,10 @@ const Container = styled.div`
   height: 2000px;
 `;
 
-const Window = styled.div.attrs(props => ({
+const Window = styled.div.attrs(({ y, fixedHeight, marginTop }) => ({
   style: {
-    position: props.y < 200 ? "fixed" : "static",
-    marginTop: props.y < 200 ? 100 : 300
+    position: y < fixedHeight ? "fixed" : "static",
+    marginTop: y < fixedHeight ? marginTop : marginTop + fixedHeight
   }
 }))`
   display: flex;
@@ -29,6 +29,9 @@ const Title = styled.h1`
 
 const SubTitle = styled.h2``;
 
+const Row = styled.section`
+  display: flex;
+`;
 const StyledCanvas = styled(Canvas)`
   width: 300px;
   height: 500px;
@@ -45,6 +48,7 @@ const StyledMacBook = styled(MacBook).attrs(props => ({
 function Index() {
   const { width, height } = useWindowSize();
   const { y } = useWindowScroll();
+  const fixedHeight = 200;
 
   const wordsProps = {
     title: "♞ell⦿ 2☯︎2零",
@@ -53,31 +57,39 @@ function Index() {
     fontSize: 250
   };
 
+  const windowProps = {
+    y,
+    fixedHeight,
+    marginTop: 100
+  };
+
   return (
     <Container>
-      <Window y={y}>
+      <Window {...windowProps}>
         <Title>Words In Color</Title>
         <SubTitle>
           A tool to create unique wallpaper or use it as a special gift.
         </SubTitle>
         <Button type="primary">Create</Button>
-        <StyledCanvas
-          from={{ x: width / 2, y: height / 2, scale: 1, width, height }}
-          to={{
-            x: 0,
-            y: 0,
-            scale: 0.4,
-            width: height * 1.6,
-            height
-          }}
-          progress={y > 200 ? 1 : y / 200}
-        >
-          <StyledMacBook>
-            {(width, height) => (
-              <WordsInColor {...{ width, height }} {...wordsProps} />
-            )}
-          </StyledMacBook>
-        </StyledCanvas>
+        <Row>
+          <StyledCanvas
+            from={{ x: width / 2, y: height / 2, scale: 1, width, height }}
+            to={{
+              x: 0,
+              y: 0,
+              scale: 0.4,
+              width: height * 1.6,
+              height
+            }}
+            progress={y > fixedHeight ? 1 : y / fixedHeight}
+          >
+            <StyledMacBook>
+              {(width, height) => (
+                <WordsInColor {...{ width, height }} {...wordsProps} />
+              )}
+            </StyledMacBook>
+          </StyledCanvas>
+        </Row>
       </Window>
     </Container>
   );

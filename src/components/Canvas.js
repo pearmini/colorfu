@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import React, { useState, useEffect, useRef } from "react";
 import { useWindowSize } from "react-use";
-import * as d3 from "d3-scale";
+import getAbsolutePostion from "../utils/getAbsolutePosition";
+import map from "../utils/map";
 
 const Wrapper = styled.div`
   position: relative;
@@ -19,45 +20,25 @@ const Container = styled.div.attrs(props => ({
 `;
 
 function Canvas({ from: start, to, progress = 0, children, ...rest }) {
-  const [from, setFrom] = useState({ x: 0, y: 0, scale: 1 });
+  // 这里的初始化的 x 和 y 必须是零（默认没有发生平移）。
+  // 否者影响下面的 centerX 和 centerY 的计算。
+  const [from, setFrom] = useState({ ...start, x: 0, y: 0 });
   const { width, height } = useWindowSize();
   const ref = useRef(null);
-
-  const xScale = d3
-    .scaleLinear()
-    .domain([0, 1])
-    .range([from.x, to.x]);
-
-  const yScale = d3
-    .scaleLinear()
-    .domain([0, 1])
-    .range([from.y, to.y]);
-
-  const scaleScale = d3
-    .scaleLinear()
-    .domain([0, 1])
-    .range([from.scale, to.scale]);
-
-  const widthScale = d3
-    .scaleLinear()
-    .domain([0, 1])
-    .range([from.width, to.width]);
-  const heightScale = d3
-    .scaleLinear()
-    .domain([0, 1])
-    .range([from.height, to.height]);
-
-  const current = {
-    x: xScale(progress),
-    y: yScale(progress),
-    scale: scaleScale(progress),
-    width: widthScale(progress),
-    height: heightScale(progress)
-  };
+  const current = Object.keys(from).reduce(
+    (obj, key) => ({
+      ...obj,
+      [key]: map(progress, 0, 1, from[key], to[key])
+    }),
+    {}
+  );
 
   useEffect(() => {
-    const box = ref.current;
-    const { x: centerX, y: centerY } = box.getBoundingClientRect();
+    const element = ref.current;
+    // 这里的绝对定位只能通过 offsetTop 和 offsetLeft 获得
+    // 用 getBoundingClientRect + scroll 的距离会出现问题
+    // 改变窗口大小的时候会出现缩小的问题是正常的现象
+    const { left: centerX, top: centerY } = getAbsolutePostion(element);
     setFrom({ ...start, x: start.x - centerX, y: start.y - centerY });
   }, [width, height]);
 
