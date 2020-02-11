@@ -6,6 +6,8 @@ import map from "../utils/map";
 
 const Wrapper = styled.div`
   position: relative;
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
 `;
 
 const Container = styled.div.attrs(props => ({
@@ -39,11 +41,21 @@ function Canvas({ from: start, to, progress = 0, children, ...rest }) {
     // 用 getBoundingClientRect + scroll 的距离会出现问题
     // 改变窗口大小的时候会出现缩小的问题是正常的现象
     const { left: centerX, top: centerY } = getAbsolutePostion(element);
-    setFrom({ ...start, x: start.x - centerX, y: start.y - centerY });
+    setFrom({
+      ...start,
+      x: start.x ? start.x - centerX : 0,
+      y: start.y ? start.y - centerY : 0
+    });
   }, [width, height]);
 
+  const wrapperProps = {
+    width: to.width * to.scale,
+    height: to.height * to.scale
+  }
+
+  console.log(wrapperProps)
   return (
-    <Wrapper {...rest}>
+    <Wrapper {...rest} {...wrapperProps}>
       <Container ref={ref} {...current}>
         {React.cloneElement(children, {
           width: current.width,

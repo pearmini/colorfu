@@ -30,11 +30,9 @@ const Title = styled.h1`
 const SubTitle = styled.h2``;
 
 const Row = styled.section`
+  margin-top: 50px;
   display: flex;
-`;
-const StyledCanvas = styled(Canvas)`
-  width: 300px;
-  height: 500px;
+  align-items: flex-end;
 `;
 
 const StyledMacBook = styled(MacBook).attrs(props => ({
@@ -72,13 +70,13 @@ function Index() {
         </SubTitle>
         <Button type="primary">Create</Button>
         <Row>
-          <StyledCanvas
+          <Canvas
             from={{ x: width / 2, y: height / 2, scale: 1, width, height }}
             to={{
               x: 0,
               y: 0,
               scale: 0.4,
-              width: height * 1.6,
+              width: height/2,
               height
             }}
             progress={y > fixedHeight ? 1 : y / fixedHeight}
@@ -88,7 +86,7 @@ function Index() {
                 <WordsInColor {...{ width, height }} {...wordsProps} />
               )}
             </StyledMacBook>
-          </StyledCanvas>
+          </Canvas>
         </Row>
       </Window>
     </Container>
