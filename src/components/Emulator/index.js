@@ -1,9 +1,9 @@
-import WordsPaper from "../WordsPaper";
-import useWindowSize from "react-use";
+import WordsInColor from "../WordsInColor";
+import { useWindowSize } from "react-use";
 import { connect } from "dva";
 
 function Emulator(props) {
-  const [width, height] = useWindowSize();
+  const { width, height } = useWindowSize();
   const scale = 0.7;
   return (
     <div>
@@ -15,7 +15,7 @@ function Emulator(props) {
           height: height * scale
         }}
       >
-        <WordsPaper {...props} width={width} height={height} />
+        <WordsInColor {...props} width={width} height={height} scale={scale} />
       </div>
     </div>
   );

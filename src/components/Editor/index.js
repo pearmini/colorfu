@@ -85,7 +85,7 @@ export default connect(
     value: example,
     wordsExamples: words,
     colorsExamples: colors,
-    imageUrl: control.imageUrl
+    imageUrl: global.imageUrl
   }),
   {
     changeValue: (type, value) => ({

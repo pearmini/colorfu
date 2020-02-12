@@ -22,7 +22,7 @@ const Container = styled.div.attrs(props => ({
   background-image: linear-gradient(black, black);
   background-repeat: no-repeat;
   & * {
-    border-radius: 30px;
+    /* border-radius: 30px; */
   }
 `;
 
@@ -34,7 +34,8 @@ function MacBook({ height, width, children, type, ...rest }) {
     top: 45,
     bottom: 85,
     width: 1211,
-    height: 707
+    height: 707,
+    ratio: 1.6
   };
 
   const ipad = {
@@ -55,11 +56,11 @@ function MacBook({ height, width, children, type, ...rest }) {
     bottom: 15
   };
 
-  const useMacBookBorder = useBorder(iphone);
+  const useMacBookBorder = useBorder(macBook);
   const border = useMacBookBorder({ height, width });
   const { width: contentWidth, height: contentHeight } = border;
   return (
-    <Container {...border} imageURL={iphoneBorder} {...rest}>
+    <Container {...border} imageURL={macBookBorder} {...rest}>
       {children && children(contentWidth, contentHeight)}
     </Container>
   );

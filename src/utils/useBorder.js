@@ -4,12 +4,12 @@ export default function withBorder({
   left,
   right,
   top,
-  bottom
+  bottom,
+  ratio
 }) {
   return function(props) {
     const screenWidth = imageWidth - left - right,
-      screenHeight = imageHeight - top - bottom,
-      ratio = imageHeight / imageWidth;
+      screenHeight = imageHeight - top - bottom;
 
     let { height, width } = props;
 

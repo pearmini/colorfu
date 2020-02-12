@@ -47,20 +47,35 @@ function Index() {
   const { width, height } = useWindowSize();
   const { y } = useWindowScroll();
   const fixedHeight = 200;
-
-  const wordsProps = {
-    title: "♞ell⦿ 2☯︎2零",
-    backgroundColor: "#fd5e53",
-    color: "white",
-    fontSize: 250
-  };
-
   const windowProps = {
     y,
     fixedHeight,
     marginTop: 100
   };
 
+  const props = {
+    macbook: {
+      content: {
+        title: "♞ell⦿ 2☯︎2零",
+        backgroundColor: "#fd5e53",
+        color: "white",
+        fontSize: 250
+      },
+      from: { x: width / 2, y: height / 2, scale: 1, width, height },
+      to: {
+        x: 0,
+        y: 0,
+        scale: 0.4,
+        width: height * 1.6,
+        height
+      },
+      progress: Math.min(1, y / fixedHeight)
+    },
+    iphone: {},
+    ipad: {}
+  };
+
+  const { macbook, iphone, ipad } = props;
   return (
     <Container>
       <Window {...windowProps}>
@@ -71,21 +86,21 @@ function Index() {
         <Button type="primary">Create</Button>
         <Row>
           <Canvas
-            from={{ x: width / 2, y: height / 2, scale: 1, width, height }}
-            to={{
-              x: 0,
-              y: 0,
-              scale: 0.4,
-              width: height/2,
-              height
-            }}
-            progress={y > fixedHeight ? 1 : y / fixedHeight}
+            from={macbook.from}
+            to={macbook.to}
+            progress={macbook.progress}
           >
-            <StyledMacBook>
-              {(width, height) => (
-                <WordsInColor {...{ width, height }} {...wordsProps} />
-              )}
-            </StyledMacBook>
+            {({ width, height, scale }) => (
+              <StyledMacBook width={width} height={height}>
+                {(width, height) => (
+                  <WordsInColor
+                    {...{ width, height }}
+                    {...macbook.content}
+                    scale={scale}
+                  />
+                )}
+              </StyledMacBook>
+            )}
           </Canvas>
         </Row>
       </Window>

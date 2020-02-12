@@ -1,10 +1,12 @@
-import WordsPaper from "../WordsPaper/index";
+import WordsInColor from "../WordsInColor";
 import { Button } from "antd";
 import { connect } from "dva";
 import html2canvas from "html2canvas";
+import { useWindowSize } from "react-use";
+import { useRef } from "react";
 function Preview({ showPreview, hidePreview, value }) {
   async function download() {
-    const wordspaper = document.getElementById("preview-wordspaper");
+    const wordspaper = document.getElementById("hello");
     const canvas = await html2canvas(wordspaper);
     const filename = "text.png";
     canvas.toBlob(function(blob) {
@@ -15,6 +17,9 @@ function Preview({ showPreview, hidePreview, value }) {
       a.click();
     });
   }
+
+  const { width, height } = useWindowSize();
+  const ref = useRef(null);
   return (
     <div
       style={{
@@ -28,11 +33,11 @@ function Preview({ showPreview, hidePreview, value }) {
         display: !showPreview && "none"
       }}
     >
-      <WordsPaper
-        id="preview-wordspaper"
+      <WordsInColor
+        id="hello"
         {...value}
-        width="100%"
-        height="100%"
+        width={width}
+        height={height}
       />
       <div
         style={{
@@ -74,11 +79,11 @@ function Preview({ showPreview, hidePreview, value }) {
 }
 
 export default connect(
-  ({ control, example }) => ({
-    showPreview: control.showPreview,
+  ({ global, example }) => ({
+    showPreview: global.showPreview,
     value: example
   }),
   {
-    hidePreview: () => ({ type: "control/hidePreview" })
+    hidePreview: () => ({ type: "global/hidePreview" })
   }
 )(Preview);

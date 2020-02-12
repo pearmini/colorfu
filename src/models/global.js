@@ -4,16 +4,6 @@ export default {
     showPreview: false,
     imageUrl: "",
     selectedNav: "home",
-    headerTheme: {
-      dark: {
-        backgroundColor: "black",
-        color: "white"
-      },
-      light: {
-        backgroundColor: "transparent",
-        color: "black"
-      }
-    }
   },
   reducers: {
     displayPreview(state) {

@@ -16,11 +16,11 @@ function Create({ displayPreview }) {
           <Button onClick={() => displayPreview()}>下载</Button>
         </Col>
       </Row>
-      <Preview />
+      {/* <Preview /> */}
     </div>
   );
 }
 
 export default connect(null, {
-  displayPreview: () => ({ type: "control/displayPreview" })
+  displayPreview: () => ({ type: "global/displayPreview" })
 })(Create);

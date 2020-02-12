@@ -53,14 +53,16 @@ function Canvas({ from: start, to, progress = 0, children, ...rest }) {
     height: to.height * to.scale
   }
 
-  console.log(wrapperProps)
   return (
     <Wrapper {...rest} {...wrapperProps}>
       <Container ref={ref} {...current}>
-        {React.cloneElement(children, {
+        {
+          children(current)
+        }
+        {/* {React.cloneElement(children, {
           width: current.width,
           height: current.height
-        })}
+        })} */}
       </Container>
     </Wrapper>
   );
