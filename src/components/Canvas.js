@@ -59,10 +59,6 @@ function Canvas({ from: start, to, progress = 0, children, ...rest }) {
         {
           children(current)
         }
-        {/* {React.cloneElement(children, {
-          width: current.width,
-          height: current.height
-        })} */}
       </Container>
     </Wrapper>
   );

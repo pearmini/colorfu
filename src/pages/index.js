@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useWindowSize, useWindowScroll } from "react-use";
 import { Button } from "antd";
-import MacBook from "../components/MacBook";
+import Hardware from "../components/Harware";
 import WordsInColor from "../components/WordsInColor";
 import Canvas from "../components/Canvas";
 
@@ -30,17 +30,26 @@ const Title = styled.h1`
 const SubTitle = styled.h2``;
 
 const Row = styled.section`
-  margin-top: 50px;
+  margin-top: 150px;
   display: flex;
   align-items: flex-end;
 `;
 
-const StyledMacBook = styled(MacBook).attrs(props => ({
-  style: {
-    transform: `translate(-50%, -50%)`
-  }
-}))`
+const StyledHardWare = styled(Hardware)`
   position: absolute;
+  transform: translate(-50%, -50%);
+`;
+
+const IpadCanvas = styled(Canvas)`
+  margin-right: 50px;
+`;
+
+const MacbookCanvas = styled(Canvas)`
+  z-index: 10;
+`;
+
+const IphoneCanvas = styled(Canvas)`
+  margin-right: 70px;
 `;
 
 function Index() {
@@ -71,8 +80,41 @@ function Index() {
       },
       progress: Math.min(1, y / fixedHeight)
     },
-    iphone: {},
-    ipad: {}
+    ipad: {
+      content: {
+        title: "Mamba Forever",
+        backgroundColor: "#FCBC24",
+        color: "#542483",
+        fontSize: 120
+      },
+      from: {
+        x: 0,
+        y: 0,
+        scale: 0.4,
+        width: 1024,
+        height: 768
+      },
+      to: {
+        x: 0,
+        y: 0,
+        scale: 0.4,
+        width: 1024,
+        height: 768
+      },
+      progress: 1
+    },
+    iphone: {
+      content: {
+        title: "武汉加油",
+        backgroundColor: "#9399ff",
+        color: "white",
+        fontSize: 100,
+        mode: "v"
+      },
+      from: { x: 0, y: 0, scale: 0.4, width: 414 * 0.7, height: 736 * 0.7 },
+      to: { x: 0, y: 0, scale: 0.4, width: 414 * 0.7, height: 736 * 0.7},
+      progress: 1
+    }
   };
 
   const { macbook, iphone, ipad } = props;
@@ -85,13 +127,43 @@ function Index() {
         </SubTitle>
         <Button type="primary">Create</Button>
         <Row>
-          <Canvas
+          <IpadCanvas from={ipad.from} to={ipad.to} progress={ipad.progress}>
+            {({ width, height, scale }) => (
+              <StyledHardWare type="ipad" width={width} height={height}>
+                {(width, height) => (
+                  <WordsInColor
+                    {...{ width, height }}
+                    {...ipad.content}
+                    scale={scale}
+                  />
+                )}
+              </StyledHardWare>
+            )}
+          </IpadCanvas>
+          <IphoneCanvas
+            from={iphone.from}
+            to={iphone.to}
+            progress={iphone.progress}
+          >
+            {({ width, height, scale }) => (
+              <StyledHardWare type="iphone" width={width} height={height}>
+                {(width, height) => (
+                  <WordsInColor
+                    {...{ width, height }}
+                    {...iphone.content}
+                    scale={scale}
+                  />
+                )}
+              </StyledHardWare>
+            )}
+          </IphoneCanvas>
+          <MacbookCanvas
             from={macbook.from}
             to={macbook.to}
             progress={macbook.progress}
           >
             {({ width, height, scale }) => (
-              <StyledMacBook width={width} height={height}>
+              <StyledHardWare type="macbook" width={width} height={height}>
                 {(width, height) => (
                   <WordsInColor
                     {...{ width, height }}
@@ -99,9 +171,9 @@ function Index() {
                     scale={scale}
                   />
                 )}
-              </StyledMacBook>
+              </StyledHardWare>
             )}
-          </Canvas>
+          </MacbookCanvas>
         </Row>
       </Window>
     </Container>
