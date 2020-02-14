@@ -5,26 +5,19 @@ import ipadBorder from "../assets/images/ipad.png";
 import iphoneBorder from "../assets/images/iphone.png";
 import imacBorder from "../assets/images/imac.png";
 
-const Container = styled.div.attrs(props => ({
-  /* 防止添加过多的的类 */
+const Container = styled.div`
+  position: relative;
+`;
+
+const Border = styled.img.attrs(props => ({
   style: {
-    // 将屏幕的中心成为该容器的中心
-    marginTop: (props.borderBottom - props.borderTop) / 2,
-    width: props.width,
-    height: props.height,
-    borderTop: `${props.borderTop}px solid transparent`,
-    borderRight: `${props.borderRight}px solid transparent`,
-    borderLeft: `${props.borderLeft}px solid transparent`,
-    borderBottom: `${props.borderBottom}px solid transparent`,
-    borderImage: `url(${props.imageURL}) ${props.top} ${props.right} ${props.bottom} ${props.left}`
-  }
+    left: -props.borderLeft,
+    top: -props.borderTop
+  },
+  width: props.borderLeft + props.borderRight + props.width,
+  height: props.borderTop + props.borderBottom + props.height
 }))`
-  box-sizing: content-box;
-  background-image: linear-gradient(black, black);
-  background-repeat: no-repeat;
-  & > * {
-    border-radius: ${props => (props.type === "imac" ? 0 : 30)}px;
-  }
+  position: absolute;
 `;
 
 function Hardware({ height, width, children, type = "macbook", ...rest }) {
@@ -81,17 +74,13 @@ function Hardware({ height, width, children, type = "macbook", ...rest }) {
 
   const useHardwareBorder = useBorder(hardware.borderProps);
   const border = useHardwareBorder({ height, width });
-  console.log(border);
 
   const { width: contentWidth, height: contentHeight } = border;
+
   return (
-    <Container
-      {...border}
-      imageURL={hardware.borderImage}
-      {...rest}
-      type={type}
-    >
+    <Container {...rest}>
       {children && children(contentWidth, contentHeight)}
+      <Border src={hardware.borderImage} {...border} />
     </Container>
   );
 }

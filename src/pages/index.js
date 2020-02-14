@@ -112,7 +112,7 @@ function Index() {
         mode: "v"
       },
       from: { x: 0, y: 0, scale: 0.4, width: 414 * 0.7, height: 736 * 0.7 },
-      to: { x: 0, y: 0, scale: 0.4, width: 414 * 0.7, height: 736 * 0.7},
+      to: { x: 0, y: 0, scale: 0.4, width: 414 * 0.7, height: 736 * 0.7 },
       progress: 1
     }
   };
