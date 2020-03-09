@@ -42,14 +42,16 @@ const StyledHardWare = styled(Hardware)`
 
 const IpadCanvas = styled(Canvas)`
   margin-right: 50px;
+  z-index: 5;
 `;
 
 const MacbookCanvas = styled(Canvas)`
-  z-index: 10;
+  z-index: 2;
 `;
 
 const IphoneCanvas = styled(Canvas)`
   margin-right: 70px;
+  z-index: 5;
 `;
 
 function Index() {
@@ -72,10 +74,10 @@ function Index() {
       },
       from: { x: width / 2, y: height / 2, scale: 1, width, height },
       to: {
-        x: 0,
-        y: 0,
-        scale: 0.4,
-        width: height * 1.6,
+        x: -50,
+        y: -50,
+        scale: 0.5,
+        width: height * 1.8,
         height
       },
       progress: Math.min(1, y / fixedHeight)
@@ -88,20 +90,20 @@ function Index() {
         fontSize: 120
       },
       from: {
-        x: 0,
+        x: -250,
         y: 0,
         scale: 0.4,
         width: 1024,
         height: 768
       },
       to: {
-        x: 0,
-        y: 0,
-        scale: 0.4,
+        x: 270,
+        y: 200,
+        scale: 0.45,
         width: 1024,
         height: 768
       },
-      progress: 1
+      progress: Math.min(1, y / fixedHeight)
     },
     iphone: {
       content: {
@@ -111,9 +113,9 @@ function Index() {
         fontSize: 100,
         mode: "v"
       },
-      from: { x: 0, y: 0, scale: 0.4, width: 414 * 0.7, height: 736 * 0.7 },
-      to: { x: 0, y: 0, scale: 0.4, width: 414 * 0.7, height: 736 * 0.7 },
-      progress: 1
+      from: { x: -250, y: 0, scale: 0.3, width: 962 * 0.35, height: 1918 * 0.35 },
+      to: { x: 270, y: 200, scale: 0.4, width: 962 * 0.35, height: 1918 * 0.35 },
+      progress: Math.min(1, y / fixedHeight)
     }
   };
 
@@ -121,11 +123,11 @@ function Index() {
   return (
     <Container>
       <Window {...windowProps}>
-        <Title>Words In Color</Title>
+        {/* <Title>Words In Color</Title>
         <SubTitle>
           A tool to create unique wallpaper or use it as a special gift.
         </SubTitle>
-        <Button type="primary">Create</Button>
+        <Button type="primary">Create</Button> */}
         <Row>
           <IpadCanvas from={ipad.from} to={ipad.to} progress={ipad.progress}>
             {({ width, height, scale }) => (
@@ -163,7 +165,7 @@ function Index() {
             progress={macbook.progress}
           >
             {({ width, height, scale }) => (
-              <StyledHardWare type="macbook" width={width} height={height}>
+              <StyledHardWare type="imac" width={width} height={height}>
                 {(width, height) => (
                   <WordsInColor
                     {...{ width, height }}

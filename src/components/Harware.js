@@ -30,42 +30,43 @@ function Hardware({ height, width, children, type = "macbook", ...rest }) {
         right: 145,
         top: 45,
         bottom: 85,
-        width: 1211,
-        height: 707,
+        width: 1800,
+        height: 1500,
         ratio: 1.6
       }
     },
     ipad: {
       borderImage: ipadBorder,
       borderProps: {
-        width: 520,
-        height: 398,
-        top: 17,
-        left: 17,
-        right: 16,
-        bottom: 15
+        width: 1800,
+        height: 1350,
+        top: 189,
+        left: 237,
+        right: 237,
+        bottom: 155
       }
     },
     iphone: {
       borderImage: iphoneBorder,
       borderProps: {
-        width: 357,
-        height: 714,
-        top: 35,
-        left: 25,
-        right: 25,
-        bottom: 25
+        width: 2500,
+        height: 2500,
+        top: 400,
+        left: 858,
+        right: 804,
+        bottom: 275
       }
     },
     imac: {
       borderImage: imacBorder,
       borderProps: {
-        width: 2800,
-        height: 2234,
-        left: 122,
-        right: 122,
-        top: 122,
-        bottom: 671
+        left: 190,
+        right: 190,
+        top: 181,
+        bottom: 531,
+        width: 1800,
+        height: 1500,
+        ratio: 1.8
       }
     }
   };
