@@ -22,6 +22,7 @@ const Container = styled.div.attrs(props => ({
 `;
 
 function Canvas({ from: start, to, progress = 0, children, ...rest }) {
+  // from 是相对屏幕的位置，to 是自身的位置
   // 这里的初始化的 x 和 y 必须是零（默认没有发生平移）。
   // 否者影响下面的 centerX 和 centerY 的计算。
   const [from, setFrom] = useState({ ...start, x: 0, y: 0 });

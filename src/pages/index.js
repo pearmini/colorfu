@@ -29,8 +29,11 @@ const Title = styled.h1`
 
 const SubTitle = styled.h2``;
 
-const Row = styled.section`
+const Dashbord = styled.div`
   margin-top: 150px;
+`;
+
+const Row = styled.div`
   display: flex;
   align-items: flex-end;
 `;
@@ -41,7 +44,7 @@ const StyledHardWare = styled(Hardware)`
 `;
 
 const IpadCanvas = styled(Canvas)`
-  margin-right: 50px;
+  /* margin-right: 50px; */
   z-index: 5;
 `;
 
@@ -50,11 +53,14 @@ const MacbookCanvas = styled(Canvas)`
 `;
 
 const IphoneCanvas = styled(Canvas)`
-  margin-right: 70px;
+  /* margin-right: 70px; */
   z-index: 5;
 `;
 
 function Index() {
+  // ipad pro：2224 x 1668
+  // iphone 11: 414 x 896
+  // imac：5120 x 2880  25
   const { width, height } = useWindowSize();
   const { y } = useWindowScroll();
   const fixedHeight = 200;
@@ -64,6 +70,15 @@ function Index() {
     marginTop: 100
   };
 
+  const total = 2224 + 414 + 5120,
+    totalRatio = 0.7,
+    totalWidth = width * totalRatio,
+    ipadWidth = (totalWidth * 2224) / total,
+    ipadHeight = ipadWidth * (1668 / 2224),
+    imacWidth = (totalWidth * 5120) / total,
+    iphoneWidth = (totalWidth * 414) / total,
+    iphoneHeight = iphoneWidth * (896 / 414);
+
   const props = {
     macbook: {
       content: {
@@ -72,13 +87,13 @@ function Index() {
         color: "white",
         fontSize: 250
       },
-      from: { x: width / 2, y: height / 2, scale: 1, width, height },
+      from: { x: width / 2, y: height / 2, width, height, scale: 1 },
       to: {
-        x: -50,
-        y: -50,
-        scale: 0.5,
-        width: height * 1.8,
-        height
+        x: 0,
+        y: 0,
+        width,
+        height,
+        scale: imacWidth / width
       },
       progress: Math.min(1, y / fixedHeight)
     },
@@ -87,21 +102,21 @@ function Index() {
         title: "Mamba Forever",
         backgroundColor: "#FCBC24",
         color: "#542483",
-        fontSize: 120
+        fontSize: 40
       },
       from: {
         x: -250,
         y: 0,
-        scale: 0.4,
-        width: 1024,
-        height: 768
+        width: ipadWidth,
+        height: ipadHeight,
+        scale: 1
       },
       to: {
-        x: 270,
-        y: 200,
-        scale: 0.45,
-        width: 1024,
-        height: 768
+        x: 0,
+        y: 0,
+        width: ipadWidth,
+        height: ipadHeight,
+        scale: 1
       },
       progress: Math.min(1, y / fixedHeight)
     },
@@ -110,11 +125,23 @@ function Index() {
         title: "武汉加油",
         backgroundColor: "#9399ff",
         color: "white",
-        fontSize: 100,
+        fontSize: 25,
         mode: "v"
       },
-      from: { x: -250, y: 0, scale: 0.3, width: 962 * 0.35, height: 1918 * 0.35 },
-      to: { x: 270, y: 200, scale: 0.4, width: 962 * 0.35, height: 1918 * 0.35 },
+      from: {
+        x: -250,
+        y: 0,
+        width: iphoneWidth,
+        height: iphoneHeight,
+        scale: 1
+      },
+      to: {
+        x: 0,
+        y: 0,
+        width: iphoneWidth,
+        height: iphoneHeight,
+        scale: 1
+      },
       progress: Math.min(1, y / fixedHeight)
     }
   };
@@ -123,21 +150,19 @@ function Index() {
   return (
     <Container>
       <Window {...windowProps}>
-        {/* <Title>Words In Color</Title>
-        <SubTitle>
-          A tool to create unique wallpaper or use it as a special gift.
-        </SubTitle>
-        <Button type="primary">Create</Button> */}
+        <Dashbord>
+          <Title>Words In Color</Title>
+          <SubTitle>
+            A tool to create unique wallpaper or use it as a special gift.
+          </SubTitle>
+        </Dashbord>
+        <Button type="primary">Create</Button>
         <Row>
           <IpadCanvas from={ipad.from} to={ipad.to} progress={ipad.progress}>
-            {({ width, height, scale }) => (
+            {({ width, height }) => (
               <StyledHardWare type="ipad" width={width} height={height}>
                 {(width, height) => (
-                  <WordsInColor
-                    {...{ width, height }}
-                    {...ipad.content}
-                    scale={scale}
-                  />
+                  <WordsInColor {...{ width, height }} {...ipad.content} />
                 )}
               </StyledHardWare>
             )}
@@ -147,14 +172,10 @@ function Index() {
             to={iphone.to}
             progress={iphone.progress}
           >
-            {({ width, height, scale }) => (
+            {({ width, height }) => (
               <StyledHardWare type="iphone" width={width} height={height}>
                 {(width, height) => (
-                  <WordsInColor
-                    {...{ width, height }}
-                    {...iphone.content}
-                    scale={scale}
-                  />
+                  <WordsInColor {...{ width, height }} {...iphone.content} />
                 )}
               </StyledHardWare>
             )}
