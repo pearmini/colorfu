@@ -4,11 +4,13 @@
     <p>Use colors to make awesome wallpaper to carpe diem. 🍉</p>
     <button>Get Started</button>
     <scale
-      v-for="example in examples"
+      v-for="(example, index) in examples"
       :key="example.type"
-      :data="example.scale"
+      :from="dimensions[index].from"
+      :to="dimensions[index].to"
+      :progress="progress"
     >
-      <screen :type="examples.type">
+      <screen :type="example.type">
         <wallpaper :data="example.data" />
       </screen>
     </scale>
@@ -19,6 +21,11 @@
 import Wallpaper from "../components/Wallpaper.vue";
 import Scale from "../components/Scale.vue";
 import Screen from "../components/Screen.vue";
+import { useWindowScroll } from "../mixins/useWindowScroll";
+import { useWindowSize } from "../mixins/useWindowSize";
+import { map } from "../utils/math";
+
+const [MIN_Y, MAX_Y] = [0, 200];
 
 export default {
   data: () => ({
@@ -32,19 +39,34 @@ export default {
           fontSize: 230,
           fontFamily: "Luckiest Guy",
         },
-        scale: {
-          progress: 0.9,
-          domain: [0, 1],
-          range: {
-            width: ["0%", "100%"],
-            height: ["0%", "100%"],
-            x: ["0%", "0%"],
-            y: ["0%", "0%"],
-          },
-        },
       },
     ],
   }),
+  mixins: [useWindowScroll(MIN_Y, MAX_Y), useWindowSize()],
+  computed: {
+    progress: function () {
+      return map(this.scrollY, MIN_Y, MAX_Y, 0, 1);
+    },
+    dimensions: function () {
+      const scale = 0.5;
+      return [
+        {
+          from: {
+            x: 0,
+            y: 0,
+            width: this.windowWidth,
+            height: this.windowHeight,
+          },
+          to: {
+            width: this.windowWidth * scale,
+            height: this.windowHeight * scale,
+            x: (this.windowWidth * (1 - scale)) / 2,
+            y: this.windowHeight - 100 - this.windowHeight * scale,
+          },
+        },
+      ];
+    },
+  },
   components: {
     Wallpaper,
     Scale,

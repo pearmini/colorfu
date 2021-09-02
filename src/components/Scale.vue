@@ -2,10 +2,12 @@
   <div
     class="container"
     :style="{
-      left: current.x,
-      top: current.y,
-      width: current.width,
-      height: current.height,
+      left: current.x + 'px',
+      top: current.y + 'px',
+      width: current.width + 'px',
+      height: current.height + 'px',
+      transform: `scale(${current.scale}, ${current.scale})`,
+      transformOrigin: 'left top'
     }"
   >
     <slot></slot>
@@ -13,41 +15,38 @@
 </template>
 
 <script>
-import map from "../utils/map";
+import { map } from "../utils/math";
 
 export default {
   props: {
-    data: {
-      domain: Array,
-      range: {
-        width: Array,
-        height: Array,
-        x: Array,
-        y: Array,
-      },
-      progress: {
-        type: Number,
-        default: 0,
-      },
+    from: {
+      width: Number,
+      height: Number,
+      x: Number,
+      y: Number,
+    },
+    to: {
+      width: Number,
+      height: Number,
+      x: Number,
+      y: Number,
+    },
+    progress: {
+      type: Number,
+      default: 0,
     },
   },
   computed: {
     current: function () {
-      return Object.keys(this.data.range).reduce((obj, key) => {
-        const [r0, r1] = this.data.range[key];
-        const isPercentage = isNaN(+r0);
-        let t0, t1;
-        if (isPercentage) {
-          t0 = +r0.slice(0, -1);
-          t1 = +r1.slice(0, -1);
-        } else {
-          t0 = +r0;
-          t1 = +r1;
-        }
-        const t = map(+this.data.progress, 0, 1, t0, t1);
-        obj[key] = isPercentage ? t + "%" : t + "px";
-        return obj;
-      }, {});
+      const { x: fromX, y: fromY, width: fromW, height: fromH } = this.from;
+      const { x: toX, y: toY, width: toW, height: toH } = this.to;
+      return {
+        x: map(this.progress, 0, 1, fromX, toX),
+        y: map(this.progress, 0, 1, fromY, toY),
+        scale: map(this.progress, 0, 1, 1, (toW / fromW + toH / fromH) / 2),
+        width: fromW,
+        height: fromH,
+      };
     },
   },
 };
