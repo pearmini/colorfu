@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { drawColorWords, drawPatternWords } from "../utils/canvas";
+import { drawColorWords, drawPatternWords } from "../utils/words";
 import { loadFont } from "../utils/font";
 
 export default {
