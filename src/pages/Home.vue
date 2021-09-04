@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1>Carpe Diem</h1>
-    <p>Use colors to make awesome wallpaper to carpe diem. 🍉</p>
+    <p>
+      Use words mixed with colors, patterns and images to make awesome wallpaper
+      to carpe diem. 🍉
+    </p>
     <button>Get Started</button>
     <scale
       v-for="(example, index) in examples"
@@ -11,7 +14,11 @@
       :progress="progress"
     >
       <screen :type="example.type">
-        <wallpaper :data="example.data" />
+        <wallpaper
+          :options="example.data"
+          :width="dimensions[index].from.width"
+          :height="dimensions[index].from.height"
+        />
       </screen>
     </scale>
   </div>
@@ -23,31 +30,35 @@ import Scale from "../components/Scale.vue";
 import Screen from "../components/Screen.vue";
 import { useWindowScroll } from "../mixins/useWindowScroll";
 import { useWindowSize } from "../mixins/useWindowSize";
+import fontURL from "../assets/font/en.woff2";
 import { map } from "../utils/math";
 
 const [MIN_Y, MAX_Y] = [0, 200];
 
 export default {
-  data: () => ({
-    examples: [
-      {
-        type: "mac",
-        data: {
-          title: "How are you?",
-          bgColor: "#132743",
-          textColor: "#d7385e",
-          fontSize: 230,
-          fontFamily: "Luckiest Guy",
+  data() {
+    return {
+      examples: [
+        {
+          type: "mac",
+          data: {
+            title: "How are you?",
+            bgColor: "#132743",
+            textColor: "#d7385e",
+            fontSize: 230,
+            fontFamily: "Luckiest Guy",
+            fontURL,
+          },
         },
-      },
-    ],
-  }),
+      ],
+    };
+  },
   mixins: [useWindowScroll(MIN_Y, MAX_Y), useWindowSize()],
   computed: {
-    progress: function () {
+    progress() {
       return map(this.scrollY, MIN_Y, MAX_Y, 0, 1);
     },
-    dimensions: function () {
+    dimensions() {
       const scale = 0.5;
       return [
         {

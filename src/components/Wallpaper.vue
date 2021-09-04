@@ -1,38 +1,64 @@
 <template>
-  <div class="container" :style="{ background: data.bgColor }">
-    <p
-      :style="{
-        fontSize: data.fontSize + 'px',
-        fontFamily: data.fontFamily,
-        color: data.textColor,
-        fontWeight: 'bold',
-      }"
-    >
-      {{ data.title }}
-    </p>
-  </div>
+  <canvas ref="canvas" />
 </template>
 
 <script>
+import { drawColorWords } from "../utils/canvas";
+import { loadFont } from "../utils/font";
+
 export default {
   props: {
-    data: {
+    options: {
       title: String,
       bgColor: String,
       fontSize: Number,
-      fontFamily: String,
+      fontFamily: {
+        type: String,
+        default: "wallpaper",
+      },
       textColor: String,
+      mode: String,
+      fontURL: String,
+    },
+    width: Number,
+    height: Number,
+  },
+  data() {
+    return {
+      fontFace: undefined,
+    };
+  },
+  mounted() {
+    this.render();
+  },
+  watch: {
+    data: {
+      deep: true,
+      handler() {
+        this.fontFace = undefined;
+        this.render();
+      },
+    },
+    width() {
+      this.render();
+    },
+    height() {
+      this.render();
+    },
+  },
+  methods: {
+    async render() {
+      await this.initFont();
+      const options = { ...this.options, fontFace: this.fontFace };
+      drawColorWords(this.$refs.canvas, this.width, this.height, options);
+    },
+    async initFont() {
+      const { fontFamily, fontURL } = this.options;
+      this.fontFace = await loadFont(this.fontFace, { fontFamily, fontURL });
     },
   },
 };
 </script>
 
 <style scoped>
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 </style>
