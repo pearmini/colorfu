@@ -6,21 +6,48 @@
       to carpe diem. 🍉
     </p>
     <button>Get Started</button>
-    <scale
-      v-for="(example, index) in examples"
-      :key="example.type"
-      :from="dimensions[index].from"
-      :to="dimensions[index].to"
-      :progress="progress"
-    >
-      <screen :type="example.type">
+    <scale :from="dimension.from" :to="dimension.to" :progress="progress">
+      <screen>
         <wallpaper
-          :options="example.data"
-          :width="dimensions[index].from.width"
-          :height="dimensions[index].from.height"
+          :options="example"
+          :width="dimension.from.width"
+          :height="dimension.from.height"
+          :mode="mode"
         />
       </screen>
     </scale>
+    <div class="switcher">
+      <div>
+        <input
+          type="radio"
+          id="color"
+          name="drone"
+          value="color"
+          v-model="mode"
+        />
+        <label for="color">Color</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="pattern"
+          name="drone"
+          value="pattern"
+          v-model="mode"
+        />
+        <label for="pattern">Pattern</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="image"
+          name="drone"
+          value="image"
+          v-model="mode"
+        />
+        <label for="image">Image</label>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -38,19 +65,7 @@ const [MIN_Y, MAX_Y] = [0, 200];
 export default {
   data() {
     return {
-      examples: [
-        {
-          type: "mac",
-          data: {
-            title: "How are you?",
-            bgColor: "#132743",
-            textColor: "#d7385e",
-            fontSize: 230,
-            fontFamily: "Luckiest Guy",
-            fontURL,
-          },
-        },
-      ],
+      mode: "pattern",
     };
   },
   mixins: [useWindowScroll(MIN_Y, MAX_Y), useWindowSize()],
@@ -58,24 +73,57 @@ export default {
     progress() {
       return map(this.scrollY, MIN_Y, MAX_Y, 0, 1);
     },
-    dimensions() {
+    example() {
+      const options = {
+        title: "How are you?",
+        fontSize: 230,
+        fontFamily: "Luckiest Guy",
+        fontURL,
+      };
+      if (this.mode === "color") {
+        return {
+          ...options,
+          background: "#132743",
+          text: "#d7385e",
+        };
+      } else if (this.mode === "pattern") {
+        return {
+          ...options,
+          background: {
+            backgroundColor: "white",
+            patternColor: "#ddd",
+            type: "line",
+          },
+          text: {
+            backgroundColor: "#89E089",
+            patternColor: "currentColor",
+            type: "line",
+            rotation: -45,
+          },
+        };
+      } else {
+        return {
+          ...options,
+          imageURL: "",
+        };
+      }
+    },
+    dimension() {
       const scale = 0.5;
-      return [
-        {
-          from: {
-            x: 0,
-            y: 0,
-            width: this.windowWidth,
-            height: this.windowHeight,
-          },
-          to: {
-            width: this.windowWidth * scale,
-            height: this.windowHeight * scale,
-            x: (this.windowWidth * (1 - scale)) / 2,
-            y: this.windowHeight - 100 - this.windowHeight * scale,
-          },
+      return {
+        from: {
+          x: 0,
+          y: 0,
+          width: this.windowWidth,
+          height: this.windowHeight,
         },
-      ];
+        to: {
+          width: this.windowWidth * scale,
+          height: this.windowHeight * scale,
+          x: (this.windowWidth * (1 - scale)) / 2,
+          y: this.windowHeight - 100 - this.windowHeight * scale,
+        },
+      };
     },
   },
   components: {
@@ -87,4 +135,20 @@ export default {
 </script>
 
 <style>
+.switcher {
+  display: flex;
+  position: fixed;
+  bottom: 1em;
+  z-index: 999;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.switcher > div {
+  margin-right: 1em;
+}
+
+.switcher > div > label {
+  margin-left: 0.5em;
+}
 </style>

@@ -3,25 +3,26 @@
 </template>
 
 <script>
-import { drawColorWords } from "../utils/canvas";
+import { drawColorWords, drawPatternWords } from "../utils/canvas";
 import { loadFont } from "../utils/font";
 
 export default {
   props: {
     options: {
       title: String,
-      bgColor: String,
       fontSize: Number,
       fontFamily: {
         type: String,
         default: "wallpaper",
       },
-      textColor: String,
       mode: String,
       fontURL: String,
+      background: [String, Object],
+      text: [String, Object],
     },
     width: Number,
     height: Number,
+    mode: String,
   },
   data() {
     return {
@@ -32,7 +33,7 @@ export default {
     this.render();
   },
   watch: {
-    data: {
+    options: {
       deep: true,
       handler() {
         this.fontFace = undefined;
@@ -50,7 +51,14 @@ export default {
     async render() {
       await this.initFont();
       const options = { ...this.options, fontFace: this.fontFace };
-      drawColorWords(this.$refs.canvas, this.width, this.height, options);
+      switch (this.mode) {
+        case "color":
+          drawColorWords(this.$refs.canvas, this.width, this.height, options);
+          break;
+        case "pattern":
+          drawPatternWords(this.$refs.canvas, this.width, this.height, options);
+          break;
+      }
     },
     async initFont() {
       const { fontFamily, fontURL } = this.options;
