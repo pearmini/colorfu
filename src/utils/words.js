@@ -1,48 +1,69 @@
 import { createPattern } from "./pattern";
 import { createContext } from "./canvas";
 
-function drawWords(
-  type,
+export function drawColorWords(
   canvas,
   width,
   height,
-  { fontSize, fontFamily, title, background, text }
+  { background, text, ...options }
 ) {
   const context = createContext(canvas, width, height);
-  const { backgroundFillStyle, textFillStyle } = chooseFillStyle(type, {
-    background,
-    text,
-    context,
+  drawBackgroundWords(context, width, height, {
+    ...options,
+    backgroundStyle: background,
+    textStyle: text,
   });
-  context.fillStyle = backgroundFillStyle;
+}
+
+export function drawPatternWords(
+  canvas,
+  width,
+  height,
+  { background, text, ...options }
+) {
+  const context = createContext(canvas, width, height);
+  drawBackgroundWords(context, width, height, {
+    ...options,
+    backgroundStyle: createPattern(context, background),
+    textStyle: createPattern(context, text),
+  });
+}
+
+export function drawImageWords(
+  canvas,
+  width,
+  height,
+  { fontSize, fontFamily, title, text, image }
+) {
+  const context = createContext(canvas, width, height);
+  drawImage(context, image, width, height);
+  drawTitle(context, title, width, height, text, fontSize, fontFamily);
+}
+
+function drawBackgroundWords(
+  context,
+  width,
+  height,
+  { fontSize, fontFamily, title, backgroundStyle, textStyle }
+) {
+  drawBackground(context, width, height, backgroundStyle);
+  drawTitle(context, title, width, height, textStyle, fontSize, fontFamily);
+}
+
+function drawBackground(context, width, height, style) {
+  context.fillStyle = style;
   context.fillRect(0, 0, width, height);
+}
+
+function drawTitle(context, title, width, height, style, fontSize, fontFamily) {
   context.font = `${fontSize}px ${fontFamily}`;
   context.textAlign = "center";
   context.textBaseline = "middle";
-  context.fillStyle = textFillStyle;
+  context.fillStyle = style;
   context.fillText(title, width / 2, height / 2);
 }
 
-export function drawColorWords(...args) {
-  drawWords("color", ...args);
-}
-
-export function drawPatternWords(...args) {
-  drawWords("pattern", ...args);
-}
-
-export function drawImageWords() {}
-
-function chooseFillStyle(type, { background, text, context }) {
-  if (type === "color") {
-    return {
-      backgroundFillStyle: background,
-      textFillStyle: text,
-    };
-  } else if (type === "pattern") {
-    return {
-      backgroundFillStyle: createPattern(context, background),
-      textFillStyle: createPattern(context, text),
-    };
-  }
+function drawImage(context, image, width, height) {
+  console.log(image)
+  context.drawImage(image, 0, 0, width, height);
 }

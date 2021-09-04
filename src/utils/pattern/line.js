@@ -8,7 +8,7 @@ export function line(
   context.fillRect(0, 0, width, height);
   context.strokeStyle = patternColor;
   context.beginPath();
-  context.moveTo(50, 0);
-  context.lineTo(50, 50);
+  context.moveTo(width, 0);
+  context.lineTo(width, height);
   context.stroke();
 }

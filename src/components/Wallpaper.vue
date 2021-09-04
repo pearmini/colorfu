@@ -3,8 +3,12 @@
 </template>
 
 <script>
-import { drawColorWords, drawPatternWords } from "../utils/words";
-import { loadFont } from "../utils/font";
+import {
+  drawColorWords,
+  drawImageWords,
+  drawPatternWords,
+} from "../utils/words";
+import { loadFont, loadImage } from "../utils/load";
 
 export default {
   props: {
@@ -27,6 +31,7 @@ export default {
   data() {
     return {
       fontFace: undefined,
+      image: undefined,
     };
   },
   mounted() {
@@ -35,8 +40,9 @@ export default {
   watch: {
     options: {
       deep: true,
-      handler() {
-        this.fontFace = undefined;
+      handler(oldData, newData) {
+        if (newData.fontURL !== oldData.fontURL) this.fontFace = undefined;
+        if (newData.imageURL !== newData.imageURL) this.image = undefined;
         this.render();
       },
     },
@@ -50,7 +56,10 @@ export default {
   methods: {
     async render() {
       await this.initFont();
-      const options = { ...this.options, fontFace: this.fontFace };
+      const options = {
+        ...this.options,
+        fontFace: this.fontFace,
+      };
       switch (this.mode) {
         case "color":
           drawColorWords(this.$refs.canvas, this.width, this.height, options);
@@ -58,11 +67,22 @@ export default {
         case "pattern":
           drawPatternWords(this.$refs.canvas, this.width, this.height, options);
           break;
+        case "image":
+          await this.initImage();
+          drawImageWords(this.$refs.canvas, this.width, this.height, {
+            ...options,
+            image: this.image,
+          });
+          break;
       }
     },
     async initFont() {
       const { fontFamily, fontURL } = this.options;
       this.fontFace = await loadFont(this.fontFace, { fontFamily, fontURL });
+    },
+    async initImage() {
+      const { imageURL } = this.options;
+      this.image = await loadImage(this.image, { imageURL });
     },
   },
 };

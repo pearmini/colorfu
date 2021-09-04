@@ -65,7 +65,7 @@ const [MIN_Y, MAX_Y] = [0, 200];
 export default {
   data() {
     return {
-      mode: "pattern",
+      mode: "image",
     };
   },
   mixins: [useWindowScroll(MIN_Y, MAX_Y), useWindowSize()],
@@ -76,7 +76,7 @@ export default {
     example() {
       const options = {
         title: "How are you?",
-        fontSize: 230,
+        fontSize: 200,
         fontFamily: "Luckiest Guy",
         fontURL,
       };
@@ -99,12 +99,15 @@ export default {
             patternColor: "currentColor",
             type: "line",
             rotation: -45,
+            width: 25,
+            height: 25,
           },
         };
       } else {
         return {
           ...options,
-          imageURL: "",
+          imageURL: "https://i.loli.net/2021/09/04/drBtUVNhlq87Rwc.jpg",
+          text: "#fff",
         };
       }
     },
