@@ -81,8 +81,10 @@ export default {
       this.fontFace = await loadFont(this.fontFace, { fontFamily, fontURL });
     },
     async initImage() {
+      this.$emit("loadingImage");
       const { imageURL } = this.options;
       this.image = await loadImage(this.image, { imageURL });
+      this.$emit("imageLoaded");
     },
   },
 };
