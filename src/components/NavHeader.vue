@@ -1,9 +1,20 @@
 <template>
   <div>
-    <router-link to="/">Home</router-link>|
-    <router-link to="/editor">Editor</router-link>|
-    <router-link to="/gallery">Gallery</router-link>|
-    <a href="https://github.com/pearmini/carpe-diem" target="_blank">Github</a>
+    <el-menu
+      class="el-menu-demo"
+      mode="horizontal"
+      :router="true"
+      default-active="/"
+    >
+      <el-menu-item index="/">Home</el-menu-item>
+      <el-menu-item index="/editor"> Editor</el-menu-item>
+      <el-menu-item index="/gallery">Gallery</el-menu-item>
+      <el-menu-item index="">
+        <a href="https://github.com/pearmini/carpe-diem" target="_blank"
+          >Github</a
+        >
+      </el-menu-item>
+    </el-menu>
   </div>
 </template>
 

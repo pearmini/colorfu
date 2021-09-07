@@ -1,11 +1,16 @@
 <template>
   <div>
-    <h1>Carpe Diem</h1>
-    <p>
-      Use words mixed with colors, patterns and images to make awesome wallpaper
-      to carpe diem. 🍉
-    </p>
-    <button>Get Started</button>
+    <div class="top-container" :style="{ height: topHeight + 'px' }">
+      <div class="top">
+        <h1>Carpe Diem</h1>
+        <p>
+          Use words mixed with colors, patterns and images to communicate with
+          your wallpaper. 🍉
+        </p>
+        <el-button type="primary">Get Started</el-button>
+        <el-button type="success">Explore</el-button>
+      </div>
+    </div>
     <div
       class="example"
       :style="{
@@ -21,50 +26,19 @@
         :width="transformed.width"
         :height="transformed.height"
       >
-        <wallpaper
-          :options="example"
-          :width="transformed.width"
-          :height="transformed.height"
-          :mode="mode"
-          @loadingImage="handleLoadingImage"
-          @imageLoaded="handleImageLoaded"
-        />
+        <el-carousel :height="transformed.height + 'px'">
+          <el-carousel-item v-for="example in examples" :key="example.mode">
+            <wallpaper
+              :options="example"
+              :width="transformed.width"
+              :height="transformed.height"
+              :mode="example.mode"
+              @loadingImage="handleLoadingImage"
+              @imageLoaded="handleImageLoaded"
+            />
+          </el-carousel-item>
+        </el-carousel>
       </screen>
-    </div>
-    <div class="switcher">
-      <div>
-        <input
-          type="radio"
-          id="color"
-          name="drone"
-          value="color"
-          v-model="mode"
-          :disabled="disabled"
-        />
-        <label for="color">Color</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          id="pattern"
-          name="drone"
-          value="pattern"
-          v-model="mode"
-          :disabled="disabled"
-        />
-        <label for="pattern">Pattern</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          id="image"
-          name="drone"
-          value="image"
-          v-model="mode"
-          :disabled="disabled"
-        />
-        <label for="image">Image</label>
-      </div>
     </div>
   </div>
 </template>
@@ -87,7 +61,6 @@ export default {
   },
   data() {
     return {
-      mode: "image",
       screenURL,
       screenMeta: {
         left: 145,
@@ -98,28 +71,22 @@ export default {
         height: 707,
       },
       disabled: false,
-    };
-  },
-  mixins: [useWindowScroll(MIN_Y, MAX_Y), useWindowSize()],
-  computed: {
-    progress() {
-      return map(this.scrollY, MIN_Y, MAX_Y, 0, 1);
-    },
-    example() {
-      const options = {
-        title: "How are you?",
-        fontSize: 200,
-        fontFamily: "Luckiest Guy",
-        fontURL,
-      };
-      const modeOptions = {
-        color: {
-          ...options,
+      examples: [
+        {
+          mode: "color",
+          title: "How are you?",
+          fontSize: 200,
+          fontFamily: "Luckiest Guy",
+          fontURL,
           background: "#fcbc23",
           text: "#532582",
         },
-        pattern: {
-          ...options,
+        {
+          mode: "pattern",
+          title: "How are you?",
+          fontSize: 200,
+          fontFamily: "Luckiest Guy",
+          fontURL,
           background: {
             backgroundColor: "white",
             patternColor: "#ddd",
@@ -134,18 +101,28 @@ export default {
             height: 25,
           },
         },
-        image: {
-          ...options,
+        {
+          mode: "image",
+          title: "How are you?",
+          fontSize: 200,
+          fontFamily: "Luckiest Guy",
+          fontURL,
           imageURL: "https://i.loli.net/2021/09/04/drBtUVNhlq87Rwc.jpg",
           text: "#fff",
         },
-      };
-      return modeOptions[this.mode];
+      ],
+    };
+  },
+  mixins: [useWindowScroll(MIN_Y, MAX_Y), useWindowSize()],
+  computed: {
+    progress() {
+      return map(this.scrollY, MIN_Y, MAX_Y, 0, 1);
     },
     dimension() {
-      const scale = 0.5;
-      const bottom = 150;
+      const bottom = 100;
       const macAspect = 0.625;
+      const toHeight = ((this.windowHeight * 0.7 - 61) * (707 - 45 - 85)) / 707 - bottom / 2;
+      const scale = toHeight / (this.windowWidth * macAspect);
       return {
         from: {
           x: 0,
@@ -162,6 +139,9 @@ export default {
           scale,
         },
       };
+    },
+    topHeight() {
+      return this.windowHeight * 0.3;
     },
     transformed() {
       const { from, to } = this.dimension;
@@ -194,25 +174,25 @@ export default {
 </script>
 
 <style>
-.switcher {
-  display: flex;
-  position: fixed;
-  bottom: 1em;
-  z-index: 999;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-.switcher > div {
-  margin-right: 1em;
-}
-
-.switcher > div > label {
-  margin-left: 0.5em;
-}
-
 .example {
   position: absolute;
   z-index: 10;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.top > h1 {
+  margin: 0.25em;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.top > p {
+  font-size: 20px;
+  margin-bottom: 1em;
 }
 </style>
