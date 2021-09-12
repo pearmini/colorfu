@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top-container" :style="{ height: topHeight + 'px' }">
+    <div class="top-container">
       <div class="top">
         <h1>Carpe Diem</h1>
         <p>
@@ -11,41 +11,38 @@
         <el-button type="success">Explore</el-button>
       </div>
     </div>
-    <div
-      class="example"
-      :style="{
-        left: transformed.x + 'px',
-        top: transformed.y + 'px',
-        transform: `scale(${transformed.scale}, ${transformed.scale})`,
-        transformOrigin: 'left top',
-      }"
+    <scale
+      :progress="progress"
+      :from="dimension.from"
+      :to="dimension.to"
+      @onResize="handleResize"
+      :fixed="true"
     >
       <screen
         :src="screenURL"
         :meta="screenMeta"
-        :width="transformed.width"
-        :height="transformed.height"
+        :width="screenSize.width"
+        :height="screenSize.height"
       >
-        <el-carousel :height="transformed.height + 'px'">
+        <el-carousel :height="screenSize.height + 'px'">
           <el-carousel-item v-for="example in examples" :key="example.mode">
             <wallpaper
               :options="example"
-              :width="transformed.width"
-              :height="transformed.height"
+              :width="screenSize.width"
+              :height="screenSize.height"
               :mode="example.mode"
-              @loadingImage="handleLoadingImage"
-              @imageLoaded="handleImageLoaded"
             />
           </el-carousel-item>
         </el-carousel>
       </screen>
-    </div>
+    </scale>
   </div>
 </template>
 
 <script>
 import Wallpaper from "../components/Wallpaper.vue";
 import Screen from "../components/Screen.vue";
+import Scale from "../components/Scale.vue";
 import fontURL from "../assets/font/en.woff2";
 import screenURL from "../assets/images/mac.png";
 import { useWindowScroll } from "../mixins/useWindowScroll";
@@ -58,6 +55,7 @@ export default {
   components: {
     Wallpaper,
     Screen,
+    Scale,
   },
   data() {
     return {
@@ -69,6 +67,10 @@ export default {
         bottom: 85,
         width: 1211,
         height: 707,
+      },
+      screenSize: {
+        width: 0,
+        height: 0,
       },
       disabled: false,
       examples: [
@@ -113,7 +115,7 @@ export default {
       ],
     };
   },
-  mixins: [useWindowScroll(MIN_Y, MAX_Y), useWindowSize()],
+  mixins: [useWindowScroll("", MIN_Y, MAX_Y), useWindowSize()],
   computed: {
     progress() {
       return map(this.scrollY, MIN_Y, MAX_Y, 0, 1);
@@ -121,7 +123,8 @@ export default {
     dimension() {
       const bottom = 100;
       const macAspect = 0.625;
-      const toHeight = ((this.windowHeight * 0.7 - 61) * (707 - 45 - 85)) / 707 - bottom / 2;
+      const toHeight =
+        ((this.windowHeight * 0.7 - 61) * (707 - 45 - 85)) / 707 - bottom / 2;
       const scale = toHeight / (this.windowWidth * macAspect);
       return {
         from: {
@@ -140,53 +143,29 @@ export default {
         },
       };
     },
-    topHeight() {
-      return this.windowHeight * 0.3;
-    },
-    transformed() {
-      const { from, to } = this.dimension;
-      const {
-        x: fromX,
-        y: fromY,
-        width: fromW,
-        height: fromH,
-        scale: fromS,
-      } = from;
-      const { x: toX, y: toY, width: toW, height: toH, scale: toS } = to;
-      return {
-        x: map(this.progress, 0, 1, fromX, toX),
-        y: map(this.progress, 0, 1, fromY, toY),
-        width: map(this.progress, 0, 1, fromW, toW),
-        height: map(this.progress, 0, 1, fromH, toH),
-        scale: map(this.progress, 0, 1, fromS, toS),
-      };
-    },
   },
   methods: {
-    handleLoadingImage() {
-      this.disabled = true;
-    },
-    handleImageLoaded() {
-      this.disabled = false;
+    handleResize({ width, height }) {
+      this.screenSize = {
+        width,
+        height,
+      };
     },
   },
 };
 </script>
 
 <style>
-.example {
-  position: absolute;
-  z-index: 10;
-}
 
 .top-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 33.3vh;
 }
 
 .top > h1 {
-  margin: 0.25em;
+  margin: 0.2em;
   font-weight: bold;
   font-size: 50px;
 }

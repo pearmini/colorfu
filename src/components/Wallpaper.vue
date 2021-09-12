@@ -77,14 +77,16 @@ export default {
       }
     },
     async initFont() {
+      this.$emit("onLoadingFont");
       const { fontFamily, fontURL } = this.options;
       this.fontFace = await loadFont(this.fontFace, { fontFamily, fontURL });
+      this.$emit("onLoadedFont");
     },
     async initImage() {
-      this.$emit("loadingImage");
+      this.$emit("onLoadingImage");
       const { imageURL } = this.options;
       this.image = await loadImage(this.image, { imageURL });
-      this.$emit("imageLoaded");
+      this.$emit("onLoadedImage");
     },
   },
 };
