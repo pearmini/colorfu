@@ -1,5 +1,15 @@
 import Vue from "vue";
-import { Menu, MenuItem, Button, Carousel, CarouselItem } from "element-ui";
+import {
+  Menu,
+  MenuItem,
+  Button,
+  Carousel,
+  CarouselItem,
+  Container,
+  Aside,
+  Main,
+  Footer,
+} from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import App from "./App.vue";
 import router from "./router";
@@ -11,6 +21,10 @@ Vue.use(MenuItem);
 Vue.use(Button);
 Vue.use(Carousel);
 Vue.use(CarouselItem);
+Vue.use(Main);
+Vue.use(Container);
+Vue.use(Aside);
+Vue.use(Footer);
 
 new Vue({
   render: (h) => h(App),

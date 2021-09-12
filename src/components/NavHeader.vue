@@ -1,10 +1,9 @@
 <template>
   <div>
     <el-menu
-      class="el-menu-demo"
       mode="horizontal"
       :router="true"
-      default-active="/"
+      default-active="/editor"
     >
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item index="/editor"> Editor</el-menu-item>
@@ -19,8 +18,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+
+};
 </script>
 
 <style>
+.el-menu {
+  display: flex;
+  justify-content: flex-end;
+}
 </style>
