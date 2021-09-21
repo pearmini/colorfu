@@ -1,10 +1,6 @@
 <template>
   <div>
-    <el-menu
-      mode="horizontal"
-      :router="true"
-      default-active="/editor"
-    >
+    <el-menu mode="horizontal" :router="true" :default-active="path">
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item index="/editor"> Editor</el-menu-item>
       <el-menu-item index="/gallery">Gallery</el-menu-item>
@@ -19,7 +15,17 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      path: this.$router.currentRoute.path
+    };
+  },
+  watch: {
+    $route(to) {
+      const { path } = to;
+      this.path = path;
+    },
+  },
 };
 </script>
 

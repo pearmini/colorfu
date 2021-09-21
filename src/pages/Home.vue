@@ -7,8 +7,8 @@
           Use words mixed with colors, patterns and images to communicate with
           your wallpaper. 🍉
         </p>
-        <el-button type="primary">Get Started</el-button>
-        <el-button type="success">Explore</el-button>
+        <el-button type="primary" @click="handleStarted">Get Started</el-button>
+        <el-button type="success" @click="handleExplore">Explore</el-button>
       </div>
     </div>
     <scale
@@ -45,6 +45,7 @@ import Screen from "../components/Screen.vue";
 import Scale from "../components/Scale.vue";
 import fontURL from "../assets/font/en.woff2";
 import screenURL from "../assets/images/mac.png";
+import router from "../router";
 import { useWindowScroll } from "../mixins/useWindowScroll";
 import { useWindowSize } from "../mixins/useWindowSize";
 import { map } from "../utils/math";
@@ -151,12 +152,17 @@ export default {
         height,
       };
     },
+    handleStarted() {
+      router.push({ path: "editor" });
+    },
+    handleExplore() {
+      router.push({ path: "gallery" });
+    },
   },
 };
 </script>
 
 <style>
-
 .top-container {
   display: flex;
   flex-direction: column;
