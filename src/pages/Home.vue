@@ -26,12 +26,19 @@
       >
         <el-carousel :height="screenSize.height + 'px'">
           <el-carousel-item v-for="example in examples" :key="example.mode">
-            <wallpaper
-              :options="example"
-              :width="screenSize.width"
-              :height="screenSize.height"
-              :mode="example.mode"
-            />
+            <div
+              @click="handleSelectExample(example)"
+              :style="{
+                cursor: progress >= 1 ? 'pointer' : 'default',
+              }"
+            >
+              <wallpaper
+                :options="example"
+                :width="screenSize.width"
+                :height="screenSize.height"
+                :mode="example.mode"
+              />
+            </div>
           </el-carousel-item>
         </el-carousel>
       </screen>
@@ -153,10 +160,19 @@ export default {
       };
     },
     handleStarted() {
-      router.push({ path: "editor" });
+      router.push({
+        path: "/editor",
+      });
     },
     handleExplore() {
       router.push({ path: "gallery" });
+    },
+    handleSelectExample(example) {
+      if (this.progress < 1) return;
+      router.push({
+        name: "editor",
+        params: { example },
+      });
     },
   },
 };

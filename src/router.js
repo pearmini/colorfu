@@ -11,6 +11,7 @@ const routes = [
   {
     path: "/editor",
     component: EditorPage,
+    name: "editor",
   },
   {
     path: "/gallery",
