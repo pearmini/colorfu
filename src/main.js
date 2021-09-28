@@ -9,6 +9,9 @@ import {
   Aside,
   Main,
   Footer,
+  Input,
+  ColorPicker,
+  Slider,
 } from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import App from "./App.vue";
@@ -25,6 +28,9 @@ Vue.use(Main);
 Vue.use(Container);
 Vue.use(Aside);
 Vue.use(Footer);
+Vue.use(Input);
+Vue.use(ColorPicker);
+Vue.use(Slider);
 
 new Vue({
   render: (h) => h(App),

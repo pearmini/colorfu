@@ -1,6 +1,8 @@
 <template>
   <el-container class="container">
-    <el-aside width="300px">Aside</el-aside>
+    <el-aside width="300px">
+      <attribute-tree :options="attribute" :values="example" />
+    </el-aside>
     <el-container>
       <el-main
         ><div
@@ -23,12 +25,15 @@
 
 <script>
 import Wallpaper from "../components/Wallpaper.vue";
+import AttributeTree from "../components/AttributeTree/index.vue";
 import { useWindowSize } from "../mixins/useWindowSize";
 import fontURL from "../assets/font/en.woff2";
+import { getAttributeOptions } from "../utils/attribute";
 
 export default {
   components: {
     Wallpaper,
+    AttributeTree,
   },
   data() {
     return {
@@ -45,6 +50,9 @@ export default {
   },
   mixins: [useWindowSize()],
   computed: {
+    attribute() {
+      return getAttributeOptions(this.example.mode);
+    },
     transformed() {
       const padding = 30;
       const mainHeight = this.windowHeight - 61 - 200;
