@@ -171,7 +171,7 @@ export default {
       if (this.progress < 1) return;
       router.push({
         name: "editor",
-        params: { example },
+        params: { example: { ...example } },
       });
     },
   },
