@@ -1,5 +1,11 @@
 <template>
-  <canvas ref="canvas" />
+  <div
+    class="container"
+    v-loading="loading"
+    :style="{ width: width + 'px', height: height + 'px' }"
+  >
+    <canvas ref="canvas" />
+  </div>
 </template>
 
 <script>
@@ -8,7 +14,6 @@ import {
   drawImageWords,
   drawPatternWords,
 } from "../utils/words";
-import { loadFont, loadImage } from "../utils/load";
 
 export default {
   props: {
@@ -32,6 +37,7 @@ export default {
     return {
       fontFace: undefined,
       image: undefined,
+      loading: true,
     };
   },
   mounted() {
@@ -42,7 +48,7 @@ export default {
       deep: true,
       handler(oldData, newData) {
         if (newData.fontURL !== oldData.fontURL) this.fontFace = undefined;
-        if (newData.imageURL !== newData.imageURL) this.image = undefined;
+        this.image = undefined;
         this.render();
       },
     },
@@ -55,7 +61,7 @@ export default {
   },
   methods: {
     async render() {
-      await this.initFont();
+      this.fontFace = await this.loadFont();
       const options = {
         ...this.options,
         fontFace: this.fontFace,
@@ -68,7 +74,7 @@ export default {
           drawPatternWords(this.$refs.canvas, this.width, this.height, options);
           break;
         case "image":
-          await this.initImage();
+          this.image = await this.loadImage();
           drawImageWords(this.$refs.canvas, this.width, this.height, {
             ...options,
             image: this.image,
@@ -76,21 +82,41 @@ export default {
           break;
       }
     },
-    async initFont() {
-      this.$emit("onLoadingFont");
+    async loadFont() {
       const { fontFamily, fontURL } = this.options;
-      this.fontFace = await loadFont(this.fontFace, { fontFamily, fontURL });
+      // return cached fontFace
+      if (!fontURL || (this.fontFace && this.fontFace.loaded)) {
+        return this.fontFace;
+      }
+
+      // load fontFace and return
+      this.$emit("onLoadingFont");
+      this.loading = true;
+      const fontFace = await new FontFace(fontFamily, `url(${fontURL})`).load();
+      this.loading = false;
       this.$emit("onLoadedFont");
+      return fontFace;
     },
-    async initImage() {
+    async loadImage() {
+      // return cached iamge
+      if (this.image) return this.image;
+
+      // load image and return
       this.$emit("onLoadingImage");
+      this.loading = true;
+      const newImage = new Image();
       const { imageURL } = this.options;
-      this.image = await loadImage(this.image, { imageURL });
+      newImage.src = imageURL;
+
+      const image = await new Promise((resolve) => {
+        newImage.onload = function () {
+          resolve(newImage);
+        };
+      });
+      this.loading = false;
       this.$emit("onLoadedImage");
+      return image;
     },
   },
 };
 </script>
-
-<style scoped>
-</style>
