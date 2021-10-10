@@ -4,28 +4,26 @@
       <attribute-tree :options="attribute" :values="example" />
     </el-aside>
     <el-container>
-      <el-main
-        ><div
-          :style="{
-            transform: `translate(${transformed.translateX}px, ${transformed.translateY}px) scale(${transformed.scale}, ${transformed.scale})`,
-            transformOrigin: 'left top',
-          }"
-        >
-          <wallpaper
-            :options="example"
-            :mode="example.mode"
-            :width="windowWidth"
-            :height="windowHeight"
-          /></div
-      ></el-main>
-      <el-footer height="200px">Footer</el-footer>
+      <div
+        :style="{
+          transform: `translate(${transformed.translateX}px, ${transformed.translateY}px) scale(${transformed.scale}, ${transformed.scale})`,
+          transformOrigin: 'left top',
+        }"
+      >
+        <wallpaper
+          :options="example"
+          :mode="example.mode"
+          :width="windowWidth"
+          :height="windowHeight"
+        />
+      </div>
     </el-container>
   </el-container>
 </template>
 
 <script>
 import Wallpaper from "../components/Wallpaper.vue";
-import AttributeTree from "../components/AttributeTree/index.vue";
+import AttributeTree from "../components/AttributeTree.vue";
 import { useWindowSize } from "../mixins/useWindowSize";
 import fontURL from "../assets/font/en.woff2";
 import { getAttributeOptions } from "../utils/attribute";
@@ -54,8 +52,8 @@ export default {
       return getAttributeOptions(this.example.mode);
     },
     transformed() {
-      const padding = 30;
-      const mainHeight = this.windowHeight - 61 - 200;
+      const padding = 50;
+      const mainHeight = this.windowHeight - 61;
       const mainWidth = this.windowWidth - 300;
       const width = mainWidth - padding * 2;
       const height = mainHeight - padding * 2;
@@ -71,11 +69,13 @@ export default {
       };
     },
   },
-  watch: {
-    $route(to) {
-      const example = to.params.example || this.example;
-      this.example = example;
-    },
+  beforeRouteEnter(from, to, next) {
+    next((vm) => {
+      const example = localStorage.getItem("cd-example");
+      if (example) {
+        vm.example = JSON.parse(example);
+      }
+    });
   },
 };
 </script>
@@ -93,7 +93,7 @@ export default {
   background-color: #d3dce6;
 }
 
-.el-main {
+.el-container {
   background-color: #e9eef3;
   overflow: hidden;
   padding: 0px;
