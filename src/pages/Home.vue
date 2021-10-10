@@ -52,7 +52,6 @@ import Screen from "../components/Screen.vue";
 import Scale from "../components/Scale.vue";
 import fontURL from "../assets/font/en.woff2";
 import screenURL from "../assets/images/mac.png";
-import router from "../router";
 import { useWindowScroll } from "../mixins/useWindowScroll";
 import { useWindowSize } from "../mixins/useWindowSize";
 import { map } from "../utils/math";
@@ -160,19 +159,17 @@ export default {
       };
     },
     handleStarted() {
-      router.push({
+      this.$router.push({
         path: "/editor",
       });
     },
     handleExplore() {
-      router.push({ path: "gallery" });
+      this.$router.push({ path: "gallery" });
     },
     handleSelectExample(example) {
       if (this.progress < 1) return;
-      router.push({
-        name: "editor",
-        params: { example: { ...example } },
-      });
+      localStorage.setItem("cd-example", JSON.stringify(example));
+      this.$router.push({ path: "editor" });
     },
   },
 };

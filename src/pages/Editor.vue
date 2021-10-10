@@ -69,11 +69,13 @@ export default {
       };
     },
   },
-  watch: {
-    $route(to) {
-      const example = to.params.example || this.example;
-      this.example = example;
-    },
+  beforeRouteEnter(from, to, next) {
+    next((vm) => {
+      const example = localStorage.getItem("cd-example");
+      if (example) {
+        vm.example = JSON.parse(example);
+      }
+    });
   },
 };
 </script>
