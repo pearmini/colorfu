@@ -7,25 +7,27 @@
       :values="values"
     />
   </div>
-  <feild
-    v-else
-    :name="options.name"
-    :flex="options.type === 'image' ? 'col' : 'row'"
-  >
+  <div v-else-if="options.type === 'section'">
+    <span>{{ options.name }}</span>
+    <attribute-tree
+      v-for="child in options.children"
+      :options="child"
+      :key="child.key"
+      :values="values"
+    />
+  </div>
+  <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
     <el-input
       v-if="options.type === 'text'"
       :placeholder="options.placeholder"
-      v-model="values[options.key]"
+      v-model="value"
     />
-    <el-color-picker
-      v-if="options.type === 'color'"
-      v-model="values[options.key]"
-    />
+    <el-color-picker v-if="options.type === 'color'" v-model="value" />
     <el-slider
       v-if="options.type === 'number'"
-      v-model="values[options.key]"
-      :min="10"
-      :max="300"
+      v-model="value"
+      :min="options.min"
+      :max="options.max"
       :style="{ width: 200 + 'px' }"
     >
     </el-slider>
@@ -45,6 +47,8 @@
 
 <script>
 import { Message } from "element-ui";
+import { readFile } from "../utils/read";
+import { get, set } from "../utils/object";
 import Feild from "./Field.vue";
 
 export default {
@@ -54,14 +58,25 @@ export default {
     options: Object,
     values: Object,
   },
+  computed: {
+    value: {
+      get() {
+        const { key } = this.options;
+        if (!key) return;
+        return get(this.values, key);
+      },
+      set(newValue) {
+        const { key } = this.options;
+        if (!key) return;
+        set(this.values, key, newValue);
+      },
+    },
+  },
   methods: {
-    handleChange(file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file.raw);
-      reader.onload = () => {
-        const imageURL = reader.result;
-        this.values.imageURL = imageURL;
-      };
+    async handleChange(file) {
+      const imageURL = await readFile(file.raw);
+      const { key } = this.options;
+      set(this.values, key, imageURL);
     },
     handleExceed() {
       Message.error("请先删除已上传图片～");

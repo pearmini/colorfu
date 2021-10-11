@@ -10,12 +10,7 @@
           transformOrigin: 'left top',
         }"
       >
-        <wallpaper
-          :options="example"
-          :mode="example.mode"
-          :width="windowWidth"
-          :height="windowHeight"
-        />
+        <wallpaper :options="wallpaperOptions" :width="windowWidth" :height="windowHeight" />
       </div>
     </el-container>
   </el-container>
@@ -27,6 +22,7 @@ import AttributeTree from "../components/AttributeTree.vue";
 import { useWindowSize } from "../mixins/useWindowSize";
 import fontURL from "../assets/font/en.woff2";
 import { getAttributeOptions } from "../utils/attribute";
+import { deepCopy } from "../utils/object";
 
 export default {
   components: {
@@ -34,22 +30,39 @@ export default {
     AttributeTree,
   },
   data() {
-    return {
-      example: {
-        mode: "color",
-        title: "How are you?",
+    const defaultExample = {
+      text: {
+        content: "How are you?",
         fontSize: 200,
         fontFamily: "Luckiest Guy",
         fontURL,
-        background: "#fcbc23",
-        text: "#532582",
+        type: "none",
+        color: "#532582",
       },
+      background: {
+        type: "none",
+        color: "#fcbc23",
+      },
+    };
+    const example = localStorage.getItem("cd-example");
+    return {
+      example: example ? JSON.parse(example) : defaultExample,
+      init: true,
     };
   },
   mixins: [useWindowSize()],
   computed: {
     attribute() {
-      return getAttributeOptions(this.example.mode);
+      const {
+        text: { type: textType },
+        background: { type: backgroundType },
+      } = this.example;
+      return getAttributeOptions(textType, backgroundType);
+    },
+    wallpaperOptions() {
+      // Avoid use same example for attribute-tree and wallpaper.
+      // This will make the watcher of wallpaper' options props always have the same newData and oldData.
+      return deepCopy(this.example);
     },
     transformed() {
       const padding = 50;
@@ -68,14 +81,6 @@ export default {
         translateY,
       };
     },
-  },
-  beforeRouteEnter(from, to, next) {
-    next((vm) => {
-      const example = localStorage.getItem("cd-example");
-      if (example) {
-        vm.example = JSON.parse(example);
-      }
-    });
   },
 };
 </script>

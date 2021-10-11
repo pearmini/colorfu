@@ -31,12 +31,7 @@
                 cursor: progress >= 1 ? 'pointer' : 'default',
               }"
             >
-              <wallpaper
-                :options="example"
-                :width="screenSize.width"
-                :height="screenSize.height"
-                :mode="example.mode"
-              />
+              <wallpaper :options="example" :width="screenSize.width" :height="screenSize.height" />
             </div>
           </el-carousel-item>
         </el-carousel>
@@ -63,6 +58,7 @@ export default {
     Screen,
     Scale,
   },
+  name: "home",
   data() {
     return {
       screenURL,
@@ -104,11 +100,11 @@ export default {
             rotation: -45,
             width: 25,
             height: 25,
-            foregroundColor: "currentColor",
+            foregroundColor: "#000",
             color: "#89E089",
           },
           background: {
-            color: "white",
+            color: "#fff",
             foregroundColor: "#ddd",
             type: "line",
           },

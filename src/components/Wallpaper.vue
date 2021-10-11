@@ -9,9 +9,10 @@
 </template>
 
 <script>
+import { Message } from "element-ui";
 import { drawWallpaper } from "../utils/wallpaper";
 import { loadImage, loadFont } from "../utils/load";
-import { Message } from "element-ui";
+import { deepCopy } from "../utils/object";
 
 export default {
   props: {
@@ -23,7 +24,8 @@ export default {
     return {
       fontFace: undefined,
       image: undefined,
-      loading: true,
+      loading: false,
+      rendering: false,
     };
   },
   mounted() {
@@ -34,7 +36,7 @@ export default {
       deep: true,
       handler(oldData, newData) {
         if (newData.text.fontURL !== oldData.text.fontURL) this.fontFace = undefined;
-        if (newData.background.imageURL !== oldData.text.fontURL) this.image = undefined;
+        if (newData.background.imageURL !== oldData.background.imageURL) this.image = undefined;
         this.render();
       },
     },
@@ -47,26 +49,33 @@ export default {
   },
   methods: {
     async render() {
-      await this.loadAssets();
-      if (this.image) this.options.background.image = this.image;
-      drawWallpaper(this.$refs.canvas, this.width, this.height, this.options);
-    },
-    async loadAssets() {
       try {
-        const { fontURL, fontFamily } = this.options.text;
-        const { imageURL } = this.options.background;
-        const shouldLoadFont = fontURL && (!this.fontFace || !this.fontFace.loaded);
-        const shouldLoadImage = imageURL && !this.image;
-        if (!shouldLoadFont && !shouldLoadImage) return;
-        this.loading = true;
-        this.fontFace = shouldLoadFont ? await loadFont(fontURL, fontFamily) : this.fontFace;
-        this.image = shouldLoadImage ? await loadImage(imageURL) : this.image;
-        this.loading = false;
+        if (this.rendering) return;
+        this.rendering = true;
+
+        await this.loadAssets();
+        const options = deepCopy(this.options);
+        if (this.image) options.background.image = this.image;
+        drawWallpaper(this.$refs.canvas, this.width, this.height, options);
+
+        this.rendering = false;
       } catch (e) {
-        this.loading = false;
-        Message.error("Failed to load assets!");
+        this.rendering = false;
+        Message.error("Failed to draw!");
         console.error(e);
       }
+    },
+    async loadAssets() {
+      const { fontURL, fontFamily } = this.options.text;
+      const { imageURL } = this.options.background;
+      const shouldLoadFont = fontURL && (!this.fontFace || !this.fontFace.loaded);
+      const shouldLoadImage = imageURL && !this.image;
+      if (!shouldLoadFont && !shouldLoadImage) return;
+
+      this.loading = true;
+      this.fontFace = shouldLoadFont ? await loadFont(fontURL, fontFamily) : this.fontFace;
+      this.image = shouldLoadImage ? await loadImage(imageURL) : this.image;
+      this.loading = false;
     },
   },
 };
