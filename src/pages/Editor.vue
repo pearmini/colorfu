@@ -1,5 +1,5 @@
 <template>
-  <el-container class="container">
+  <el-container class="editor-container">
     <el-aside width="300px">
       <attribute-tree :options="attribute" :values="example" />
     </el-aside>
@@ -86,20 +86,16 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.editor-container {
   height: calc(100vh - 61px);
 }
 
-.el-footer {
-  background-color: #b3c0d1;
-}
-
 .el-aside {
-  background-color: #d3dce6;
+  background-color: #ffffff;
 }
 
 .el-container {
-  background-color: #e9eef3;
+  background-color: #e5e5e5;
   overflow: hidden;
   padding: 0px;
 }

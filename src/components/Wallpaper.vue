@@ -1,6 +1,5 @@
 <template>
   <div
-    class="container"
     v-loading="loading"
     :style="{ width: width + 'px', height: height + 'px' }"
   >

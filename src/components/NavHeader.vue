@@ -1,13 +1,18 @@
 <template>
   <div>
-    <el-menu mode="horizontal" :router="true" :default-active="path">
+    <el-menu
+      mode="horizontal"
+      :router="true"
+      :default-active="path"
+      background-color="#24292f"
+      text-color="#ffffff"
+      active-text-color="#999999"
+    >
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item index="/editor"> Editor</el-menu-item>
       <el-menu-item index="/gallery">Gallery</el-menu-item>
       <el-menu-item index="">
-        <a href="https://github.com/pearmini/carpe-diem" target="_blank"
-          >Github</a
-        >
+        <a href="https://github.com/pearmini/carpe-diem" target="_blank">Github</a>
       </el-menu-item>
     </el-menu>
   </div>
@@ -17,7 +22,7 @@
 export default {
   data() {
     return {
-      path: this.$router.currentRoute.path
+      path: this.$router.currentRoute.path,
     };
   },
   watch: {
