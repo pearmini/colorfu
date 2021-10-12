@@ -26,30 +26,19 @@
       :style="{ width: 150 + 'px' }"
     >
     </el-slider>
-    <el-upload
-      v-if="options.type === 'image'"
-      class="upload"
-      action=""
-      :auto-upload="false"
-      :on-change="handleChange"
-      :on-exceed="handleExceed"
-      :limit="1"
-    >
-      <el-button size="small" type="primary"> select image </el-button>
-    </el-upload>
+    <image-picker v-if="options.type === 'image'" v-model="value" />
   </feild>
 </template>
 
 <script>
-import { Message } from "element-ui";
-import { readFile } from "../utils/read";
 import { get, set } from "../utils/object";
 import Feild from "./Field.vue";
 import Group from "./Group.vue";
+import ImagePicker from "./ImagePicker.vue";
 
 export default {
   name: "attribute-tree",
-  components: { Feild, Group },
+  components: { Feild, Group, ImagePicker },
   props: {
     options: Object,
     values: Object,
@@ -68,22 +57,5 @@ export default {
       },
     },
   },
-  methods: {
-    async handleChange(file) {
-      const imageURL = await readFile(file.raw);
-      const { key } = this.options;
-      set(this.values, key, imageURL);
-    },
-    handleExceed() {
-      Message.error("请先删除已上传图片～");
-    },
-  },
 };
 </script>
-
-<style scoped>
-.upload {
-  width: 100%;
-  text-align: left;
-}
-</style>
