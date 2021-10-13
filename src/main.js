@@ -13,7 +13,9 @@ import {
   ColorPicker,
   Slider,
   Upload,
-  Loading
+  Loading,
+  Select,
+  Option
 } from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import App from "./App.vue";
@@ -35,8 +37,10 @@ Vue.use(ColorPicker);
 Vue.use(Slider);
 Vue.use(Upload);
 Vue.use(Loading);
+Vue.use(Select);
+Vue.use(Option);
 
 new Vue({
-  render: (h) => h(App),
-  router,
+  render: h => h(App),
+  router
 }).$mount("#app");

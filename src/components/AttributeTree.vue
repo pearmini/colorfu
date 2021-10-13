@@ -7,6 +7,14 @@
       :values="values"
     />
   </div>
+  <div v-else-if="options.type === 'children'" class="children-container">
+    <attribute-tree
+      v-for="child in options.children"
+      :options="child"
+      :key="child.key"
+      :values="values"
+    />
+  </div>
   <group v-else-if="options.type === 'section'" :name="options.name">
     <attribute-tree
       v-for="child in options.children"
@@ -23,10 +31,20 @@
       v-model="value"
       :min="options.min"
       :max="options.max"
+      :step="options.step || 1"
       :style="{ width: 150 + 'px' }"
     >
     </el-slider>
     <image-picker v-if="options.type === 'image'" v-model="value" />
+    <el-select v-if="options.type === 'select'" v-model="value">
+      <el-option
+        v-for="item in options.options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      >
+      </el-option>
+    </el-select>
   </feild>
 </template>
 
@@ -51,11 +69,31 @@ export default {
         return get(this.values, key);
       },
       set(newValue) {
-        const { key } = this.options;
+        const { key, relations = [] } = this.options;
         if (!key) return;
+        
+        // set value for this key
         set(this.values, key, newValue);
+
+        // set values for releated keys
+        for (const { trigger, actions } of relations) {
+          if (trigger === newValue) {
+            for (const { key, value } of actions) {
+              const oldValue = get(this.values, key);
+              if (oldValue === undefined) {
+                set(this.values, key, value);
+              }
+            }
+          }
+        }
       },
     },
   },
 };
 </script>
+
+<style>
+.children-container {
+  padding-left: 1em;
+}
+</style>

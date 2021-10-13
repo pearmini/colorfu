@@ -4,14 +4,7 @@ import { createMatrix } from "../math";
 
 export function createPattern(
   containerContext,
-  {
-    type,
-    width = 50,
-    height = 50,
-    rotation = 0,
-    repetition = "repeat",
-    ...options
-  }
+  { type, width = 50, height = 50, rotation = 0, repetition = "repeat", ...options }
 ) {
   const canvas = createCanvas();
   const context = createContext(canvas, width, height);

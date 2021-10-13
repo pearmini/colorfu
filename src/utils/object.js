@@ -1,8 +1,15 @@
+import Vue from "vue";
+
 export function set(obj, key, value) {
   const keys = key.split(".");
   const lastKey = keys.pop();
   const o = keys.reduce((o, key) => o[key], obj);
-  o[lastKey] = value;
+
+  // o[lastKey] = value;
+  // The statement below is not ok
+  // because Vue can not detect property addition or deletion.
+  // https://vuejs.org/v2/guide/reactivity.html#For-Objects
+  Vue.set(o, lastKey, value);
 }
 
 export function get(obj, key) {
