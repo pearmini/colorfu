@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-loading="loading"
-    :style="{ width: width + 'px', height: height + 'px' }"
-  >
+  <div v-loading="loading" :style="{ width: width + 'px', height: height + 'px' }">
     <canvas ref="canvas" />
   </div>
 </template>
@@ -58,6 +55,7 @@ export default {
         drawWallpaper(this.$refs.canvas, this.width, this.height, options);
 
         this.rendering = false;
+        this.$emit("on-success", this.$refs.canvas);
       } catch (e) {
         this.rendering = false;
         Message.error("Failed to draw!");

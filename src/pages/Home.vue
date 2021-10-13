@@ -97,7 +97,7 @@ export default {
             fontFamily: "Luckiest Guy",
             fontURL,
             type: "line",
-            rotation: -45,
+            rotation: 45,
             width: 25,
             height: 25,
             foregroundColor: "#000",
@@ -107,6 +107,7 @@ export default {
             color: "#fff",
             foregroundColor: "#ddd",
             type: "line",
+            width: 50,
           },
         },
         {

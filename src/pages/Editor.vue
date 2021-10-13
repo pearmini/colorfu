@@ -10,8 +10,20 @@
           transformOrigin: 'left top',
         }"
       >
-        <wallpaper :options="wallpaperOptions" :width="windowWidth" :height="windowHeight" />
+        <wallpaper
+          :options="wallpaperOptions"
+          :width="windowWidth"
+          :height="windowHeight"
+          @on-success="canvas = $event"
+        />
       </div>
+      <el-button
+        type="primary"
+        icon="el-icon-download"
+        circle
+        class="btn-download"
+        @click="handleDownload"
+      ></el-button>
     </el-container>
   </el-container>
 </template>
@@ -43,6 +55,7 @@ export default {
         type: "none",
         color: "#fcbc23",
       },
+      canvas: undefined,
     };
     const example = localStorage.getItem("cd-example");
     return {
@@ -66,7 +79,8 @@ export default {
     },
     transformed() {
       const padding = 50;
-      const mainHeight = this.windowHeight - 61;
+      // 30 is for the tool buttons at the the bottom line
+      const mainHeight = this.windowHeight - 61 - 30;
       const mainWidth = this.windowWidth - 300;
       const width = mainWidth - padding * 2;
       const height = mainHeight - padding * 2;
@@ -80,6 +94,16 @@ export default {
         translateX,
         translateY,
       };
+    },
+  },
+  methods: {
+    handleDownload() {
+      const a = document.createElement("a");
+      a.download = "wallpaper";
+      a.href = this.canvas.toDataURL("image/png");
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
     },
   },
 };
@@ -98,5 +122,12 @@ export default {
   background-color: #e5e5e5;
   overflow: hidden;
   padding: 0px;
+}
+
+.btn-download {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
 }
 </style>
