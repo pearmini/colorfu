@@ -15,7 +15,7 @@ export default {
     },
   },
   data() {
-    return { containerClass: "container", rowClass: "row", colClass: "col" };
+    return { containerClass: "field-container", rowClass: "row", colClass: "col" };
   },
 };
 </script>
@@ -26,8 +26,9 @@ export default {
   padding-right: 0.5em;
 }
 
-.container {
-  padding: 0.25em 0.5em;
+.field-container {
+  padding: 0.25em 0em;
+  font-size: 14px;
 }
 
 .row {

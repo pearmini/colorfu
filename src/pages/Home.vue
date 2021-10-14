@@ -4,8 +4,7 @@
       <div class="top">
         <h1>Carpe Diem</h1>
         <p>
-          Use words mixed with colors, patterns and images to communicate with
-          your wallpaper. 🍉
+          Use words mixed with colors, patterns and images to communicate with your wallpaper. 🍉
         </p>
         <el-button type="primary" @click="handleStarted">Get Started</el-button>
         <el-button type="success" @click="handleExplore">Explore</el-button>
@@ -32,12 +31,7 @@
                 cursor: progress >= 1 ? 'pointer' : 'default',
               }"
             >
-              <wallpaper
-                :options="example"
-                :width="screenSize.width"
-                :height="screenSize.height"
-                :mode="example.mode"
-              />
+              <wallpaper :options="example" :width="screenSize.width" :height="screenSize.height" />
             </div>
           </el-carousel-item>
         </el-carousel>
@@ -64,6 +58,7 @@ export default {
     Screen,
     Scale,
   },
+  name: "home",
   data() {
     return {
       screenURL,
@@ -82,42 +77,52 @@ export default {
       disabled: false,
       examples: [
         {
-          mode: "color",
-          title: "How are you?",
-          fontSize: 200,
-          fontFamily: "Luckiest Guy",
-          fontURL,
-          background: "#fcbc23",
-          text: "#532582",
+          text: {
+            content: "How are you?",
+            fontSize: 200,
+            fontFamily: "Luckiest Guy",
+            fontURL,
+            type: "none",
+            color: "#532582",
+          },
+          background: {
+            type: "none",
+            color: "#fcbc23",
+          },
         },
         {
-          mode: "pattern",
-          title: "How are you?",
-          fontSize: 200,
-          fontFamily: "Luckiest Guy",
-          fontURL,
-          background: {
-            backgroundColor: "white",
-            patternColor: "#ddd",
-            type: "line",
-          },
           text: {
-            backgroundColor: "#89E089",
-            patternColor: "currentColor",
+            content: "How are you?",
+            fontSize: 200,
+            fontFamily: "Luckiest Guy",
+            fontURL,
             type: "line",
-            rotation: -45,
+            rotation: 45,
             width: 25,
             height: 25,
+            foregroundColor: "#000",
+            color: "#89E089",
+          },
+          background: {
+            color: "#fff",
+            foregroundColor: "#ddd",
+            type: "line",
+            width: 50,
           },
         },
         {
-          mode: "image",
-          title: "How are you?",
-          fontSize: 200,
-          fontFamily: "Luckiest Guy",
-          fontURL,
-          imageURL: "https://i.loli.net/2021/09/04/drBtUVNhlq87Rwc.jpg",
-          text: "#fff",
+          text: {
+            content: "How are you?",
+            fontSize: 200,
+            fontFamily: "Luckiest Guy",
+            fontURL,
+            type: "none",
+            color: "#fff",
+          },
+          background: {
+            type: "image",
+            imageURL: "https://i.loli.net/2021/09/04/drBtUVNhlq87Rwc.jpg",
+          },
         },
       ],
     };
@@ -130,8 +135,7 @@ export default {
     dimension() {
       const bottom = 100;
       const macAspect = 0.625;
-      const toHeight =
-        ((this.windowHeight * 0.7 - 61) * (707 - 45 - 85)) / 707 - bottom / 2;
+      const toHeight = ((this.windowHeight * 0.7 - 61) * (707 - 45 - 85)) / 707 - bottom / 2;
       const scale = toHeight / (this.windowWidth * macAspect);
       return {
         from: {

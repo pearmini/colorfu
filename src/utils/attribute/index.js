@@ -1,10 +1,20 @@
-import { color } from "./color";
-import { image } from "./image";
+import { getTextOptions } from "./text";
+import { getBackgroundOptions } from "./background";
 
-export function getAttributeOptions(type) {
-  if (type === "color") {
-    return color;
-  } else if (type === "image") {
-    return image;
-  }
+export function getAttributeOptions(textType, backgroundType) {
+  return {
+    type: "container",
+    children: [
+      {
+        type: "section",
+        name: "Text",
+        children: getTextOptions(textType)
+      },
+      {
+        type: "section",
+        name: "Background",
+        children: getBackgroundOptions(backgroundType)
+      }
+    ]
+  };
 }

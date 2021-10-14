@@ -1,43 +1,27 @@
 <template>
-  <div
-    class="container"
-    v-loading="loading"
-    :style="{ width: width + 'px', height: height + 'px' }"
-  >
+  <div v-loading="loading" :style="{ width: width + 'px', height: height + 'px' }">
     <canvas ref="canvas" />
   </div>
 </template>
 
 <script>
-import {
-  drawColorWords,
-  drawImageWords,
-  drawPatternWords,
-} from "../utils/words";
+import { Message } from "element-ui";
+import { drawWallpaper } from "../utils/wallpaper";
+import { loadImage, loadFont } from "../utils/load";
+import { deepCopy } from "../utils/object";
 
 export default {
   props: {
-    options: {
-      title: String,
-      fontSize: Number,
-      fontFamily: {
-        type: String,
-        default: "wallpaper",
-      },
-      mode: String,
-      fontURL: String,
-      background: [String, Object],
-      text: [String, Object],
-    },
+    options: Object,
     width: Number,
     height: Number,
-    mode: String,
   },
   data() {
     return {
       fontFace: undefined,
       image: undefined,
-      loading: true,
+      loading: false,
+      rendering: false,
     };
   },
   mounted() {
@@ -47,8 +31,8 @@ export default {
     options: {
       deep: true,
       handler(oldData, newData) {
-        if (newData.fontURL !== oldData.fontURL) this.fontFace = undefined;
-        this.image = undefined;
+        if (newData.text.fontURL !== oldData.text.fontURL) this.fontFace = undefined;
+        if (newData.background.imageURL !== oldData.background.imageURL) this.image = undefined;
         this.render();
       },
     },
@@ -61,61 +45,34 @@ export default {
   },
   methods: {
     async render() {
-      this.fontFace = await this.loadFont();
-      const options = {
-        ...this.options,
-        fontFace: this.fontFace,
-      };
-      switch (this.mode) {
-        case "color":
-          drawColorWords(this.$refs.canvas, this.width, this.height, options);
-          break;
-        case "pattern":
-          drawPatternWords(this.$refs.canvas, this.width, this.height, options);
-          break;
-        case "image":
-          this.image = await this.loadImage();
-          drawImageWords(this.$refs.canvas, this.width, this.height, {
-            ...options,
-            image: this.image,
-          });
-          break;
+      try {
+        if (this.rendering) return;
+        this.rendering = true;
+
+        await this.loadAssets();
+        const options = deepCopy(this.options);
+        if (this.image) options.background.image = this.image;
+        drawWallpaper(this.$refs.canvas, this.width, this.height, options);
+
+        this.rendering = false;
+        this.$emit("on-success", this.$refs.canvas);
+      } catch (e) {
+        this.rendering = false;
+        Message.error("Failed to draw!");
+        console.error(e);
       }
     },
-    async loadFont() {
-      const { fontFamily, fontURL } = this.options;
-      // return cached fontFace
-      if (!fontURL || (this.fontFace && this.fontFace.loaded)) {
-        return this.fontFace;
-      }
+    async loadAssets() {
+      const { fontURL, fontFamily } = this.options.text;
+      const { imageURL } = this.options.background;
+      const shouldLoadFont = fontURL && (!this.fontFace || !this.fontFace.loaded);
+      const shouldLoadImage = imageURL && !this.image;
+      if (!shouldLoadFont && !shouldLoadImage) return;
 
-      // load fontFace and return
-      this.$emit("onLoadingFont");
       this.loading = true;
-      const fontFace = await new FontFace(fontFamily, `url(${fontURL})`).load();
+      this.fontFace = shouldLoadFont ? await loadFont(fontURL, fontFamily) : this.fontFace;
+      this.image = shouldLoadImage ? await loadImage(imageURL) : this.image;
       this.loading = false;
-      this.$emit("onLoadedFont");
-      return fontFace;
-    },
-    async loadImage() {
-      // return cached iamge
-      if (this.image) return this.image;
-
-      // load image and return
-      this.$emit("onLoadingImage");
-      this.loading = true;
-      const newImage = new Image();
-      const { imageURL } = this.options;
-      newImage.src = imageURL;
-
-      const image = await new Promise((resolve) => {
-        newImage.onload = function () {
-          resolve(newImage);
-        };
-      });
-      this.loading = false;
-      this.$emit("onLoadedImage");
-      return image;
     },
   },
 };

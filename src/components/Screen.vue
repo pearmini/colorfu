@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container"
+    class="screen-container"
     :style="{
       left: -border.left + 'px',
       top: -border.top + 'px',
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.screen-container {
   position: relative;
 }
 </style>
