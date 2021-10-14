@@ -14,7 +14,7 @@
 
 <script>
 import { Message } from "element-ui";
-import { readFile } from "../utils/read";
+import { readFile } from "../utils/file";
 export default {
   model: {
     prop: "imageURL",
