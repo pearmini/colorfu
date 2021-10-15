@@ -27,7 +27,7 @@ export default {
 }
 
 .field-container {
-  padding: 0.1em 0em;
+  padding: 0.25em 0em;
   font-size: 14px;
 }
 

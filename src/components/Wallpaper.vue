@@ -22,6 +22,7 @@ export default {
       image: undefined,
       loading: false,
       rendering: false,
+      timer: null,
     };
   },
   mounted() {
@@ -54,12 +55,13 @@ export default {
         if (this.image) options.background.image = this.image;
         drawWallpaper(this.$refs.canvas, this.width, this.height, options);
 
-        this.rendering = false;
         this.$emit("on-success", this.$refs.canvas);
       } catch (e) {
-        this.rendering = false;
         Message.error("Failed to draw!");
         console.error(e);
+      } finally {
+        this.rendering = false;
+        this.loading = false;
       }
     },
     async loadAssets() {

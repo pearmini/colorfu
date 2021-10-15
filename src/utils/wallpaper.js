@@ -13,8 +13,8 @@ function isColor(type) {
   return !type || type === "none";
 }
 
-function drawBackground(context, width, height, { type, image, color, ...options }) {
-  if (type === "image") {
+function drawBackground(context, width, height, { type, image, color, mode, ...options }) {
+  if (mode === "image") {
     drawImage(context, image, width, height);
   } else {
     const fillStyle = isColor(type)

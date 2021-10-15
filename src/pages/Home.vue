@@ -89,6 +89,7 @@ export default {
           background: {
             type: "none",
             color: "#fcbc23",
+            mode: "pattern",
           },
         },
         {
@@ -106,6 +107,7 @@ export default {
             mode: "none",
           },
           background: {
+            mode: "pattern",
             color: "#fff",
             foregroundColor: "#ddd",
             type: "line",
@@ -123,7 +125,7 @@ export default {
             mode: "none",
           },
           background: {
-            type: "image",
+            mode: "image",
             imageURL: "https://i.loli.net/2021/09/04/drBtUVNhlq87Rwc.jpg",
           },
         },
