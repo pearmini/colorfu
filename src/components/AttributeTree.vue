@@ -41,7 +41,7 @@
     >
     </el-slider>
     <image-picker v-if="options.type === 'image'" v-model="value" />
-    <el-select v-if="options.type === 'select'" v-model="value" size="small">
+    <el-select v-if="options.type === 'select'" v-model="value" size="small" filterable>
       <el-option
         v-for="item in options.options"
         :key="item.value"
