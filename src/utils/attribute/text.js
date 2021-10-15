@@ -13,7 +13,7 @@ export function getTextOptions(type) {
       key: "text.fontSize",
       name: "Font Size",
       min: 10,
-      max: 300
+      max: 800
     },
     {
       type: "select",
