@@ -4,12 +4,7 @@
       <attribute-tree :options="attribute" :values="example" />
     </el-aside>
     <el-container>
-      <div
-        :style="{
-          transform: `translate(${transformed.translateX}px, ${transformed.translateY}px) scale(${transformed.scale}, ${transformed.scale})`,
-          transformOrigin: 'left top',
-        }"
-      >
+      <div :class="{ preivew: preview }" :style="wallpaperStyles">
         <wallpaper
           :options="wallpaperOptions"
           :width="windowWidth"
@@ -18,6 +13,7 @@
         />
       </div>
       <div class="tools-container">
+        <el-button type="primary" icon="el-icon-view" circle @click="handlePreview"></el-button>
         <el-button
           type="primary"
           icon="el-icon-download"
@@ -43,6 +39,7 @@ import fontURL from "../assets/font/en.woff2";
 import { getAttributeOptions } from "../utils/attribute";
 import { deepCopy } from "../utils/object";
 import { downloadImage, downloadFile } from "../utils/file";
+import { Message } from "element-ui";
 
 export default {
   components: {
@@ -68,11 +65,28 @@ export default {
     const example = localStorage.getItem("cd-example");
     return {
       example: example ? JSON.parse(example) : defaultExample,
-      init: true,
+      preview: false,
     };
   },
   mixins: [useWindowSize()],
+  mounted() {
+    window.addEventListener("keydown", this.handleKeydown);
+    document.addEventListener("fullscreenchange", this.handleFullScreenChange);
+  },
+  destroyed() {
+    window.removeEventListener("keydown", this.handleKeydown);
+    document.removeEventListener("fullscreenchange", this.handleFullScreenChange);
+  },
   computed: {
+    wallpaperStyles() {
+      const { transformed } = this;
+      return this.preview
+        ? {}
+        : {
+            transform: `translate(${transformed.translateX}px, ${transformed.translateY}px) scale(${transformed.scale}, ${transformed.scale})`,
+            transformOrigin: "left top",
+          };
+    },
     attribute() {
       return getAttributeOptions(this.example);
     },
@@ -107,6 +121,26 @@ export default {
     handleDownloadFile() {
       downloadFile(this.example, "wallpaper");
     },
+    async handlePreview() {
+      try {
+        await document.documentElement.requestFullscreen();
+      } catch {
+        // 如果没有进入到全屏模式失败
+        // 那么就是走这里进入伪全屏
+        this.preview = true;
+        Message.success("Press esc to exit full screen!");
+      }
+    },
+    // 在全凭模式下按下 esc 键不会触发该事件
+    // 这个只是针对进入到全屏模式失败的情况
+    handleKeydown({ key }) {
+      if (key === "Escape" && this.preview) {
+        this.preview = false;
+      }
+    },
+    handleFullScreenChange() {
+      this.preview = !this.preview;
+    },
   },
 };
 </script>
@@ -130,6 +164,15 @@ export default {
   position: fixed;
   bottom: 30px;
   right: 30px;
+  z-index: 900;
+}
+
+.preivew {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   z-index: 999;
 }
 </style>
