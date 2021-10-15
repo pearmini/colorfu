@@ -173,6 +173,7 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 999;
+  /** slider 的 z-index 是 1001 */
+  z-index: 1005; 
 }
 </style>
