@@ -1,6 +1,6 @@
 import { getPatternRelations, getPatternOptions } from "./pattern";
 
-export function getTextOptions(type) {
+export function getTextOptions({ type, mode }) {
   return [
     {
       type: "text",
@@ -9,11 +9,57 @@ export function getTextOptions(type) {
       placeholder: "Please input title"
     },
     {
-      type: "number",
-      key: "text.fontSize",
-      name: "Font Size",
-      min: 10,
-      max: 800
+      name: "Text",
+      type: "title"
+    },
+    {
+      type: "children",
+      children: [
+        {
+          type: "select",
+          key: "text.mode",
+          name: "Shape",
+          options: [
+            { value: "none", label: "Normal" },
+            { value: "autoFit", label: "Auto Fit" },
+            { value: "constrain", label: "Constrain" }
+          ],
+          relations: [
+            {
+              trigger: "none",
+              actions: [{ key: "text.fontSize", value: 200 }]
+            },
+            {
+              trigger: "autoFit",
+              actions: [
+                {
+                  key: "text.padding",
+                  value: 0
+                },
+                {
+                  key: "text.dy",
+                  value: 0
+                }
+              ]
+            },
+            {
+              trigger: "constrain",
+              actions: [
+                { key: "text.fontSize", value: 200 },
+                {
+                  key: "text.padding",
+                  value: 50
+                },
+                {
+                  key: "text.dy",
+                  value: 0
+                }
+              ]
+            }
+          ]
+        },
+        ...getTextFontOptions(mode)
+      ]
     },
     {
       type: "select",
@@ -32,7 +78,34 @@ export function getTextOptions(type) {
   ];
 }
 
-export function getTextStyleOptions(type) {
+function getTextFontOptions(mode) {
+  const fontSize = {
+    type: "number",
+    key: "text.fontSize",
+    name: "Font Size",
+    min: 50,
+    max: 800
+  };
+  const padding = {
+    type: "number",
+    key: "text.padding",
+    name: "Padding",
+    min: 0,
+    max: 200
+  };
+  const dy = {
+    type: "number",
+    key: "text.dy",
+    name: "Offset Y",
+    min: -200,
+    max: 200
+  };
+  if (mode === "none") return [fontSize, dy];
+  if (mode === "autoFit") return [padding, dy];
+  if (mode === "constrain") return [fontSize, padding, dy];
+}
+
+function getTextStyleOptions(type) {
   if (!type || type === "none") {
     return [
       {

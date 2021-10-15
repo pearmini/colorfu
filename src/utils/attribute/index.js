@@ -1,19 +1,19 @@
 import { getTextOptions } from "./text";
 import { getBackgroundOptions } from "./background";
 
-export function getAttributeOptions(textType, backgroundType) {
+export function getAttributeOptions({ text, background }) {
   return {
     type: "container",
     children: [
       {
         type: "section",
-        name: "Text",
-        children: getTextOptions(textType)
+        name: "Words",
+        children: getTextOptions(text)
       },
       {
         type: "section",
         name: "Background",
-        children: getBackgroundOptions(backgroundType)
+        children: getBackgroundOptions(background)
       }
     ]
   };

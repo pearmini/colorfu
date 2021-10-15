@@ -1,6 +1,6 @@
 import { getPatternOptions, getPatternRelations } from "./pattern";
 
-export function getBackgroundOptions(type) {
+export function getBackgroundOptions({ type }) {
   return [
     {
       type: "select",
