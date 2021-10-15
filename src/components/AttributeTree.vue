@@ -50,7 +50,7 @@
       >
       </el-option>
     </el-select>
-    <div v-if="options.type === 'radio'">
+    <div v-if="options.type === 'radio'" class="radio-container">
       <el-radio
         v-for="item in options.options"
         :key="item.value"
@@ -111,5 +111,12 @@ export default {
 <style>
 .children-container {
   padding-left: 1em;
+}
+
+.radio-container {
+  /** 和其他小的 input 的高度保持一致 */
+  height: 32px;
+  display: flex;
+  align-items: center;
 }
 </style>
