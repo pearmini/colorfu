@@ -58,12 +58,12 @@ function drawText(
 
     const sx = textWidth > containerWidth ? containerWidth / textWidth : 1;
     const sy = textHeight > containerHeight ? containerHeight / textHeight : 1;
-    context.translate(width / 2, height / 2 + dy);
+    context.translate(width / 2, height / 2);
     context.scale(sx, sy);
     context.translate(-width / 2, -height / 2);
   }
 
-  context.fillText(content, width / 2, height / 2);
+  context.fillText(content, width / 2, height / 2 + dy);
   context.restore();
 }
 
