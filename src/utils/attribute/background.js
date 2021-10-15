@@ -26,6 +26,10 @@ export function getBackgroundOptions({ type, mode }) {
             {
               key: "background.type",
               value: "none"
+            },
+            {
+              key: "background.color",
+              value: "#000000"
             }
           ]
         }
