@@ -1,26 +1,16 @@
 import { getPatternOptions, getPatternRelations } from "./pattern";
 
-export function getBackgroundOptions({ type }) {
+export function getBackgroundOptions({ type, mode }) {
   return [
     {
-      type: "select",
-      key: "background.type",
-      name: "Pattern",
+      type: "radio",
+      key: "background.mode",
+      name: "Mode",
       options: [
-        { value: "none", label: "None" },
         { value: "image", label: "Image" },
-        { value: "line", label: "Line" }
+        { value: "pattern", label: "Pattern" }
       ],
       relations: [
-        {
-          trigger: "none",
-          actions: [
-            {
-              key: "background.color",
-              value: "#000000"
-            }
-          ]
-        },
         {
           trigger: "image",
           actions: [
@@ -30,14 +20,60 @@ export function getBackgroundOptions({ type }) {
             }
           ]
         },
-        ...getPatternRelations("background")
+        {
+          trigger: "pattern",
+          actions: [
+            {
+              key: "background.type",
+              value: "none"
+            }
+          ]
+        }
       ]
     },
-    {
-      type: "children",
-      children: getStyleOptions(type)
-    }
+    ...getModeOptions(mode, type)
   ];
+}
+
+function getModeOptions(mode, type) {
+  if (mode === "image") {
+    return [
+      {
+        type: "image",
+        key: "background.imageURL",
+        name: "Image"
+      }
+    ];
+  } else {
+    return [
+      {
+        type: "select",
+        key: "background.type",
+        name: "Pattern",
+        options: [
+          { value: "none", label: "None" },
+          { value: "line", label: "Line" }
+        ],
+        relations: [
+          {
+            trigger: "none",
+            actions: [
+              {
+                key: "background.color",
+                value: "#000000"
+              }
+            ]
+          },
+
+          ...getPatternRelations("background")
+        ]
+      },
+      {
+        type: "children",
+        children: getStyleOptions(type)
+      }
+    ];
+  }
 }
 
 function getStyleOptions(type) {
@@ -47,14 +83,6 @@ function getStyleOptions(type) {
         type: "color",
         key: "background.color",
         name: "Color"
-      }
-    ];
-  } else if (type === "image") {
-    return [
-      {
-        type: "image",
-        key: "background.imageURL",
-        name: "Image"
       }
     ];
   } else {

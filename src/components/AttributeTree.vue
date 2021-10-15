@@ -24,8 +24,13 @@
     />
   </group>
   <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
-    <el-input v-if="options.type === 'text'" :placeholder="options.placeholder" v-model="value" size="small"/>
-    <el-color-picker v-if="options.type === 'color'" v-model="value" size="small"/>
+    <el-input
+      v-if="options.type === 'text'"
+      :placeholder="options.placeholder"
+      v-model="value"
+      size="small"
+    />
+    <el-color-picker v-if="options.type === 'color'" v-model="value" size="small" />
     <el-slider
       v-if="options.type === 'number'"
       v-model="value"
@@ -45,6 +50,17 @@
       >
       </el-option>
     </el-select>
+    <div v-if="options.type === 'radio'">
+      <el-radio
+        v-for="item in options.options"
+        :key="item.value"
+        :label="item.value"
+        size="small"
+        v-model="value"
+      >
+        {{ item.label }}
+      </el-radio>
+    </div>
   </feild>
 </template>
 
@@ -71,7 +87,7 @@ export default {
       set(newValue) {
         const { key, relations = [] } = this.options;
         if (!key) return;
-        
+
         // set value for this key
         set(this.values, key, newValue);
 

@@ -15,7 +15,8 @@ import {
   Upload,
   Loading,
   Select,
-  Option
+  Option,
+  Radio
 } from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import App from "./App.vue";
@@ -39,6 +40,7 @@ Vue.use(Upload);
 Vue.use(Loading);
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(Radio);
 
 new Vue({
   render: h => h(App),
