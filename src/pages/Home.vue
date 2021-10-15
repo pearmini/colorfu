@@ -89,6 +89,7 @@ export default {
           background: {
             type: "none",
             color: "#fcbc23",
+            mode: "pattern",
           },
         },
         {
