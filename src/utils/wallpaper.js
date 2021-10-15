@@ -1,5 +1,6 @@
 import { createPattern } from "./pattern";
 import { createContext } from "./canvas";
+import { measureTextByDOM, getTextFontSize } from "./text";
 
 export function drawWallpaper(canvas, width, height, options) {
   const context = createContext(canvas, width, height);
@@ -28,16 +29,42 @@ function drawText(
   context,
   width,
   height,
-  { color, type, fontSize, fontFamily, content, ...options }
+  { color, type, fontSize, fontFamily, content, mode = "none", padding = 50, dy = 0, ...options }
 ) {
   const fillStyle = isColor(type)
     ? color
     : createPattern(context, { backgroundColor: color, type, ...options });
-  context.font = `${fontSize}px ${fontFamily}`;
+
+  const containerWidth = width - padding * 2;
+  const containerHeight = width - padding * 2;
+  const finalFontSize =
+    mode === "autoFit"
+      ? getTextFontSize(content, containerWidth, { fontSize: 200, fontFamily })
+      : fontSize;
+
+  context.font = `${finalFontSize}px ${fontFamily}`;
   context.textAlign = "center";
   context.textBaseline = "middle";
   context.fillStyle = fillStyle;
-  context.fillText(content, width / 2, height / 2);
+  context.save();
+
+  // constrain words within the container
+  if (mode === "constrain") {
+    const font = {
+      fontSize: finalFontSize,
+      fontFamily
+    };
+    const [textWidth, textHeight] = measureTextByDOM(content, font);
+
+    const sx = textWidth > containerWidth ? containerWidth / textWidth : 1;
+    const sy = textHeight > containerHeight ? containerHeight / textHeight : 1;
+    context.translate(width / 2, height / 2);
+    context.scale(sx, sy);
+    context.translate(-width / 2, -height / 2);
+  }
+
+  context.fillText(content, width / 2, height / 2 + dy);
+  context.restore();
 }
 
 function drawImage(context, image, width, height) {

@@ -74,11 +74,7 @@ export default {
   mixins: [useWindowSize()],
   computed: {
     attribute() {
-      const {
-        text: { type: textType },
-        background: { type: backgroundType },
-      } = this.example;
-      return getAttributeOptions(textType, backgroundType);
+      return getAttributeOptions(this.example);
     },
     wallpaperOptions() {
       // Avoid use same example for attribute-tree and wallpaper.
