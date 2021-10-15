@@ -17,13 +17,20 @@
           @on-success="canvas = $event"
         />
       </div>
-      <el-button
-        type="primary"
-        icon="el-icon-download"
-        circle
-        class="btn-download"
-        @click="handleDownload"
-      ></el-button>
+      <div class="tools-container">
+        <el-button
+          type="primary"
+          icon="el-icon-download"
+          circle
+          @click="handleDownloadFile"
+        ></el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-picture-outline"
+          circle
+          @click="handleDownloadImage"
+        ></el-button>
+      </div>
     </el-container>
   </el-container>
 </template>
@@ -35,6 +42,7 @@ import { useWindowSize } from "../mixins/useWindowSize";
 import fontURL from "../assets/font/en.woff2";
 import { getAttributeOptions } from "../utils/attribute";
 import { deepCopy } from "../utils/object";
+import { downloadImage, downloadFile } from "../utils/file";
 
 export default {
   components: {
@@ -97,13 +105,11 @@ export default {
     },
   },
   methods: {
-    handleDownload() {
-      const a = document.createElement("a");
-      a.download = "wallpaper";
-      a.href = this.canvas.toDataURL("image/png");
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
+    handleDownloadImage() {
+      downloadImage(this.canvas, "wallpaper");
+    },
+    handleDownloadFile() {
+      downloadFile(this.example, "wallpaper");
     },
   },
 };
@@ -124,7 +130,7 @@ export default {
   padding: 0px;
 }
 
-.btn-download {
+.tools-container {
   position: fixed;
   bottom: 30px;
   right: 30px;
