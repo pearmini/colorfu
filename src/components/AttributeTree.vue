@@ -24,8 +24,8 @@
     />
   </group>
   <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
-    <el-input v-if="options.type === 'text'" :placeholder="options.placeholder" v-model="value" />
-    <el-color-picker v-if="options.type === 'color'" v-model="value" />
+    <el-input v-if="options.type === 'text'" :placeholder="options.placeholder" v-model="value" size="small"/>
+    <el-color-picker v-if="options.type === 'color'" v-model="value" size="small"/>
     <el-slider
       v-if="options.type === 'number'"
       v-model="value"
@@ -36,7 +36,7 @@
     >
     </el-slider>
     <image-picker v-if="options.type === 'image'" v-model="value" />
-    <el-select v-if="options.type === 'select'" v-model="value">
+    <el-select v-if="options.type === 'select'" v-model="value" size="small">
       <el-option
         v-for="item in options.options"
         :key="item.value"
