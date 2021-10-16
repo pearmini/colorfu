@@ -1,4 +1,5 @@
 import fontURL from "../assets/font/en.woff2";
+import { defaultImageURL } from "./constant";
 
 export const color = {
   text: {
@@ -52,6 +53,6 @@ export const image = {
   },
   background: {
     mode: "image",
-    imageURL: "https://i.loli.net/2021/09/04/drBtUVNhlq87Rwc.jpg"
+    imageURL: defaultImageURL
   }
 };
