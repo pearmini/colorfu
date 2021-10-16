@@ -5,6 +5,7 @@
       :options="child"
       :key="child.key"
       :values="values"
+      @update="handleUpdate"
     />
   </div>
   <div v-else-if="options.type === 'children'" class="children-container">
@@ -13,6 +14,7 @@
       :options="child"
       :key="child.key"
       :values="values"
+      @update="handleUpdate"
     />
   </div>
   <group v-else-if="options.type === 'section'" :name="options.name">
@@ -21,6 +23,7 @@
       :options="child"
       :key="child.key"
       :values="values"
+      @update="handleUpdate"
     />
   </group>
   <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
@@ -65,7 +68,7 @@
 </template>
 
 <script>
-import { get, set } from "../utils/object";
+import { get } from "../utils/object";
 import Feild from "./Field.vue";
 import Group from "./Group.vue";
 import ImagePicker from "./ImagePicker.vue";
@@ -89,7 +92,8 @@ export default {
         if (!key) return;
 
         // set value for this key
-        set(this.values, key, newValue);
+        // 不直接改变 props 的值
+        this.$emit("update", { key, value: newValue });
 
         // set values for releated keys
         for (const { trigger, actions } of relations) {
@@ -97,12 +101,17 @@ export default {
             for (const { key, value } of actions) {
               const oldValue = get(this.values, key);
               if (oldValue === undefined) {
-                set(this.values, key, value);
+                this.$emit("update", { key, value: value });
               }
             }
           }
         }
       },
+    },
+  },
+  methods: {
+    handleUpdate(obj) {
+      this.$emit("update", obj);
     },
   },
 };

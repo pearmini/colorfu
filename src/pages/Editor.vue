@@ -1,12 +1,12 @@
 <template>
   <el-container class="editor-container">
     <el-aside width="300px">
-      <attribute-tree :options="attribute" :values="example" />
+      <attribute-tree :options="attribute" :values="example" @update="handleUpdateExample" />
     </el-aside>
     <el-container>
       <div :class="{ preivew: fullscreen }" :style="wallpaperStyles">
         <wallpaper
-          :options="wallpaperOptions"
+          :options="example"
           :width="windowWidth"
           :height="windowHeight"
           @on-success="canvas = $event"
@@ -37,8 +37,8 @@ import Wallpaper from "../components/Wallpaper.vue";
 import AttributeTree from "../components/AttributeTree.vue";
 import fontURL from "../assets/font/en.woff2";
 import { getAttributeOptions } from "../utils/attribute";
-import { deepCopy } from "../utils/object";
 import { downloadImage, downloadFile } from "../utils/file";
+import { set, deepCopy } from "../utils/object";
 import { useWindowSize } from "../mixins/useWindowSize";
 import { useFullscreen } from "../mixins/useFullscreen";
 
@@ -82,15 +82,10 @@ export default {
     attribute() {
       return getAttributeOptions(this.example);
     },
-    wallpaperOptions() {
-      // Avoid use same example for attribute-tree and wallpaper.
-      // This will make the watcher of wallpaper' options props always have the same newData and oldData.
-      return deepCopy(this.example);
-    },
     transformed() {
       const padding = 50;
-      // 30 is for the tool buttons at the the bottom line
-      const mainHeight = this.windowHeight - 61 - 30;
+      const bottomToolsHeight = 30;
+      const mainHeight = this.windowHeight - 61 - bottomToolsHeight;
       const mainWidth = this.windowWidth - 300;
       const width = mainWidth - padding * 2;
       const height = mainHeight - padding * 2;
@@ -107,6 +102,12 @@ export default {
     },
   },
   methods: {
+    handleUpdateExample({ key, value }) {
+      // 每次更新的时候都深度拷贝一份
+      // 这样 watcher 里面的 newData 和 oldData 就会不一样了
+      this.example = deepCopy(this.example);
+      set(this.example, key, value);
+    },
     handleDownloadImage() {
       downloadImage(this.canvas, "wallpaper");
     },
