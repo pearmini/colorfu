@@ -84,7 +84,7 @@ export default {
             fontURL,
             type: "none",
             color: "#532582",
-            mode: "none",
+            mode: "autoFit",
           },
           background: {
             type: "none",
@@ -104,7 +104,7 @@ export default {
             height: 25,
             foregroundColor: "#000",
             color: "#89E089",
-            mode: "none",
+            mode: "autoFit",
           },
           background: {
             mode: "pattern",
@@ -122,7 +122,7 @@ export default {
             fontURL,
             type: "none",
             color: "#fff",
-            mode: "none",
+            mode: "autoFit",
           },
           background: {
             mode: "image",

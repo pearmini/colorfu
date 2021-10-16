@@ -4,7 +4,7 @@
       <attribute-tree :options="attribute" :values="example" />
     </el-aside>
     <el-container>
-      <div :class="{ preivew: preview }" :style="wallpaperStyles">
+      <div :class="{ preivew: fullscreen }" :style="wallpaperStyles">
         <wallpaper
           :options="wallpaperOptions"
           :width="windowWidth"
@@ -32,14 +32,15 @@
 </template>
 
 <script>
+import { Message } from "element-ui";
 import Wallpaper from "../components/Wallpaper.vue";
 import AttributeTree from "../components/AttributeTree.vue";
-import { useWindowSize } from "../mixins/useWindowSize";
 import fontURL from "../assets/font/en.woff2";
 import { getAttributeOptions } from "../utils/attribute";
 import { deepCopy } from "../utils/object";
 import { downloadImage, downloadFile } from "../utils/file";
-import { Message } from "element-ui";
+import { useWindowSize } from "../mixins/useWindowSize";
+import { useFullscreen } from "../mixins/useFullscreen";
 
 export default {
   components: {
@@ -65,25 +66,16 @@ export default {
     const example = localStorage.getItem("cd-example");
     return {
       example: example ? JSON.parse(example) : defaultExample,
-      preview: false,
     };
   },
-  mixins: [useWindowSize()],
-  mounted() {
-    window.addEventListener("keydown", this.handleKeydown);
-    document.addEventListener("fullscreenchange", this.handleFullScreenChange);
-  },
-  destroyed() {
-    window.removeEventListener("keydown", this.handleKeydown);
-    document.removeEventListener("fullscreenchange", this.handleFullScreenChange);
-  },
+  mixins: [useWindowSize(), useFullscreen()],
   computed: {
     wallpaperStyles() {
-      const { transformed } = this;
-      return this.preview
+      const { transformed: t } = this;
+      return this.fullscreen
         ? {}
         : {
-            transform: `translate(${transformed.translateX}px, ${transformed.translateY}px) scale(${transformed.scale}, ${transformed.scale})`,
+            transform: `translate(${t.translateX}px, ${t.translateY}px) scale(${t.scale}, ${t.scale})`,
             transformOrigin: "left top",
           };
     },
@@ -125,21 +117,8 @@ export default {
       try {
         await document.documentElement.requestFullscreen();
       } catch {
-        // 如果没有进入到全屏模式失败
-        // 那么就是走这里进入伪全屏
-        this.preview = true;
-        Message.success("Press esc to exit full screen!");
+        Message.success("Failed to enter full screen");
       }
-    },
-    // 在全凭模式下按下 esc 键不会触发该事件
-    // 这个只是针对进入到全屏模式失败的情况
-    handleKeydown({ key }) {
-      if (key === "Escape" && this.preview) {
-        this.preview = false;
-      }
-    },
-    handleFullScreenChange() {
-      this.preview = !this.preview;
     },
   },
 };
@@ -174,6 +153,6 @@ export default {
   width: 100%;
   height: 100%;
   /** slider 的 z-index 是 1001 */
-  z-index: 1005; 
+  z-index: 1005;
 }
 </style>

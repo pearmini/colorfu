@@ -53,13 +53,7 @@ export default {
   computed: {
     transformed() {
       const { from, to = from, progress, fixed } = this;
-      const {
-        x: fromX,
-        y: fromY,
-        width: fromW,
-        height: fromH,
-        scale: fromS,
-      } = from;
+      const { x: fromX, y: fromY, width: fromW, height: fromH, scale: fromS } = from;
       const { x: toX, y: toY, width: toW, height: toH, scale: toS } = to;
       const boundingBox = {
         ...(fixed && { x: map(progress, 0, 1, fromX, toX) }),

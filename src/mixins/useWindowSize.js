@@ -1,12 +1,18 @@
 export const useWindowSize = () => ({
   data: () => ({
     windowWidth: window.innerWidth,
-    windowHeight: window.innerHeight,
+    windowHeight: window.innerHeight
   }),
-  mounted: function() {
-    window.addEventListener("resize", () => {
+  methods: {
+    handleResize() {
       this.windowWidth = window.innerWidth;
       this.windowHeight = window.innerHeight;
-    });
+    }
   },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
+  }
 });
