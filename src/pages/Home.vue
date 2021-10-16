@@ -44,11 +44,11 @@
 import Wallpaper from "../components/Wallpaper.vue";
 import Screen from "../components/Screen.vue";
 import Scale from "../components/Scale.vue";
-import fontURL from "../assets/font/en.woff2";
 import screenURL from "../assets/images/mac.png";
 import { useWindowScroll } from "../mixins/useWindowScroll";
 import { useWindowSize } from "../mixins/useWindowSize";
 import { map } from "../utils/math";
+import { color, pattern, image } from "../data/examples";
 
 const [MIN_Y, MAX_Y] = [0, 200];
 
@@ -75,61 +75,7 @@ export default {
         height: 0,
       },
       disabled: false,
-      examples: [
-        {
-          text: {
-            content: "How are you?",
-            fontSize: 200,
-            fontFamily: "Luckiest Guy",
-            fontURL,
-            type: "none",
-            color: "#532582",
-            mode: "autoFit",
-          },
-          background: {
-            type: "none",
-            color: "#fcbc23",
-            mode: "pattern",
-          },
-        },
-        {
-          text: {
-            content: "How are you?",
-            fontSize: 200,
-            fontFamily: "Luckiest Guy",
-            fontURL,
-            type: "line",
-            rotation: 45,
-            width: 25,
-            height: 25,
-            foregroundColor: "#000",
-            color: "#89E089",
-            mode: "autoFit",
-          },
-          background: {
-            mode: "pattern",
-            color: "#fff",
-            foregroundColor: "#ddd",
-            type: "line",
-            width: 50,
-          },
-        },
-        {
-          text: {
-            content: "How are you?",
-            fontSize: 200,
-            fontFamily: "Luckiest Guy",
-            fontURL,
-            type: "none",
-            color: "#fff",
-            mode: "autoFit",
-          },
-          background: {
-            mode: "image",
-            imageURL: "https://i.loli.net/2021/09/04/drBtUVNhlq87Rwc.jpg",
-          },
-        },
-      ],
+      examples: [color, pattern, image],
     };
   },
   mixins: [useWindowScroll("", MIN_Y, MAX_Y), useWindowSize()],

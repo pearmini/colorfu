@@ -35,12 +35,12 @@
 import { Message } from "element-ui";
 import Wallpaper from "../components/Wallpaper.vue";
 import AttributeTree from "../components/AttributeTree.vue";
-import fontURL from "../assets/font/en.woff2";
 import { getAttributeOptions } from "../utils/attribute";
 import { downloadImage, downloadFile } from "../utils/file";
 import { set, deepCopy } from "../utils/object";
 import { useWindowSize } from "../mixins/useWindowSize";
 import { useFullscreen } from "../mixins/useFullscreen";
+import { color } from "../data/examples";
 
 export default {
   components: {
@@ -48,24 +48,9 @@ export default {
     AttributeTree,
   },
   data() {
-    const defaultExample = {
-      text: {
-        content: "How are you?",
-        fontSize: 200,
-        fontFamily: "Luckiest Guy",
-        fontURL,
-        type: "none",
-        color: "#532582",
-      },
-      background: {
-        type: "none",
-        color: "#fcbc23",
-      },
-      canvas: undefined,
-    };
     const example = localStorage.getItem("cd-example");
     return {
-      example: example ? JSON.parse(example) : defaultExample,
+      example: example ? JSON.parse(example) : color,
     };
   },
   mixins: [useWindowSize(), useFullscreen()],
