@@ -1,12 +1,12 @@
 <template>
   <el-container class="editor-container">
     <el-aside width="300px">
-      <attribute-tree :options="attribute" :values="example" />
+      <attribute-tree :options="attribute" :values="example" @update="handleUpdateExample" />
     </el-aside>
     <el-container>
-      <div :class="{ preivew: preview }" :style="wallpaperStyles">
+      <div :class="{ preivew: fullscreen }" :style="wallpaperStyles">
         <wallpaper
-          :options="wallpaperOptions"
+          :options="example"
           :width="windowWidth"
           :height="windowHeight"
           @on-success="canvas = $event"
@@ -32,14 +32,15 @@
 </template>
 
 <script>
+import { Message } from "element-ui";
 import Wallpaper from "../components/Wallpaper.vue";
 import AttributeTree from "../components/AttributeTree.vue";
-import { useWindowSize } from "../mixins/useWindowSize";
-import fontURL from "../assets/font/en.woff2";
 import { getAttributeOptions } from "../utils/attribute";
-import { deepCopy } from "../utils/object";
 import { downloadImage, downloadFile } from "../utils/file";
-import { Message } from "element-ui";
+import { set, deepCopy } from "../utils/object";
+import { useWindowSize } from "../mixins/useWindowSize";
+import { useFullscreen } from "../mixins/useFullscreen";
+import { color } from "../data/examples";
 
 export default {
   components: {
@@ -47,58 +48,29 @@ export default {
     AttributeTree,
   },
   data() {
-    const defaultExample = {
-      text: {
-        content: "How are you?",
-        fontSize: 200,
-        fontFamily: "Luckiest Guy",
-        fontURL,
-        type: "none",
-        color: "#532582",
-      },
-      background: {
-        type: "none",
-        color: "#fcbc23",
-      },
-      canvas: undefined,
-    };
     const example = localStorage.getItem("cd-example");
     return {
-      example: example ? JSON.parse(example) : defaultExample,
-      preview: false,
+      example: example ? JSON.parse(example) : color,
     };
   },
-  mixins: [useWindowSize()],
-  mounted() {
-    window.addEventListener("keydown", this.handleKeydown);
-    document.addEventListener("fullscreenchange", this.handleFullScreenChange);
-  },
-  destroyed() {
-    window.removeEventListener("keydown", this.handleKeydown);
-    document.removeEventListener("fullscreenchange", this.handleFullScreenChange);
-  },
+  mixins: [useWindowSize(), useFullscreen()],
   computed: {
     wallpaperStyles() {
-      const { transformed } = this;
-      return this.preview
+      const { transformed: t } = this;
+      return this.fullscreen
         ? {}
         : {
-            transform: `translate(${transformed.translateX}px, ${transformed.translateY}px) scale(${transformed.scale}, ${transformed.scale})`,
+            transform: `translate(${t.translateX}px, ${t.translateY}px) scale(${t.scale}, ${t.scale})`,
             transformOrigin: "left top",
           };
     },
     attribute() {
       return getAttributeOptions(this.example);
     },
-    wallpaperOptions() {
-      // Avoid use same example for attribute-tree and wallpaper.
-      // This will make the watcher of wallpaper' options props always have the same newData and oldData.
-      return deepCopy(this.example);
-    },
     transformed() {
       const padding = 50;
-      // 30 is for the tool buttons at the the bottom line
-      const mainHeight = this.windowHeight - 61 - 30;
+      const bottomToolsHeight = 30;
+      const mainHeight = this.windowHeight - 61 - bottomToolsHeight;
       const mainWidth = this.windowWidth - 300;
       const width = mainWidth - padding * 2;
       const height = mainHeight - padding * 2;
@@ -115,6 +87,12 @@ export default {
     },
   },
   methods: {
+    handleUpdateExample({ key, value }) {
+      // 每次更新的时候都深度拷贝一份
+      // 这样 watcher 里面的 newData 和 oldData 就会不一样了
+      this.example = deepCopy(this.example);
+      set(this.example, key, value);
+    },
     handleDownloadImage() {
       downloadImage(this.canvas, "wallpaper");
     },
@@ -125,21 +103,8 @@ export default {
       try {
         await document.documentElement.requestFullscreen();
       } catch {
-        // 如果没有进入到全屏模式失败
-        // 那么就是走这里进入伪全屏
-        this.preview = true;
-        Message.success("Press esc to exit full screen!");
+        Message.success("Failed to enter full screen");
       }
-    },
-    // 在全凭模式下按下 esc 键不会触发该事件
-    // 这个只是针对进入到全屏模式失败的情况
-    handleKeydown({ key }) {
-      if (key === "Escape" && this.preview) {
-        this.preview = false;
-      }
-    },
-    handleFullScreenChange() {
-      this.preview = !this.preview;
     },
   },
 };
@@ -174,6 +139,6 @@ export default {
   width: 100%;
   height: 100%;
   /** slider 的 z-index 是 1001 */
-  z-index: 1005; 
+  z-index: 1005;
 }
 </style>

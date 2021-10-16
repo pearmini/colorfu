@@ -22,7 +22,6 @@ export default {
       image: undefined,
       loading: false,
       rendering: false,
-      timer: null,
     };
   },
   mounted() {
@@ -56,10 +55,10 @@ export default {
         drawWallpaper(this.$refs.canvas, this.width, this.height, options);
 
         this.$emit("on-success", this.$refs.canvas);
+        this.rendering = false;
       } catch (e) {
         Message.error("Failed to draw!");
         console.error(e);
-      } finally {
         this.rendering = false;
         this.loading = false;
       }

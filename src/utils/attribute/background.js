@@ -1,4 +1,5 @@
 import { getPatternOptions, getPatternRelations } from "./pattern";
+import { defaultImageURL } from "../../data/constant";
 
 export function getBackgroundOptions({ type, mode }) {
   return [
@@ -16,7 +17,7 @@ export function getBackgroundOptions({ type, mode }) {
           actions: [
             {
               key: "background.imageURL",
-              value: "https://i.loli.net/2021/09/04/drBtUVNhlq87Rwc.jpg"
+              value: defaultImageURL
             }
           ]
         },

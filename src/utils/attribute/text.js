@@ -18,7 +18,7 @@ export function getTextOptions({ type, mode }) {
         {
           type: "select",
           key: "text.mode",
-          name: "Shape",
+          name: "Size",
           options: [
             { value: "none", label: "Normal" },
             { value: "autoFit", label: "Auto Fit" },
