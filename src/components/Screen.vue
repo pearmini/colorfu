@@ -60,5 +60,7 @@ export default {
 <style scoped>
 .screen-container {
   position: relative;
+  transition: all 0.5s;
+  transition-timing-function: linear;
 }
 </style>

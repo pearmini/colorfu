@@ -1,6 +1,10 @@
 <template>
-  <div v-loading="loading" :style="{ width: width + 'px', height: height + 'px' }">
-    <canvas ref="canvas" />
+  <div
+    v-loading="loading"
+    :style="{ width: width + 'px', height: height + 'px' }"
+    class="transition"
+  >
+    <canvas ref="canvas" class="transition" />
   </div>
 </template>
 
@@ -78,3 +82,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.transition {
+  transition: all 0.5s;
+  transition-timing-function: linear;
+}
+</style>

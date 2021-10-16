@@ -21,9 +21,9 @@ export const useWindowScroll = (page = "*", minY = 0, maxY = 200, minX = 0, maxX
     }
   },
   mounted() {
-    window.addEventListener("mousewheel", this._handleMousewheel);
+    window.addEventListener("wheel", this._handleMousewheel);
   },
   destroyed() {
-    window.removeEventListener("mousewheel", this._handleMousewheel);
+    window.removeEventListener("wheel", this._handleMousewheel);
   }
 });

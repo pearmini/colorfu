@@ -12,8 +12,8 @@
     </div>
     <scale
       :progress="progress"
-      :from="dimension.from"
-      :to="dimension.to"
+      :from="position.from"
+      :to="position.to"
       @onResize="handleResize"
       :fixed="true"
     >
@@ -70,21 +70,32 @@ export default {
         width: 1211,
         height: 707,
       },
-      screenSize: {
-        width: 0,
-        height: 0,
-      },
       disabled: false,
       examples: [color, pattern, image],
+      screenSize: {},
     };
   },
   mixins: [useWindowScroll("", MIN_Y, MAX_Y), useWindowSize()],
+  watch: {
+    progress: {
+      immediate: true,
+      handler() {
+        this.computedScreenSize();
+      },
+    },
+    windowWidth() {
+      this.computedScreenSize();
+    },
+    windowHeight() {
+      this.computedScreenSize();
+    },
+  },
   computed: {
     progress() {
       return map(this.scrollY, MIN_Y, MAX_Y, 0, 1);
     },
-    dimension() {
-      const bottom = 100;
+    position() {
+      const bottom = 120;
       const macAspect = 0.625;
       const toHeight = ((this.windowHeight * 0.7 - 61) * (707 - 45 - 85)) / 707 - bottom / 2;
       const scale = toHeight / (this.windowWidth * macAspect);
@@ -92,13 +103,9 @@ export default {
         from: {
           x: 0,
           y: 0,
-          width: this.windowWidth,
-          height: this.windowHeight,
           scale: 1,
         },
         to: {
-          width: this.windowWidth,
-          height: this.windowWidth * macAspect,
           x: (this.windowWidth * (1 - scale)) / 2,
           y: this.windowHeight - this.windowWidth * macAspect * scale - bottom,
           scale,
@@ -126,6 +133,30 @@ export default {
       localStorage.setItem("cd-example", JSON.stringify(example));
       this.$router.push({ path: "editor" });
     },
+    computedScreenSize() {
+      // 因为性能问题，不能直接将 source size 过度到 target size
+      // 这样每次 scroll 的时候都会重新绘制
+      // 替代方案就是在最后再把 size 设置为 targetSize
+      // size 到 targetSize 的变换用 css transition 去实现
+      const macAspect = 0.625;
+      const macHeight = this.windowWidth * macAspect;
+      const sourceHeight = this.windowHeight;
+      const targetHeight = macHeight;
+      const height =
+        this.progress === 0
+          ? sourceHeight
+          : this.progress === 1
+          ? targetHeight
+          : this.screenSize.height;
+
+      // 没有办法把 screenSize 作为一个计算属性
+      // 因为它除了依赖 progress，windowWidth， windowHeight
+      // 还依赖它自己
+      this.screenSize = {
+        width: this.windowWidth,
+        height,
+      };
+    },
   },
 };
 </script>
@@ -147,5 +178,10 @@ export default {
 .top > p {
   font-size: 20px;
   margin-bottom: 1em;
+}
+
+.el-carousel__container {
+  transition: all 0.5s;
+  transition-timing-function: linear;
 }
 </style>
