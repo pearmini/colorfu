@@ -11,7 +11,7 @@ export const useWindowScroll = (page = "*", minY = 0, maxY = 200, minX = 0, maxX
     scrollX: 0
   }),
   methods: {
-    handleMousewheel({ deltaY, deltaX }) {
+    _handleMousewheel({ deltaY, deltaX }) {
       if (page !== "*") {
         const currentPage = getPage(window.location.href);
         if (page !== currentPage) return;
@@ -21,9 +21,9 @@ export const useWindowScroll = (page = "*", minY = 0, maxY = 200, minX = 0, maxX
     }
   },
   mounted() {
-    window.addEventListener("mousewheel", this.handleMousewheel);
+    window.addEventListener("mousewheel", this._handleMousewheel);
   },
   destroyed() {
-    window.removeEventListener("mousewheel", this.handleMousewheel);
+    window.removeEventListener("mousewheel", this._handleMousewheel);
   }
 });
