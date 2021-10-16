@@ -1,5 +1,7 @@
 import { createCanvas, createContext } from "../canvas";
 import { line } from "./line";
+import { dot } from "./dot";
+import { wave } from "./wave";
 import { createMatrix } from "../math";
 
 export function createPattern(
@@ -12,6 +14,12 @@ export function createPattern(
   switch (type) {
     case "line":
       line(context, width, height, options);
+      break;
+    case "dot": 
+      dot(context, width, height, options);
+      break;
+    case "wave": 
+      wave(context, width, height, options);
       break;
   }
 

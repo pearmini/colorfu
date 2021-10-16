@@ -1,7 +1,11 @@
 import { options as line } from "./line";
+import { options as dot } from "./dot";
+import { options as wave } from "./wave";
 
 const nameOptions = {
-  line
+  line,
+  dot,
+  wave
 };
 
 export function getPatternOptions(type, prefix) {
