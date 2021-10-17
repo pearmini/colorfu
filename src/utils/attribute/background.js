@@ -1,7 +1,8 @@
 import { getPatternOptions, getPatternRelations } from "./pattern";
 import { defaultImageURL } from "../../data/constant";
+import { get } from "../object";
 
-export function getBackgroundOptions({ type, mode }) {
+export function getBackgroundOptions(options) {
   return [
     {
       type: "radio",
@@ -36,11 +37,12 @@ export function getBackgroundOptions({ type, mode }) {
         }
       ]
     },
-    ...getModeOptions(mode, type)
+    ...getModeOptions(options)
   ];
 }
 
-function getModeOptions(mode, type) {
+function getModeOptions(options) {
+  const mode = get(options, "background.mode");
   if (mode === "image") {
     return [
       {
@@ -72,18 +74,19 @@ function getModeOptions(mode, type) {
             ]
           },
 
-          ...getPatternRelations("background")
+          ...getPatternRelations(options, "background")
         ]
       },
       {
         type: "children",
-        children: getStyleOptions(type)
+        children: getStyleOptions(options)
       }
     ];
   }
 }
 
-function getStyleOptions(type) {
+function getStyleOptions(options) {
+  const type = get(options, "background.type");
   if (!type || type === "none") {
     return [
       {
@@ -93,6 +96,6 @@ function getStyleOptions(type) {
       }
     ];
   } else {
-    return getPatternOptions(type, "background");
+    return getPatternOptions(options, "background");
   }
 }

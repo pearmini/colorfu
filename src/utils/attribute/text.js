@@ -1,6 +1,7 @@
 import { getPatternRelations, getPatternOptions } from "./pattern";
+import { get } from "../object";
 
-export function getTextOptions({ type, mode }) {
+export function getTextOptions(options) {
   return [
     {
       type: "text",
@@ -58,7 +59,7 @@ export function getTextOptions({ type, mode }) {
             }
           ]
         },
-        ...getTextFontOptions(mode)
+        ...getTextFontOptions(options)
       ]
     },
     {
@@ -71,16 +72,17 @@ export function getTextOptions({ type, mode }) {
         { value: "dot", label: "Dot" },
         { value: "wave", label: "Wave" }
       ],
-      relations: getPatternRelations("text")
+      relations: getPatternRelations(options, "text")
     },
     {
       type: "children",
-      children: getTextStyleOptions(type)
+      children: getTextStyleOptions(options)
     }
   ];
 }
 
-function getTextFontOptions(mode) {
+function getTextFontOptions(options) {
+  const mode = get(options, "text.mode");
   const fontSize = {
     type: "number",
     key: "text.fontSize",
@@ -107,7 +109,8 @@ function getTextFontOptions(mode) {
   if (mode === "constrain") return [fontSize, padding, dy];
 }
 
-function getTextStyleOptions(type) {
+function getTextStyleOptions(options) {
+  const type = get(options, "text.type");
   if (!type || type === "none") {
     return [
       {
@@ -117,6 +120,6 @@ function getTextStyleOptions(type) {
       }
     ];
   } else {
-    return getPatternOptions(type, "text");
+    return getPatternOptions(options, "text");
   }
 }
