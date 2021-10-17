@@ -18,12 +18,14 @@ import {
   Option,
   Radio,
   Dialog,
-  Tooltip,
+  Tooltip
 } from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import App from "./App.vue";
 import router from "./router";
 import "./assets/css/devices.min.css";
+import locale from "element-ui/lib/locale";
+import lang from "element-ui/lib/locale/lang/en";
 
 Vue.config.productionTip = false;
 
@@ -46,6 +48,8 @@ Vue.use(Option);
 Vue.use(Radio);
 Vue.use(Dialog);
 Vue.use(Tooltip);
+
+locale.use(lang);
 
 new Vue({
   render: h => h(App),
