@@ -17,13 +17,8 @@
       @onResize="handleResize"
       :fixed="true"
     >
-      <screen
-        :src="screenURL"
-        :meta="screenMeta"
-        :width="screenSize.width"
-        :height="screenSize.height"
-      >
-        <el-carousel :height="screenSize.height + 'px'">
+      <screen :width="screenSize.width" :height="screenSize.height">
+        <el-carousel :height="screenSize.height + 'px'" :style="{ width: screenSize.width + 'px' }">
           <el-carousel-item v-for="example in examples" :key="example.mode">
             <div
               @click="handleSelectExample(example)"
@@ -44,7 +39,6 @@
 import Wallpaper from "../components/Wallpaper.vue";
 import Screen from "../components/Screen.vue";
 import Scale from "../components/Scale.vue";
-import screenURL from "../assets/images/mac.png";
 import { useWindowScroll } from "../mixins/useWindowScroll";
 import { useWindowSize } from "../mixins/useWindowSize";
 import { map } from "../utils/math";
@@ -61,15 +55,6 @@ export default {
   name: "home",
   data() {
     return {
-      screenURL,
-      screenMeta: {
-        left: 145,
-        right: 145,
-        top: 45,
-        bottom: 85,
-        width: 1211,
-        height: 707,
-      },
       disabled: false,
       examples: [color, pattern, image],
       screenSize: {},
@@ -183,5 +168,11 @@ export default {
 .el-carousel__container {
   transition: all 0.5s;
   transition-timing-function: linear;
+  width: 100%;
+}
+
+/** device css 里面的样式会覆盖这个样式 */
+.el-carousel__indicator--horizontal {
+  display: inline-block !important;
 }
 </style>
