@@ -1,6 +1,8 @@
 <template>
   <div :class="[containerClass, flex === 'row' ? rowClass : colClass]">
-    <span class="input-label">{{ name }}</span>
+    <div class="input-label">
+      <slot name="name">{{ name }}</slot>
+    </div>
     <slot />
   </div>
 </template>

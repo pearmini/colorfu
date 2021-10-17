@@ -26,6 +26,14 @@
       @update="handleUpdate"
     />
   </group>
+  <input-number
+    v-else-if="options.type === 'number'"
+    v-model="value"
+    :min="options.min"
+    :max="options.max"
+    :step="options.step || 1"
+    :name="options.name"
+  />
   <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
     <el-input
       v-if="options.type === 'text'"
@@ -34,15 +42,7 @@
       size="small"
     />
     <el-color-picker v-if="options.type === 'color'" v-model="value" size="small" />
-    <el-slider
-      v-if="options.type === 'number'"
-      v-model="value"
-      :min="options.min"
-      :max="options.max"
-      :step="options.step || 1"
-      :style="{ width: 150 + 'px' }"
-    >
-    </el-slider>
+
     <image-picker v-if="options.type === 'image'" v-model="value" />
     <el-select v-if="options.type === 'select'" v-model="value" size="small" filterable>
       <el-option
@@ -72,10 +72,11 @@ import { get } from "../utils/object";
 import Feild from "./Field.vue";
 import Group from "./Group.vue";
 import ImagePicker from "./ImagePicker.vue";
+import InputNumber from "./InputNumber.vue";
 
 export default {
   name: "attribute-tree",
-  components: { Feild, Group, ImagePicker },
+  components: { Feild, Group, ImagePicker, InputNumber },
   props: {
     options: Object,
     values: Object,

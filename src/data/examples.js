@@ -9,7 +9,9 @@ export const color = {
     fontURL,
     type: "none",
     color: "#532582",
-    mode: "autoFit"
+    mode: "autoFit",
+    padding: 0,
+    dy: 0
   },
   background: {
     type: "none",
@@ -31,7 +33,9 @@ export const pattern = {
     foregroundColor: "#000",
     color: "#89E089",
     mode: "autoFit",
-    lineWidth: 1.5
+    lineWidth: 1.5,
+    padding: 0,
+    dy: 0
   },
   background: {
     mode: "pattern",
@@ -39,7 +43,8 @@ export const pattern = {
     foregroundColor: "#ddd",
     type: "line",
     width: 50,
-    lineWidth: 1.5
+    lineWidth: 1.5,
+    rotation: 0
   }
 };
 
@@ -51,7 +56,9 @@ export const image = {
     fontURL,
     type: "none",
     color: "#fff",
-    mode: "autoFit"
+    mode: "autoFit",
+    padding: 0,
+    dy: 0
   },
   background: {
     mode: "image",

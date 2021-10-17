@@ -11,7 +11,7 @@ import {
   Footer,
   Input,
   ColorPicker,
-  Slider,
+  InputNumber,
   Upload,
   Loading,
   Select,
@@ -40,7 +40,7 @@ Vue.use(Aside);
 Vue.use(Footer);
 Vue.use(Input);
 Vue.use(ColorPicker);
-Vue.use(Slider);
+Vue.use(InputNumber);
 Vue.use(Upload);
 Vue.use(Loading);
 Vue.use(Select);

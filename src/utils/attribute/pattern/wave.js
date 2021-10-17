@@ -15,17 +15,15 @@ export function wave() {
     {
       type: "number",
       key: "lineWidth",
-      name: "Stroke",
+      name: "Stroke Width",
       defaultValue: 0,
-      min: 0,
-      max: 20
+      min: 0
     },
     {
       type: "number",
       key: "width",
       name: "Width",
       min: 10,
-      max: 100,
       defaultValue: 50
     },
     {
@@ -33,15 +31,12 @@ export function wave() {
       key: "height",
       name: "Height",
       min: 10,
-      max: 100,
       defaultValue: 50
     },
     {
       type: "number",
       key: "rotation",
       name: "Rotation",
-      min: 0,
-      max: 180,
       defaultValue: 0
     }
   ];

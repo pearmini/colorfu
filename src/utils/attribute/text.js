@@ -87,22 +87,18 @@ function getTextFontOptions(options) {
     type: "number",
     key: "text.fontSize",
     name: "Font Size",
-    min: 50,
-    max: 800
+    min: 50
   };
   const padding = {
     type: "number",
     key: "text.padding",
     name: "Padding",
-    min: 0,
-    max: 200
+    min: 0
   };
   const dy = {
     type: "number",
     key: "text.dy",
-    name: "Offset Y",
-    min: -200,
-    max: 200
+    name: "Offset Y"
   };
   if (mode === "none") return [fontSize, dy];
   if (mode === "autoFit") return [padding, dy];
