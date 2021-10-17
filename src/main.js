@@ -17,7 +17,8 @@ import {
   Select,
   Option,
   Radio,
-  Dialog
+  Dialog,
+  Tooltip,
 } from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import App from "./App.vue";
@@ -44,6 +45,7 @@ Vue.use(Select);
 Vue.use(Option);
 Vue.use(Radio);
 Vue.use(Dialog);
+Vue.use(Tooltip);
 
 new Vue({
   render: h => h(App),
