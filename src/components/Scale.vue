@@ -26,15 +26,11 @@ import { map } from "../utils/math";
 export default {
   props: {
     from: {
-      width: Number,
-      height: Number,
       x: Number,
       y: Number,
       scale: Number,
     },
     to: {
-      width: Number,
-      height: Number,
       x: Number,
       y: Number,
       scale: Number,
@@ -53,16 +49,13 @@ export default {
   computed: {
     transformed() {
       const { from, to = from, progress, fixed } = this;
-      const { x: fromX, y: fromY, width: fromW, height: fromH, scale: fromS } = from;
-      const { x: toX, y: toY, width: toW, height: toH, scale: toS } = to;
+      const { x: fromX, y: fromY, scale: fromS } = from;
+      const { x: toX, y: toY, scale: toS } = to;
       const boundingBox = {
         ...(fixed && { x: map(progress, 0, 1, fromX, toX) }),
         ...(fixed && { y: map(progress, 0, 1, fromY, toY) }),
-        width: map(progress, 0, 1, fromW, toW),
-        height: map(progress, 0, 1, fromH, toH),
         scale: map(progress, 0, 1, fromS, toS),
       };
-      this.$emit("onResize", boundingBox);
       return boundingBox;
     },
   },

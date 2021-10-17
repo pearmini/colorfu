@@ -30,14 +30,16 @@ export const pattern = {
     height: 25,
     foregroundColor: "#000",
     color: "#89E089",
-    mode: "autoFit"
+    mode: "autoFit",
+    lineWidth: 1.5
   },
   background: {
     mode: "pattern",
     color: "#fff",
     foregroundColor: "#ddd",
     type: "line",
-    width: 50
+    width: 50,
+    lineWidth: 1.5
   }
 };
 
