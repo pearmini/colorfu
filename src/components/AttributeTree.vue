@@ -98,9 +98,9 @@ export default {
         // set values for releated keys
         for (const { trigger, actions } of relations) {
           if (trigger === newValue) {
-            for (const { key, value } of actions) {
+            for (const { key, value, force } of actions) {
               const oldValue = get(this.values, key);
-              if (oldValue === undefined) {
+              if (oldValue === undefined || force) {
                 this.$emit("update", { key, value: value });
               }
             }

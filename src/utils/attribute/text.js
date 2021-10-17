@@ -67,7 +67,9 @@ export function getTextOptions({ type, mode }) {
       name: "Pattern",
       options: [
         { value: "none", label: "None" },
-        { value: "line", label: "Line" }
+        { value: "line", label: "Line" },
+        { value: "dot", label: "Dot" },
+        { value: "wave", label: "Wave" }
       ],
       relations: getPatternRelations("text")
     },
