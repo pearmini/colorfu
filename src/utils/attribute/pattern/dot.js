@@ -14,7 +14,7 @@ export const options = [
   {
     type: "number",
     key: "size",
-    name: "size",
+    name: "Size",
     defaultValue: 2,
     min: 0,
     // max: 20
