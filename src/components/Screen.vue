@@ -1,18 +1,18 @@
 <template>
   <div
-    class="device device-macbook device-spacegray screen-container"
+    class="device device-macbook device-spacegray screen-container transition"
     :style="transformStyles.container"
   >
-    <div class="device-frame">
+    <div class="device-frame transition">
       <div :style="transformStyles.content">
         <slot></slot>
       </div>
     </div>
-    <div class="device-stripe"></div>
-    <div class="device-header"></div>
-    <div class="device-sensors"></div>
-    <div class="device-btns"></div>
-    <div class="device-power"></div>
+    <div class="device-stripe transition"></div>
+    <div class="device-header transition"></div>
+    <div class="device-sensors transition"></div>
+    <div class="device-btns transition"></div>
+    <div class="device-power transition"></div>
   </div>
 </template>
 
@@ -50,6 +50,9 @@ export default {
 <style scoped>
 .screen-container {
   position: relative;
+}
+
+.transition {
   transition: all 0.5s;
   transition-timing-function: linear;
 }

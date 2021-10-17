@@ -13,19 +13,25 @@
         />
       </div>
       <div class="tools-container">
-        <el-button type="primary" icon="el-icon-view" circle @click="handlePreview"></el-button>
-        <el-button
-          type="primary"
-          icon="el-icon-download"
-          circle
-          @click="handleDownloadFile"
-        ></el-button>
-        <el-button
-          type="primary"
-          icon="el-icon-picture-outline"
-          circle
-          @click="handleDownloadImage"
-        ></el-button>
+        <el-tooltip effect="dark" content="Preveiw" placement="top">
+          <el-button type="primary" icon="el-icon-view" circle @click="handlePreview"></el-button>
+        </el-tooltip>
+        <el-tooltip effect="dark" content="Download File" placement="top">
+          <el-button
+            type="primary"
+            icon="el-icon-download"
+            circle
+            @click="handleDownloadFile"
+          ></el-button>
+        </el-tooltip>
+        <el-tooltip effect="dark" content="Download Image" placement="top">
+          <el-button
+            type="primary"
+            icon="el-icon-picture-outline"
+            circle
+            @click="handleDownloadImage"
+          ></el-button>
+        </el-tooltip>
       </div>
     </el-container>
   </el-container>

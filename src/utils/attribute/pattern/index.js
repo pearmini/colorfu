@@ -1,25 +1,27 @@
-import { options as line } from "./line";
-import { options as dot } from "./dot";
-import { options as wave } from "./wave";
+import { line } from "./line";
+import { dot } from "./dot";
+import { wave } from "./wave";
+import { get } from "../../object";
 
-const nameOptions = {
+const nameCreator = {
   line,
   dot,
   wave
 };
 
-export function getPatternOptions(type, prefix) {
-  const options = nameOptions[type] || line;
-  return options.map(({ key, ...rest }) => ({
+export function getPatternOptions(options, prefix) {
+  const type = get(options, `${prefix}.type`);
+  const creator = nameCreator[type] || line;
+  return creator(options).map(({ key, ...rest }) => ({
     key: `${prefix}.${key}`,
     ...rest
   }));
 }
 
-export function getPatternRelations(prefix) {
-  return Object.entries(nameOptions).map(([name, options]) => ({
+export function getPatternRelations(options, prefix) {
+  return Object.entries(nameCreator).map(([name, creator]) => ({
     trigger: name,
-    actions: options.map(({ key, defaultValue }) => ({
+    actions: creator(options).map(({ key, defaultValue }) => ({
       key: `${prefix}.${key}`,
       value: defaultValue
     }))
