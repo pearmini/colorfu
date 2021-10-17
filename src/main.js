@@ -20,6 +20,7 @@ import {
   Dialog,
   Tooltip
 } from "element-ui";
+import CollapseTransition from "element-ui/lib/transitions/collapse-transition";
 import "element-ui/lib/theme-chalk/index.css";
 import App from "./App.vue";
 import router from "./router";
@@ -48,6 +49,7 @@ Vue.use(Option);
 Vue.use(Radio);
 Vue.use(Dialog);
 Vue.use(Tooltip);
+Vue.component(CollapseTransition.name, CollapseTransition);
 
 locale.use(lang);
 

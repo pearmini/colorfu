@@ -8,7 +8,11 @@
       @update="handleUpdate"
     />
   </div>
-  <div v-else-if="options.type === 'children'" class="children-container">
+  <collapse
+    v-else-if="options.type === 'collapse'"
+    :name="options.name"
+    :defaultOpen="options.defaultOpen"
+  >
     <attribute-tree
       v-for="child in options.children"
       :options="child"
@@ -16,7 +20,7 @@
       :values="values"
       @update="handleUpdate"
     />
-  </div>
+  </collapse>
   <group v-else-if="options.type === 'section'" :name="options.name">
     <attribute-tree
       v-for="child in options.children"
@@ -73,10 +77,11 @@ import Feild from "./Field.vue";
 import Group from "./Group.vue";
 import ImagePicker from "./ImagePicker.vue";
 import InputNumber from "./InputNumber.vue";
+import Collapse from "./Collapse.vue";
 
 export default {
   name: "attribute-tree",
-  components: { Feild, Group, ImagePicker, InputNumber },
+  components: { Feild, Group, ImagePicker, InputNumber, Collapse },
   props: {
     options: Object,
     values: Object,
@@ -119,10 +124,6 @@ export default {
 </script>
 
 <style>
-.children-container {
-  padding-left: 1em;
-}
-
 .radio-container {
   /** 和其他小的 input 的高度保持一致 */
   height: 32px;

@@ -54,32 +54,36 @@ function getModeOptions(options) {
   } else {
     return [
       {
-        type: "select",
-        key: "background.type",
+        type: "collapse",
         name: "Pattern",
-        options: [
-          { value: "none", label: "None" },
-          { value: "line", label: "Line" },
-          { value: "dot", label: "Dot" },
-          { value: "wave", label: "Wave" }
-        ],
-        relations: [
+        defaultOpen: false,
+        children: [
           {
-            trigger: "none",
-            actions: [
+            type: "select",
+            key: "background.type",
+            name: "Type",
+            options: [
+              { value: "none", label: "None" },
+              { value: "line", label: "Line" },
+              { value: "dot", label: "Dot" },
+              { value: "wave", label: "Wave" }
+            ],
+            relations: [
               {
-                key: "background.color",
-                value: "#000000"
-              }
+                trigger: "none",
+                actions: [
+                  {
+                    key: "background.color",
+                    value: "#000000"
+                  }
+                ]
+              },
+
+              ...getPatternRelations(options, "background")
             ]
           },
-
-          ...getPatternRelations(options, "background")
+          ...getStyleOptions(options)
         ]
-      },
-      {
-        type: "children",
-        children: getStyleOptions(options)
       }
     ];
   }

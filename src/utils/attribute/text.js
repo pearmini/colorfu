@@ -11,10 +11,7 @@ export function getTextOptions(options) {
     },
     {
       name: "Text",
-      type: "title"
-    },
-    {
-      type: "children",
+      type: "collapse",
       children: [
         {
           type: "select",
@@ -63,20 +60,24 @@ export function getTextOptions(options) {
       ]
     },
     {
-      type: "select",
-      key: "text.type",
+      type: "collapse",
       name: "Pattern",
-      options: [
-        { value: "none", label: "None" },
-        { value: "line", label: "Line" },
-        { value: "dot", label: "Dot" },
-        { value: "wave", label: "Wave" }
-      ],
-      relations: getPatternRelations(options, "text")
-    },
-    {
-      type: "children",
-      children: getTextStyleOptions(options)
+      defaultOpen: false,
+      children: [
+        {
+          type: "select",
+          key: "text.type",
+          name: "Type",
+          options: [
+            { value: "none", label: "None" },
+            { value: "line", label: "Line" },
+            { value: "dot", label: "Dot" },
+            { value: "wave", label: "Wave" }
+          ],
+          relations: getPatternRelations(options, "text")
+        },
+        ...getTextStyleOptions(options)
+      ]
     }
   ];
 }
