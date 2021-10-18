@@ -15,7 +15,7 @@
       @onResize="handleResize"
       :fixed="true"
     >
-      <screen :width="screenSize.width" :height="screenSize.height">
+      <device :width="screenSize.width" :height="screenSize.height">
         <el-carousel :height="screenSize.height + 'px'" :style="{ width: screenSize.width + 'px' }">
           <el-carousel-item v-for="example in examples" :key="example.mode">
             <div
@@ -28,14 +28,14 @@
             </div>
           </el-carousel-item>
         </el-carousel>
-      </screen>
+      </device>
     </scale>
   </div>
 </template>
 
 <script>
 import Wallpaper from "../components/Wallpaper.vue";
-import Screen from "../components/Screen.vue";
+import Device from "../components/Device.vue";
 import Scale from "../components/Scale.vue";
 import { useWindowScroll } from "../mixins/useWindowScroll";
 import { useWindowSize } from "../mixins/useWindowSize";
@@ -47,7 +47,7 @@ const [MIN_Y, MAX_Y] = [0, 200];
 export default {
   components: {
     Wallpaper,
-    Screen,
+    Device,
     Scale,
   },
   name: "home",
@@ -78,10 +78,12 @@ export default {
       return map(this.scrollY, MIN_Y, MAX_Y, 0, 1);
     },
     position() {
-      const bottom = 120;
       const macAspect = 0.625;
-      const toHeight = ((this.windowHeight * 0.7 - 61) * (707 - 45 - 85)) / 707 - bottom / 2;
-      const scale = toHeight / (this.windowWidth * macAspect);
+      const bodyHeight = ((this.windowHeight - 61) * 2) / 3;
+      const padding = bodyHeight * 0.1;
+      const deviceHeight = bodyHeight - padding;
+      const screenHeight = (deviceHeight * (707 - 45 - 85)) / 707;
+      const scale = screenHeight / (this.windowWidth * macAspect);
       return {
         from: {
           x: 0,
@@ -90,7 +92,7 @@ export default {
         },
         to: {
           x: (this.windowWidth * (1 - scale)) / 2,
-          y: this.windowHeight - this.windowWidth * macAspect * scale - bottom,
+          y: this.windowHeight - screenHeight - 85 * scale - padding,
           scale,
         },
       };
@@ -149,7 +151,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 33.3vh;
+  /** 61px 是 header 的高度 */
+  height: calc((100vh - 61px) / 3);
 }
 
 .top > h1 {
