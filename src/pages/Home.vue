@@ -3,9 +3,7 @@
     <div class="top-container">
       <div class="top">
         <h1>Carpe Diem</h1>
-        <p>
-          Use words mixed with colors, patterns and images to communicate with your wallpaper. 🍉
-        </p>
+        <p>Not only make your wallpaper beautiful, but also make it meaningful. 🍉</p>
         <el-button type="primary" @click="handleStarted">Get Started</el-button>
         <el-button type="success" @click="handleExplore">Explore</el-button>
       </div>
@@ -128,9 +126,9 @@ export default {
       const sourceHeight = this.windowHeight;
       const targetHeight = macHeight;
       const height =
-        this.progress === 0
+        this.progress <= 0
           ? sourceHeight
-          : this.progress === 1
+          : this.progress >= 1
           ? targetHeight
           : this.screenSize.height;
 
