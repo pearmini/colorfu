@@ -4,7 +4,7 @@
     :style="transformStyles.container"
   >
     <div class="device-frame transition">
-      <div :style="transformStyles.content">
+      <div :style="transformStyles.content" class="transition">
         <slot></slot>
       </div>
     </div>
