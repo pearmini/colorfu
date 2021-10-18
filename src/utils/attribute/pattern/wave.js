@@ -35,6 +35,12 @@ export function wave() {
     },
     {
       type: "number",
+      key: "arcRadius",
+      name: "ArcRadius",
+      defaultValue: 0
+    },
+    {
+      type: "number",
       key: "rotation",
       name: "Rotation",
       defaultValue: 0
