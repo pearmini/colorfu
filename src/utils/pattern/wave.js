@@ -3,13 +3,12 @@ export function wave(context, width, height, { backgroundColor, foregroundColor,
   context.fillRect(0, 0, width, height);
   context.strokeStyle = foregroundColor;
   context.lineWidth = lineWidth;
-  context.lineCap = 'square'; //todo，间隙问题
+  context.lineCap = 'square';
   const points = [
-    { x: 0, y: height * (1 / 2) },
+    { x: - width * (1 / 4) , y: height * (3 / 4) },
     { x: width * (1 / 4), y: height * (1 / 4) },
-    { x: width * (1 / 2), y: height * (1 / 2) },
     { x: width * (3 / 4), y: height * (3 / 4) },
-    { x: width, y: height * (1 / 2) }
+    { x: width * (5 / 4), y: height * (1 / 4) },
   ];
   const p = getPath(points, arcRadius);
   const path = new Path2D(p);
