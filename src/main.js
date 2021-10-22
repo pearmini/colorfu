@@ -18,7 +18,10 @@ import {
   Option,
   Radio,
   Dialog,
-  Tooltip
+  Tooltip,
+  Popover,
+  Tabs,
+  TabPane
 } from "element-ui";
 import CollapseTransition from "element-ui/lib/transitions/collapse-transition";
 import "element-ui/lib/theme-chalk/index.css";
@@ -49,6 +52,9 @@ Vue.use(Option);
 Vue.use(Radio);
 Vue.use(Dialog);
 Vue.use(Tooltip);
+Vue.use(Popover);
+Vue.use(TabPane);
+Vue.use(Tabs);
 Vue.component(CollapseTransition.name, CollapseTransition);
 
 locale.use(lang);

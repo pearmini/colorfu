@@ -45,8 +45,13 @@
       v-model="value"
       size="small"
     />
+    <symbol-input
+      v-if="options.type === 'symbol-text'"
+      :placeholder="options.placeholder"
+      v-model="value"
+      size="small"
+    />
     <el-color-picker v-if="options.type === 'color'" v-model="value" size="small" />
-
     <image-picker v-if="options.type === 'image'" v-model="value" />
     <el-select v-if="options.type === 'select'" v-model="value" size="small" filterable>
       <el-option
@@ -78,10 +83,11 @@ import Group from "./Group.vue";
 import ImagePicker from "./ImagePicker.vue";
 import InputNumber from "./InputNumber.vue";
 import Collapse from "./Collapse.vue";
+import SymbolInput from "./SymbolInput.vue";
 
 export default {
   name: "attribute-tree",
-  components: { Feild, Group, ImagePicker, InputNumber, Collapse },
+  components: { Feild, Group, ImagePicker, InputNumber, Collapse, SymbolInput },
   props: {
     options: Object,
     values: Object,
