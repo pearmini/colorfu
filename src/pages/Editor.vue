@@ -7,8 +7,8 @@
       <div :class="{ preivew: fullscreen }" :style="wallpaperStyles">
         <wallpaper
           :options="example"
-          :width="windowWidth"
-          :height="windowHeight"
+          :width="screenWidth"
+          :height="screenHeight"
           @on-success="canvas = $event"
         />
       </div>
@@ -57,6 +57,8 @@ export default {
     const example = localStorage.getItem("cd-example");
     return {
       example: example ? JSON.parse(example) : color,
+      screenWidth: screen.width,
+      screenHeight: screen.height,
     };
   },
   mixins: [useWindowSize(), useFullscreen()],
@@ -74,17 +76,18 @@ export default {
       return getAttributeOptions(this.example);
     },
     transformed() {
+      const { screenWidth, screenHeight } = this;
       const padding = 50;
-      const bottomToolsHeight = 30;
+      const bottomToolsHeight = 25;
       const mainHeight = this.windowHeight - 61 - bottomToolsHeight;
       const mainWidth = this.windowWidth - 300;
       const width = mainWidth - padding * 2;
       const height = mainHeight - padding * 2;
-      const sh = height / this.windowHeight;
-      const sw = width / this.windowWidth;
+      const sh = height / screenHeight;
+      const sw = width / screenWidth;
       const scale = Math.min(sh, sw);
-      const translateX = (mainWidth - this.windowWidth * scale) / 2;
-      const translateY = (mainHeight - this.windowHeight * scale) / 2;
+      const translateX = (mainWidth - screenWidth * scale) / 2;
+      const translateY = (mainHeight - screenHeight * scale) / 2;
       return {
         scale,
         translateX,
@@ -133,7 +136,7 @@ export default {
 
 .tools-container {
   position: fixed;
-  bottom: 30px;
+  bottom: 25px;
   right: 30px;
   z-index: 900;
 }
