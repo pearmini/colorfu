@@ -4,7 +4,7 @@ import { get } from "../object";
 export function getTextOptions(options) {
   return [
     {
-      type: "text",
+      type: "symbol-text",
       key: "text.content",
       name: "Content",
       placeholder: "Please input title"

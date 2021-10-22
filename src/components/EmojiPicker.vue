@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     handleClick(item) {
-      this.$emit("input", item);
+      this.$emit("input", item.emoji);
     },
   },
 };
@@ -49,7 +49,6 @@ export default {
 
 <style>
 .emoji-picker-content {
-  min-height: 100px;
   max-height: 200px;
   overflow: scroll;
   font-size: 16px;
@@ -60,6 +59,11 @@ export default {
 .emoji-picker-item {
   padding: 3px;
   cursor: pointer;
+  border-radius: 4px;
+}
+
+.emoji-picker-item:hover {
+  background: #eee;
 }
 
 .el-tabs__header {
