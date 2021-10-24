@@ -38,6 +38,12 @@
     :step="options.step || 1"
     :name="options.name"
   />
+  <color-palette
+    v-else-if="options.type === 'color palette'"
+    :name="options.name"
+    :keys="options.keys"
+    @input="handleUpdateColor"
+  />
   <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
     <el-input
       v-if="options.type === 'text'"
@@ -84,10 +90,11 @@ import ImagePicker from "./ImagePicker.vue";
 import InputNumber from "./InputNumber.vue";
 import Collapse from "./Collapse.vue";
 import SymbolInput from "./SymbolInput.vue";
+import ColorPalette from "./ColorPalette";
 
 export default {
   name: "attribute-tree",
-  components: { Feild, Group, ImagePicker, InputNumber, Collapse, SymbolInput },
+  components: { Feild, Group, ImagePicker, InputNumber, Collapse, SymbolInput, ColorPalette },
   props: {
     options: Object,
     values: Object,
@@ -124,6 +131,9 @@ export default {
   methods: {
     handleUpdate(obj) {
       this.$emit("update", obj);
+    },
+    handleUpdateColor(key, value) {
+      this.handleUpdate({ key, value });
     },
   },
 };

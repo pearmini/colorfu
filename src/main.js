@@ -21,7 +21,9 @@ import {
   Tooltip,
   Popover,
   Tabs,
-  TabPane
+  TabPane,
+  Empty,
+  Card
 } from "element-ui";
 import CollapseTransition from "element-ui/lib/transitions/collapse-transition";
 import "element-ui/lib/theme-chalk/index.css";
@@ -55,6 +57,8 @@ Vue.use(Tooltip);
 Vue.use(Popover);
 Vue.use(TabPane);
 Vue.use(Tabs);
+Vue.use(Empty);
+Vue.use(Card);
 Vue.component(CollapseTransition.name, CollapseTransition);
 
 locale.use(lang);
