@@ -37,11 +37,6 @@ export default {
     size: String,
     value: String,
   },
-  data() {
-    return {
-      visible: true,
-    };
-  },
   computed: {
     textValue: {
       get() {
@@ -69,7 +64,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .emoji-input-popover {
   padding: 0px 12px;
   padding-bottom: 12px;
@@ -79,14 +74,14 @@ export default {
   padding: 0px;
 }
 
-.el-tabs__item {
+.emoji-input-popover .el-tabs__item {
   height: 36px;
   padding: 0 6px;
   color: #606266;
   font-weight: normal;
 }
 
-.el-tabs__nav-wrap::after {
+.emoji-input-popover .el-tabs__nav-wrap::after {
   height: 1px;
 }
 </style>

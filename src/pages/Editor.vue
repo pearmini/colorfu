@@ -1,7 +1,13 @@
 <template>
   <el-container class="editor-container">
     <el-aside width="300px">
-      <attribute-tree :options="attribute" :values="example" @update="handleUpdateExample" />
+      <attribute-tree
+        :options="attribute"
+        :values="example"
+        @update="handleUpdateExample"
+        @color="handleUpdateColor"
+        :colors="colors"
+      />
     </el-aside>
     <el-container>
       <div :class="{ preivew: fullscreen }" :style="wallpaperStyles">
@@ -59,6 +65,7 @@ export default {
       example: example ? JSON.parse(example) : color,
       screenWidth: screen.width,
       screenHeight: screen.height,
+      colors: [],
     };
   },
   mixins: [useWindowSize(), useFullscreen()],
@@ -107,6 +114,9 @@ export default {
     },
     handleDownloadFile() {
       downloadFile(this.example, "wallpaper");
+    },
+    handleUpdateColor(colors) {
+      this.colors = colors;
     },
     async handlePreview() {
       try {
