@@ -4,7 +4,7 @@ export const colorStore = [
     colors: [
       {
         name: "Steelblue",
-        values: ["steelblue"]
+        values: ["#4682B4"]
       }
     ]
   },

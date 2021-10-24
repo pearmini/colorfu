@@ -5,7 +5,9 @@
       :options="child"
       :key="child.key"
       :values="values"
+      :colors="colors"
       @update="handleUpdate"
+      @color="handleUpdateColor"
     />
   </div>
   <collapse
@@ -18,7 +20,9 @@
       :options="child"
       :key="child.key"
       :values="values"
+      :colors="colors"
       @update="handleUpdate"
+      @color="handleUpdateColor"
     />
   </collapse>
   <group v-else-if="options.type === 'section'" :name="options.name">
@@ -27,7 +31,9 @@
       :options="child"
       :key="child.key"
       :values="values"
+      :colors="colors"
       @update="handleUpdate"
+      @color="handleUpdateColor"
     />
   </group>
   <input-number
@@ -41,8 +47,10 @@
   <color-palette
     v-else-if="options.type === 'color palette'"
     :name="options.name"
-    :keys="options.keys"
-    @input="handleUpdateColor"
+    :groups="options.groups"
+    :colors="colors"
+    @input="handleInputColor"
+    @update="handleUpdateColor"
   />
   <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
     <el-input
@@ -83,7 +91,7 @@
 </template>
 
 <script>
-import { get } from "../utils/object";
+import { get, deepCopy } from "../utils/object";
 import Feild from "./Field.vue";
 import Group from "./Group.vue";
 import ImagePicker from "./ImagePicker.vue";
@@ -98,6 +106,7 @@ export default {
   props: {
     options: Object,
     values: Object,
+    colors: [],
   },
   computed: {
     value: {
@@ -110,17 +119,25 @@ export default {
         const { key, relations = [] } = this.options;
         if (!key) return;
 
-        // set value for this key
         // 不直接改变 props 的值
-        this.$emit("update", { key, value: newValue });
+        this.handleUpdate({ key, value: newValue });
 
-        // set values for releated keys
+        // 更新全局 color picker 里面对应的属性
+        const newColors = deepCopy(this.colors);
+        for (const color of newColors) {
+          if (color.attribute === key) {
+            color.attribute = "";
+          }
+        }
+        this.handleUpdateColor(newColors);
+
+        // 更新相关的值
         for (const { trigger, actions } of relations) {
           if (trigger === newValue) {
             for (const { key, value, force } of actions) {
               const oldValue = get(this.values, key);
               if (oldValue === undefined || force) {
-                this.$emit("update", { key, value: value });
+                this.handleUpdate({ key, value: value });
               }
             }
           }
@@ -132,7 +149,10 @@ export default {
     handleUpdate(obj) {
       this.$emit("update", obj);
     },
-    handleUpdateColor(key, value) {
+    handleUpdateColor(colors) {
+      this.$emit("color", colors);
+    },
+    handleInputColor(key, value) {
       this.handleUpdate({ key, value });
     },
   },

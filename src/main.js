@@ -23,7 +23,8 @@ import {
   Tabs,
   TabPane,
   Empty,
-  Card
+  Card,
+  OptionGroup
 } from "element-ui";
 import CollapseTransition from "element-ui/lib/transitions/collapse-transition";
 import "element-ui/lib/theme-chalk/index.css";
@@ -59,6 +60,7 @@ Vue.use(TabPane);
 Vue.use(Tabs);
 Vue.use(Empty);
 Vue.use(Card);
+Vue.use(OptionGroup);
 Vue.component(CollapseTransition.name, CollapseTransition);
 
 locale.use(lang);

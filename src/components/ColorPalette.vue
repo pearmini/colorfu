@@ -10,7 +10,7 @@
       ></el-button>
     </div>
     <el-empty v-if="colors.length === 0" description="No Colors"> </el-empty>
-    <template v-else>
+    <div v-else class="color-palette-table">
       <div v-for="(item, index) in colors" :key="item.color" class="color-palette-row">
         <el-button
           icon="el-icon-delete"
@@ -26,11 +26,17 @@
           @input="(key) => handleInput(key, index, item.color)"
           :value="item.attribute"
         >
-          <el-option v-for="item in keys" :key="item.name" :label="item.name" :value="item.key">
-          </el-option>
+          <el-option-group v-for="group in groups" :key="group.name" :label="group.name">
+            <el-option
+              v-for="item in group.keys"
+              :key="item.name"
+              :label="item.name"
+              :value="item.key"
+            />
+          </el-option-group>
         </el-select>
       </div>
-    </template>
+    </div>
     <el-dialog title="Color Store" width="1000px" :visible.sync="showColorsStore">
       <el-tabs :value="colorStore[0].name">
         <el-tab-pane
@@ -79,6 +85,7 @@
 <script>
 import Group from "./Group.vue";
 import { colorStore } from "../data/color";
+import { deepCopy } from "../utils/object";
 
 export default {
   components: {
@@ -86,7 +93,6 @@ export default {
   },
   data() {
     return {
-      colors: [],
       showColorsStore: false,
       colorStore,
       cardSize: 200,
@@ -94,24 +100,35 @@ export default {
   },
   props: {
     name: String,
-    keys: Array,
+    groups: Array,
+    colors: Array,
   },
   methods: {
     handleAddColors(values) {
-      this.colors.push(...values.map((d) => ({ color: d, attribute: "" })));
+      const newColors = deepCopy(this.colors);
+      // 过滤掉已经有的颜色
+      const colorSet = new Set(newColors.map((d) => d.color));
+      const newValues = values.filter((d) => !colorSet.has(d));
+
+      // 更新颜色
+      newColors.push(...newValues.map((d) => ({ color: d, attribute: "" })));
+      this.$emit("update", newColors);
       this.showColorsStore = false;
     },
     handleDeleteColor(index) {
-      this.colors.splice(index, 1);
+      const newColors = deepCopy(this.colors);
+      newColors.splice(index, 1);
+      this.$emit("update", newColors);
     },
     handleInput(key, index, value) {
-      for (const color of this.colors) {
+      const newColors = deepCopy(this.colors);
+      for (const color of newColors) {
         if (color.attribute === key) {
           color.attribute = "";
         }
       }
-      this.colors[index].attribute = key;
-      this.colors = [...this.colors];
+      newColors[index].attribute = key;
+      this.$emit("update", newColors);
       this.$emit("input", key, value);
     },
   },
@@ -153,12 +170,17 @@ export default {
 }
 
 .color-palette-preview {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 3px;
 }
 
 .color-palette-btns {
   display: flex;
+}
+
+.color-palette-table {
+  max-height: 200px;
+  overflow: scroll;
 }
 </style>

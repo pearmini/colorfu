@@ -22,7 +22,7 @@ export function dot() {
     {
       type: "color",
       key: "strokeColor",
-      name: "Stroke Color",
+      name: "Foreground Color",
       defaultValue: "#000"
     },
     {
