@@ -91,6 +91,6 @@ export default {
 
 .el-loading-spinner {
   /** device 会覆盖这个样式为 block */
-  display: inline-block !important;
+  display: inherit !important;
 }
 </style>
