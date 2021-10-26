@@ -47,9 +47,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .screen-container {
   position: relative;
+}
+
+.screen-container .el-loading-spinner{
+  display: inline-block !important;
 }
 
 .transition {
