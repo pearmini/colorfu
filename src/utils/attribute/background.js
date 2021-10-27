@@ -1,4 +1,4 @@
-import { getPatternOptions, getPatternRelations } from "./pattern";
+import { getPatternStyleOptions, getPatternRelations } from "./pattern";
 import { defaultImageURL } from "../../data/constant";
 import { get } from "../object";
 
@@ -92,14 +92,8 @@ function getModeOptions(options) {
 function getStyleOptions(options) {
   const type = get(options, "background.type");
   if (!type || type === "none") {
-    return [
-      {
-        type: "color",
-        key: "background.color",
-        name: "Color"
-      }
-    ];
+    return [];
   } else {
-    return getPatternOptions(options, "background");
+    return getPatternStyleOptions(options, "background");
   }
 }

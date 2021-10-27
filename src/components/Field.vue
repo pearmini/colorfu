@@ -45,6 +45,10 @@ export default {
   align-items: flex-start;
 }
 
+.col .input-label {
+  margin-bottom: 0.5em;
+}
+
 .col > span {
   margin-bottom: 0.5em;
 }

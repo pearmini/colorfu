@@ -1,49 +1,38 @@
 import { get } from "../object";
+import { getPatternColorOptions } from "./pattern";
 
 export function getColorOptions(options) {
-  const groups = [getWordsKeys(options), getBackgroundKeys(options)];
-  return {
-    type: "color palette",
-    name: "Palette",
-    groups: groups.filter(d => d !== undefined)
-  };
+  return [...getWordsColors(options), ...getBackgroundColors(options)];
 }
 
-function getWordsKeys(options) {
-  return getPatternKeys(options, "text", "Words");
-}
-
-function getPatternKeys(options, prefix, name) {
-  const type = get(options, `${prefix}.type`);
-  if (type === "none") {
-    return {
-      name: `${name} Pattern`,
-      keys: [
-        {
-          name: "Color",
-          key: `${prefix}.color`
-        }
-      ]
-    };
+function getWordsColors(options) {
+  const type = get(options, "text.type");
+  if (!type || type === "none") {
+    return [
+      {
+        type: "color",
+        key: "text.color",
+        name: "Words Color"
+      }
+    ];
   } else {
-    return {
-      name: `${name} Pattern`,
-      keys: [
-        {
-          name: "Background Color",
-          key: `${prefix}.color`
-        },
-        {
-          name: "Foreground Color",
-          key: `${prefix}.foregroundColor`
-        }
-      ]
-    };
+    return getPatternColorOptions(options, "text", "Words");
   }
 }
 
-function getBackgroundKeys(options) {
-  const backgroundMode = get(options, "background.mode");
-  if (backgroundMode === "image") return undefined;
-  return getPatternKeys(options, "background", "Background");
+function getBackgroundColors(options) {
+  const mode = get(options, "background.mode");
+  const type = get(options, "background.type");
+  if (mode === "image") return [];
+  if (!type || type === "none") {
+    return [
+      {
+        type: "color",
+        key: "background.color",
+        name: "Background Color"
+      }
+    ];
+  } else {
+    return getPatternColorOptions(options, "background", "Background");
+  }
 }

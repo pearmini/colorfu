@@ -5,24 +5,21 @@
       :options="child"
       :key="child.key"
       :values="values"
-      :colors="colors"
       @update="handleUpdate"
-      @color="handleUpdateColor"
     />
   </div>
   <collapse
     v-else-if="options.type === 'collapse'"
     :name="options.name"
     :defaultOpen="options.defaultOpen"
+    :indent="options.indent"
   >
     <attribute-tree
       v-for="child in options.children"
       :options="child"
       :key="child.key"
       :values="values"
-      :colors="colors"
       @update="handleUpdate"
-      @color="handleUpdateColor"
     />
   </collapse>
   <group v-else-if="options.type === 'section'" :name="options.name">
@@ -31,9 +28,7 @@
       :options="child"
       :key="child.key"
       :values="values"
-      :colors="colors"
       @update="handleUpdate"
-      @color="handleUpdateColor"
     />
   </group>
   <input-number
@@ -44,14 +39,8 @@
     :step="options.step || 1"
     :name="options.name"
   />
-  <color-palette
-    v-else-if="options.type === 'color palette'"
-    :name="options.name"
-    :groups="options.groups"
-    :colors="colors"
-    @input="handleInputColor"
-    @update="handleUpdateColor"
-  />
+  <color-palette v-else-if="options.type === 'color-palette'" />
+  <color-field v-else-if="options.type === 'color'" v-model="value" :name="options.name" />
   <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
     <el-input
       v-if="options.type === 'text'"
@@ -65,7 +54,6 @@
       v-model="value"
       size="small"
     />
-    <el-color-picker v-if="options.type === 'color'" v-model="value" size="small" />
     <image-picker v-if="options.type === 'image'" v-model="value" />
     <el-select v-if="options.type === 'select'" v-model="value" size="small" filterable>
       <el-option
@@ -91,22 +79,31 @@
 </template>
 
 <script>
-import { get, deepCopy } from "../utils/object";
+import { get } from "../utils/object";
 import Feild from "./Field.vue";
 import Group from "./Group.vue";
 import ImagePicker from "./ImagePicker.vue";
 import InputNumber from "./InputNumber.vue";
 import Collapse from "./Collapse.vue";
 import SymbolInput from "./SymbolInput.vue";
-import ColorPalette from "./ColorPalette";
+import ColorPalette from "./ColorPalette.vue";
+import ColorField from "./ColorField.vue";
 
 export default {
   name: "attribute-tree",
-  components: { Feild, Group, ImagePicker, InputNumber, Collapse, SymbolInput, ColorPalette },
+  components: {
+    Feild,
+    Group,
+    ImagePicker,
+    InputNumber,
+    Collapse,
+    SymbolInput,
+    ColorPalette,
+    ColorField,
+  },
   props: {
     options: Object,
     values: Object,
-    colors: [],
   },
   computed: {
     value: {
@@ -121,15 +118,6 @@ export default {
 
         // 不直接改变 props 的值
         this.handleUpdate({ key, value: newValue });
-
-        // 更新全局 color picker 里面对应的属性
-        const newColors = deepCopy(this.colors);
-        for (const color of newColors) {
-          if (color.attribute === key) {
-            color.attribute = "";
-          }
-        }
-        this.handleUpdateColor(newColors);
 
         // 更新相关的值
         for (const { trigger, actions } of relations) {
@@ -148,12 +136,6 @@ export default {
   methods: {
     handleUpdate(obj) {
       this.$emit("update", obj);
-    },
-    handleUpdateColor(colors) {
-      this.$emit("color", colors);
-    },
-    handleInputColor(key, value) {
-      this.handleUpdate({ key, value });
     },
   },
 };

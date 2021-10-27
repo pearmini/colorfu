@@ -6,7 +6,24 @@ export function getAttributeOptions(options) {
   return {
     type: "container",
     children: [
-      getColorOptions(options),
+      {
+        type: "section",
+        name: "Colors",
+        children: [
+          {
+            type: "collapse",
+            name: "Color Palette",
+            defaultOpen: true,
+            indent: false,
+            children: [
+              {
+                type: "color-palette"
+              }
+            ]
+          },
+          ...getColorOptions(options)
+        ]
+      },
       {
         type: "section",
         name: "Words",
