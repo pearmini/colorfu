@@ -18,6 +18,21 @@ export function getPatternOptions(options, prefix) {
   }));
 }
 
+export function getPatternStyleOptions(options, prefix) {
+  const o = getPatternOptions(options, prefix);
+  return o.filter(d => d.type !== "color");
+}
+
+export function getPatternColorOptions(options, prefix, prefixName) {
+  const o = getPatternOptions(options, prefix);
+  return o
+    .filter(d => d.type === "color")
+    .map(({ name, ...rest }) => ({
+      name: `${prefixName} - ${name}`,
+      ...rest
+    }));
+}
+
 export function getPatternRelations(options, prefix) {
   return Object.entries(nameCreator).map(([name, creator]) => ({
     trigger: name,

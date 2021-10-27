@@ -5,8 +5,6 @@
         :options="attribute"
         :values="example"
         @update="handleUpdateExample"
-        @color="handleUpdateColor"
-        :colors="colors"
       />
     </el-aside>
     <el-container>
@@ -65,7 +63,6 @@ export default {
       example: example ? JSON.parse(example) : color,
       screenWidth: screen.width,
       screenHeight: screen.height,
-      colors: [],
     };
   },
   mixins: [useWindowSize(), useFullscreen()],
@@ -114,9 +111,6 @@ export default {
     },
     handleDownloadFile() {
       downloadFile(this.example, "wallpaper");
-    },
-    handleUpdateColor(colors) {
-      this.colors = colors;
     },
     async handlePreview() {
       try {

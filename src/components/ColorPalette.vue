@@ -1,41 +1,26 @@
 <template>
-  <group :name="name">
-    <div class="color-palette-btns" slot="header">
-      <el-button
-        type="primary"
-        size="mini"
-        @click="showColorsStore = true"
-        icon="el-icon-plus"
-        circle
-      ></el-button>
+  <div class="color-palette-container">
+    <div @click="showColorsStore = true" v-if="colors.length === 0" style="cursor: pointer">
+      <el-empty description="No colors, click to add."> </el-empty>
     </div>
-    <el-empty v-if="colors.length === 0" description="No Colors"> </el-empty>
-    <div v-else class="color-palette-table">
-      <div v-for="(item, index) in colors" :key="item.color" class="color-palette-row">
-        <el-button
-          icon="el-icon-delete"
-          circle
-          size="mini"
-          @click="() => handleDeleteColor(index)"
-        ></el-button>
-        <div :style="{ background: item.color }" class="color-palette-preview"></div>
-        <el-select
-          size="small"
-          filterable
-          placeholder="Select Attribte"
-          @input="(key) => handleInput(key, index, item.color)"
-          :value="item.attribute"
-        >
-          <el-option-group v-for="group in groups" :key="group.name" :label="group.name">
-            <el-option
-              v-for="item in group.keys"
-              :key="item.name"
-              :label="item.name"
-              :value="item.key"
-            />
-          </el-option-group>
-        </el-select>
-      </div>
+    <div v-else class="color-palette-colors">
+      <span
+        class="color-palette-item"
+        v-for="color in colors"
+        :style="{ background: color }"
+        :key="color"
+        draggable="true"
+        @dragstart="(e) => handleDragStart(e, color)"
+      ></span>
+      <i
+        class="el-icon-circle-plus-outline"
+        @click="showColorsStore = true"
+        :style="{
+          float: 'left',
+          cursor: 'pointer',
+          lineHeight: '20px',
+        }"
+      ></i>
     </div>
     <el-dialog title="Color Store" width="1000px" :visible.sync="showColorsStore">
       <el-tabs :value="colorStore[0].name">
@@ -79,57 +64,36 @@
         <el-button @click="showColorsStore = false">Cancel</el-button>
       </span>
     </el-dialog>
-  </group>
+  </div>
 </template>
 
 <script>
-import Group from "./Group.vue";
 import { colorStore } from "../data/color";
-import { deepCopy } from "../utils/object";
 
 export default {
-  components: {
-    Group,
-  },
   data() {
     return {
       showColorsStore: false,
       colorStore,
       cardSize: 200,
+      colors: [],
     };
   },
-  props: {
-    name: String,
-    groups: Array,
-    colors: Array,
-  },
   methods: {
-    handleAddColors(values) {
-      const newColors = deepCopy(this.colors);
+    handleAddColors(colors) {
       // 过滤掉已经有的颜色
-      const colorSet = new Set(newColors.map((d) => d.color));
-      const newValues = values.filter((d) => !colorSet.has(d));
+      const colorSet = new Set(this.colors);
+      const newColors = colors.filter((d) => !colorSet.has(d));
 
       // 更新颜色
-      newColors.push(...newValues.map((d) => ({ color: d, attribute: "" })));
-      this.$emit("update", newColors);
+      this.colors.push(...newColors);
       this.showColorsStore = false;
     },
     handleDeleteColor(index) {
-      const newColors = deepCopy(this.colors);
-      newColors.splice(index, 1);
-      this.$emit("update", newColors);
+      this.colors.splice(index, 1);
     },
-    handleInput(key, index, value) {
-      const newColors = deepCopy(this.colors);
-      for (const color of newColors) {
-        if (color.attribute === key) {
-          color.attribute = "";
-        }
-      }
-      newColors[index].attribute = key;
-      this.$emit("update", newColors);
-      this.$emit("input", key, value);
+    handleDragStart(e, color) {
+      e.dataTransfer.setData("drag-color", color);
     },
   },
 };
@@ -137,7 +101,7 @@ export default {
 
 <style >
 .el-empty {
-  padding: 0;
+  padding: 5px;
 }
 
 .el-empty__image {
@@ -155,6 +119,12 @@ export default {
   align-items: center;
 }
 
+.color-palette-container {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  padding: 8px;
+}
+
 .color-palette-tab-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -162,25 +132,18 @@ export default {
   overflow: scroll;
 }
 
-.color-palette-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.25em 0em;
+.color-palette-colors::after {
+  display: block;
+  content: "";
+  clear: both;
 }
 
-.color-palette-preview {
-  width: 25px;
-  height: 25px;
-  border-radius: 3px;
-}
-
-.color-palette-btns {
-  display: flex;
-}
-
-.color-palette-table {
-  max-height: 200px;
-  overflow: scroll;
+.color-palette-item {
+  float: left;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  margin-right: 5px;
+  cursor: grab;
 }
 </style>

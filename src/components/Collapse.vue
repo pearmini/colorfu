@@ -6,7 +6,13 @@
       </span>
     </field>
     <el-collapse-transition>
-      <div class="collapse-children" v-show="open">
+      <div
+        class="collapse-children"
+        v-show="open"
+        :style="{
+          paddingLeft: indent ? '1em' : 0,
+        }"
+      >
         <slot></slot>
       </div>
     </el-collapse-transition>
@@ -21,6 +27,10 @@ export default {
   },
   props: {
     name: String,
+    indent: {
+      type: Boolean,
+      default: true,
+    },
     defaultOpen: {
       type: Boolean,
       default: true,
@@ -52,7 +62,6 @@ export default {
 </script>
 <style>
 .collapse-children {
-  padding-left: 1em;
   overflow: hidden;
   will-change: height;
 }

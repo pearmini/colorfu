@@ -9,7 +9,7 @@ export function wave() {
     {
       type: "color",
       key: "foregroundColor",
-      name: "Foreground Color",
+      name: "Line Color",
       defaultValue: "#89E089"
     },
     {

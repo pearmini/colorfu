@@ -1,4 +1,4 @@
-import { getPatternRelations, getPatternOptions } from "./pattern";
+import { getPatternRelations, getPatternStyleOptions } from "./pattern";
 import { get } from "../object";
 
 export function getTextOptions(options) {
@@ -109,14 +109,8 @@ function getTextFontOptions(options) {
 function getTextStyleOptions(options) {
   const type = get(options, "text.type");
   if (!type || type === "none") {
-    return [
-      {
-        type: "color",
-        key: "text.color",
-        name: "Color"
-      }
-    ];
+    return [];
   } else {
-    return getPatternOptions(options, "text");
+    return getPatternStyleOptions(options, "text");
   }
 }
