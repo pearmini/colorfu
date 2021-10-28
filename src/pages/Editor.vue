@@ -1,11 +1,7 @@
 <template>
   <el-container class="editor-container">
     <el-aside width="300px">
-      <attribute-tree
-        :options="attribute"
-        :values="example"
-        @update="handleUpdateExample"
-      />
+      <attribute-tree :options="attribute" :values="example" @update="handleUpdateExample" />
     </el-aside>
     <el-container>
       <div :class="{ preivew: fullscreen }" :style="wallpaperStyles">
