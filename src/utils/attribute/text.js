@@ -38,12 +38,10 @@ export function getTextOptions(options) {
               options: systemFonts.map(font)
             }
           ],
-          relations: [
-            [...onlineFonts, ...systemFonts].map(d => ({
-              trigger: d.name,
-              actions: [{ key: "text.fontURL", value: d.url }]
-            }))
-          ]
+          relations: [...onlineFonts, ...systemFonts].map(d => ({
+            trigger: d.name,
+            actions: [{ key: "text.fontURL", value: d.fontURL, force: true }]
+          }))
         },
         {
           type: "select",
