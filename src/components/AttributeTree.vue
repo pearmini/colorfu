@@ -55,14 +55,39 @@
       size="small"
     />
     <image-picker v-if="options.type === 'image'" v-model="value" />
-    <el-select v-if="options.type === 'select'" v-model="value" size="small" filterable>
+    <el-select
+      v-if="options.type === 'select'"
+      v-model="value"
+      size="small"
+      filterable
+      :style="{ width: options.width || 160 + 'px' }"
+    >
       <el-option
         v-for="item in options.options"
         :key="item.value"
         :label="item.label"
         :value="item.value"
       >
+        <span v-if="item.template" v-html="item.template"></span>
       </el-option>
+    </el-select>
+    <el-select
+      v-if="options.type === 'select-group'"
+      v-model="value"
+      size="small"
+      filterable
+      :style="{ width: options.width || 160 + 'px' }"
+    >
+      <el-option-group v-for="group in options.groups" :key="group.label" :label="group.label">
+        <el-option
+          v-for="item in group.options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+          <span v-if="item.template" v-html="item.template"></span>
+        </el-option>
+      </el-option-group>
     </el-select>
     <div v-if="options.type === 'radio'" class="radio-container">
       <el-radio

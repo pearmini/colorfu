@@ -123,6 +123,7 @@ export default {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   padding: 8px;
+  margin: 0.25em 0;
 }
 
 .color-palette-tab-container {

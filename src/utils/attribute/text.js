@@ -1,5 +1,16 @@
 import { getPatternRelations, getPatternStyleOptions } from "./pattern";
 import { get } from "../object";
+import { systemFonts } from "../font";
+import { onlineFonts } from "../../data/constant";
+
+function font(d) {
+  return {
+    value: d.name,
+    label: d.name + (d.type ? ` (${d.type})` : ""),
+    template: `<span style="font-family:${d.name}">${d.name}</span>`,
+    url: d.fontURL
+  };
+}
 
 export function getTextOptions(options) {
   return [
@@ -13,6 +24,25 @@ export function getTextOptions(options) {
       name: "Text",
       type: "collapse",
       children: [
+        {
+          type: "select-group",
+          key: "text.fontFamily",
+          name: "Font Family",
+          groups: [
+            {
+              label: "Online Fonts",
+              options: onlineFonts.map(font)
+            },
+            {
+              label: "System Fonts",
+              options: systemFonts.map(font)
+            }
+          ],
+          relations: [...onlineFonts, ...systemFonts].map(d => ({
+            trigger: d.name,
+            actions: [{ key: "text.fontURL", value: d.fontURL, force: true }]
+          }))
+        },
         {
           type: "select",
           key: "text.mode",

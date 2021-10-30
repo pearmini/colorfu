@@ -42,7 +42,7 @@ function drawText(
       ? getTextFontSize(content, containerWidth, { fontSize: 200, fontFamily })
       : fontSize;
 
-  context.font = `${finalFontSize}px ${fontFamily}`;
+  context.font = `bolder ${finalFontSize}px ${fontFamily}`;
   context.textAlign = "center";
   context.textBaseline = "middle";
   context.fillStyle = fillStyle;
