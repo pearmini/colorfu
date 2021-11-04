@@ -39,11 +39,13 @@ export default {
   methods: {
     handleDragover(e) {
       e.preventDefault(); // 取消这个事件才能触发 drop 事件
+      e.dataTransfer.dropEffect = "move"; // 取消默认的箭头
       this.over = true;
     },
     handleDrop(e) {
       const color = e.dataTransfer.getData("drag-color");
       this.$emit("input", color);
+      this.over = false;
     },
   },
 };
