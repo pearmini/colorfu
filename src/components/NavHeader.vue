@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav-header-container">
     <el-menu
       mode="horizontal"
       :router="true"
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style>
-.el-menu {
+.nav-header-container .el-menu {
   display: flex;
   justify-content: flex-end;
 }

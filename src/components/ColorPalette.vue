@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { colorStore } from "../data/color";
+import { colorStore } from "../data/color/index";
 
 export default {
   data() {
@@ -100,19 +100,19 @@ export default {
 </script>
 
 <style >
-.el-empty {
+.color-palette-container .el-empty {
   padding: 5px;
 }
 
-.el-empty__image {
+.color-palette-container .el-empty__image {
   width: 50px;
 }
 
-.el-card__body {
+.color-palette-container .el-card__body {
   padding: 0px;
 }
 
-.el-card__header {
+.color-palette-container .el-card__header {
   padding: 8px;
   display: flex;
   justify-content: space-between;

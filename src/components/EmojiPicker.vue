@@ -1,22 +1,24 @@
 <template>
-  <el-tabs tab-position="bottom" v-model="selectedName">
-    <el-tab-pane
-      v-for="group in emojiGroups"
-      :key="group.name"
-      :label="group.emoji"
-      :name="group.name"
-    >
-      <div class="emoji-picker-content">
-        <span
-          v-for="item in emojis"
-          :key="item.name"
-          class="emoji-picker-item"
-          @click="() => handleClick(item)"
-          >{{ item.emoji }}</span
-        >
-      </div>
-    </el-tab-pane>
-  </el-tabs>
+  <div class="emoji-picker-container">
+    <el-tabs tab-position="bottom" v-model="selectedName">
+      <el-tab-pane
+        v-for="group in emojiGroups"
+        :key="group.name"
+        :label="group.emoji"
+        :name="group.name"
+      >
+        <div class="emoji-picker-content">
+          <span
+            v-for="item in emojis"
+            :key="item.name"
+            class="emoji-picker-item"
+            @click="() => handleClick(item)"
+            >{{ item.emoji }}</span
+          >
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
@@ -66,7 +68,7 @@ export default {
   background: #eee;
 }
 
-.el-tabs__header {
+.emoji-picker-container .el-tabs__header {
   margin-top: 0px !important;
 }
 </style>

@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .group-container {
   padding: 1em 1em 0 1em;
 }
