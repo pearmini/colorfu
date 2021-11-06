@@ -1,5 +1,5 @@
 import fontURL from "../assets/font/en.woff2";
-import { defaultImageURL } from "./constant";
+import { defaultImageURL } from "./image";
 
 export const color = {
   text: {

@@ -1,10 +1,6 @@
 <template>
-  <div
-    v-loading="loading"
-    :style="{ width: width + 'px', height: height + 'px' }"
-    class="transition"
-  >
-    <canvas ref="canvas" class="transition" />
+  <div v-loading="loading" :style="styleSize" class="transition">
+    <canvas ref="canvas" class="transition" :style="styleSize" />
   </div>
 </template>
 
@@ -19,6 +15,8 @@ export default {
     options: Object,
     width: Number,
     height: Number,
+    styleWidth: [Number, String],
+    styleHeight: [Number, String],
   },
   data() {
     return {
@@ -27,6 +25,17 @@ export default {
       loading: false,
       rendering: false,
     };
+  },
+  computed: {
+    styleSize() {
+      const width = this.styleWidth || this.width;
+      const height = this.styleHeight || this.height;
+      const wrap = (d) => (typeof d === "number" ? d + "px" : d);
+      return {
+        width: wrap(width),
+        height: wrap(height),
+      };
+    },
   },
   mounted() {
     this.render();
