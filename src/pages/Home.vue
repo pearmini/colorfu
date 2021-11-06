@@ -1,35 +1,47 @@
 <template>
-  <div>
+  <div class="home-container">
     <div class="top-container">
-      <div class="top">
-        <h1>Carpe Diem</h1>
-        <p>Not only make your wallpaper beautiful, but also make it meaningful. 🍉</p>
-        <el-button type="primary" @click="handleStarted">Get Started</el-button>
-        <el-button type="success" @click="handleExplore">Explore</el-button>
+      <div class="top-text">
+        <h1>Make beautiful but also meaningful wallpapers.</h1>
+        <p>
+          Carpe Diem is a platform to help peopele use words, colors, patterns and images to make
+          unique wallpapers with a fresh new style.
+        </p>
+        <el-button type="primary" @click="handleStarted">Create</el-button>
+      </div>
+      <div class="device-container" ref="deviceContainer">
+        <scale
+          :progress="progress"
+          :from="position.from"
+          :to="position.to"
+          @onResize="handleResize"
+          :fixed="true"
+        >
+          <device :width="screenSize.width" :height="screenSize.height">
+            <el-carousel
+              :height="screenSize.height + 'px'"
+              :style="{ width: screenSize.width + 'px' }"
+            >
+              <el-carousel-item v-for="example in examples" :key="example.mode">
+                <div
+                  @click="handleSelectExample(example)"
+                  :style="{
+                    cursor: progress >= 1 ? 'pointer' : 'default',
+                  }"
+                >
+                  <wallpaper
+                    :options="example"
+                    :width="screenSize.width"
+                    :height="screenSize.height"
+                  />
+                </div>
+              </el-carousel-item>
+            </el-carousel>
+          </device>
+        </scale>
       </div>
     </div>
-    <scale
-      :progress="progress"
-      :from="position.from"
-      :to="position.to"
-      @onResize="handleResize"
-      :fixed="true"
-    >
-      <device :width="screenSize.width" :height="screenSize.height">
-        <el-carousel :height="screenSize.height + 'px'" :style="{ width: screenSize.width + 'px' }">
-          <el-carousel-item v-for="example in examples" :key="example.mode">
-            <div
-              @click="handleSelectExample(example)"
-              :style="{
-                cursor: progress >= 1 ? 'pointer' : 'default',
-              }"
-            >
-              <wallpaper :options="example" :width="screenSize.width" :height="screenSize.height" />
-            </div>
-          </el-carousel-item>
-        </el-carousel>
-      </device>
-    </scale>
+    <gallery v-show="progress > 0" />
   </div>
 </template>
 
@@ -39,8 +51,10 @@ import Device from "../components/Device.vue";
 import Scale from "../components/Scale.vue";
 import { useWindowScroll } from "../mixins/useWindowScroll";
 import { useWindowSize } from "../mixins/useWindowSize";
+import { useElementBox } from "../mixins/useElementBox";
 import { map } from "../utils/math";
 import { color, pattern, image } from "../data/examples";
+import Gallery from "../components/Gallery.vue";
 
 const [MIN_Y, MAX_Y] = [0, 200];
 
@@ -49,6 +63,7 @@ export default {
     Wallpaper,
     Device,
     Scale,
+    Gallery,
   },
   name: "home",
   data() {
@@ -58,7 +73,7 @@ export default {
       screenSize: {},
     };
   },
-  mixins: [useWindowScroll("", MIN_Y, MAX_Y), useWindowSize()],
+  mixins: [useWindowScroll("", MIN_Y, MAX_Y), useWindowSize(), useElementBox("deviceContainer")],
   watch: {
     progress: {
       immediate: true,
@@ -79,11 +94,18 @@ export default {
     },
     position() {
       const macAspect = 0.625;
-      const bodyHeight = ((this.windowHeight - 61) * 2) / 3;
-      const padding = bodyHeight * 0.1;
-      const deviceHeight = bodyHeight - padding;
-      const screenHeight = (deviceHeight * (707 - 45 - 85)) / 707;
-      const scale = screenHeight / (this.windowWidth * macAspect);
+      const ratio = 0.7;
+      const deviceContainerAspect = this.deviceContainerHeight / this.deviceContainerWidth;
+      let deivceWidth;
+      let deviceHeight;
+      if (deviceContainerAspect > macAspect) {
+        deivceWidth = this.deviceContainerWidth * ratio;
+        deviceHeight = deivceWidth * macAspect;
+      } else {
+        deviceHeight = this.deviceContainerHeight * ratio;
+        deivceWidth = deviceHeight / macAspect;
+      }
+
       return {
         from: {
           x: 0,
@@ -91,9 +113,9 @@ export default {
           scale: 1,
         },
         to: {
-          x: (this.windowWidth * (1 - scale)) / 2,
-          y: this.windowHeight - screenHeight - 85 * scale - padding,
-          scale,
+          x: this.deviceContainerX + (this.deviceContainerWidth - deivceWidth) / 2,
+          y: this.deviceContainerY + (this.deviceContainerHeight - deviceHeight) / 2,
+          scale: deivceWidth / this.windowWidth,
         },
       };
     },
@@ -109,9 +131,6 @@ export default {
       this.$router.push({
         path: "/editor",
       });
-    },
-    handleExplore() {
-      this.$router.push({ path: "gallery" });
     },
     handleSelectExample(example) {
       if (this.progress < 1) return;
@@ -149,31 +168,45 @@ export default {
 <style>
 .top-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /** 61px 是 header 的高度 */
-  height: calc((100vh - 61px) / 3);
+  justify-content: flex-start;
+  align-items: center;
+  height: 480px;
+  padding: 0 72px;
 }
 
-.top > h1 {
-  margin: 0.2em;
+.top-text {
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50%;
+  text-align: start;
+}
+
+.top-text > h1 {
+  margin: 0.2em 0;
   font-weight: bold;
   font-size: 50px;
 }
 
-.top > p {
+.top-text > p {
   font-size: 20px;
   margin-bottom: 1em;
 }
 
-.el-carousel__container {
+.device-container {
+  width: 50%;
+  height: 100%;
+}
+
+.home-container .el-carousel__container {
   transition: all 0.5s;
   transition-timing-function: linear;
   width: 100%;
 }
 
 /** device css 里面的样式会覆盖这个样式 */
-.el-carousel__indicator--horizontal {
+.home-container .el-carousel__indicator--horizontal {
   display: inline-block !important;
 }
 </style>
