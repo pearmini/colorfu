@@ -1,5 +1,5 @@
 import { getPatternStyleOptions, getPatternRelations } from "./pattern";
-import { defaultImageURL } from "../../data/constant";
+import { defaultImageURL } from "../../data/image";
 import { get } from "../object";
 
 export function getBackgroundOptions(options) {

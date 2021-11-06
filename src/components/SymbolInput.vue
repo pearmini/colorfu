@@ -1,26 +1,28 @@
 <template>
-  <el-popover placement="bottom" width="200" trigger="focus">
-    <div class="emoji-input-popover">
-      <el-tabs value="first">
-        <el-tab-pane label="(//▽//)" name="first">
-          <emoticon-picker @input="handleInput" />
-        </el-tab-pane>
-        <el-tab-pane label="😀 🍉 🌈" name="second">
-          <emoji-picker @input="handleInput" />
-        </el-tab-pane>
-      </el-tabs>
-    </div>
-    <el-input
-      id="emojiInput"
-      :placeholder="placeholder"
-      v-model="textValue"
-      :size="size"
-      slot="reference"
-      :style="{
-        width: 200 + 'px',
-      }"
-    />
-  </el-popover>
+  <div class="symbol-input-container">
+    <el-popover placement="bottom" width="200" trigger="focus">
+      <div class="emoji-input-popover">
+        <el-tabs value="first">
+          <el-tab-pane label="(//▽//)" name="first">
+            <emoticon-picker @input="handleInput" />
+          </el-tab-pane>
+          <el-tab-pane label="😀 🍉 🌈" name="second">
+            <emoji-picker @input="handleInput" />
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+      <el-input
+        id="emojiInput"
+        :placeholder="placeholder"
+        v-model="textValue"
+        :size="size"
+        slot="reference"
+        :style="{
+          width: 200 + 'px',
+        }"
+      />
+    </el-popover>
+  </div>
 </template>
 
 <script>
@@ -64,13 +66,13 @@ export default {
 };
 </script>
 
-<style >
+<style>
 .emoji-input-popover {
   padding: 0px 12px;
   padding-bottom: 12px;
 }
 
-.el-popover {
+.symbol-input-container .el-popover {
   padding: 0px;
 }
 

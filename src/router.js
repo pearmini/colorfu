@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomePage from "./pages/Home.vue";
 import EditorPage from "./pages/Editor.vue";
-import GalleryPage from "./pages/Gallery.vue";
 
 Vue.use(VueRouter);
 
@@ -11,17 +10,13 @@ const routes = [
   {
     path: "/editor",
     component: EditorPage,
-    name: "editor",
-  },
-  {
-    path: "/gallery",
-    component: GalleryPage,
-  },
+    name: "editor"
+  }
 ];
 
 const router = new VueRouter({
   routes,
-  mode: "history",
+  mode: "history"
 });
 
 export default router;

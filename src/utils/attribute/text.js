@@ -1,7 +1,7 @@
 import { getPatternRelations, getPatternStyleOptions } from "./pattern";
 import { get } from "../object";
 import { systemFonts } from "../font";
-import { onlineFonts } from "../../data/constant";
+import { onlineFonts } from "../../data/fonts";
 
 function font(d) {
   return {

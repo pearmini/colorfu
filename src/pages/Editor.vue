@@ -53,6 +53,7 @@ export default {
     Wallpaper,
     AttributeTree,
   },
+  name:"editor",
   data() {
     const example = localStorage.getItem("cd-example");
     return {

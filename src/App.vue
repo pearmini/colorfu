@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav-header />
-    <keep-alive include="home">
+    <keep-alive exclude="editor">
       <router-view />
     </keep-alive>
   </div>
@@ -27,8 +27,8 @@ export default {
 html,
 body {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  min-height: 100%;
 }
 
 #app {

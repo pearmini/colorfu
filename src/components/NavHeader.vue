@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav-header-container">
     <el-menu
       mode="horizontal"
       :router="true"
@@ -10,7 +10,6 @@
     >
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item index="/editor"> Editor</el-menu-item>
-      <el-menu-item index="/gallery">Gallery</el-menu-item>
       <el-menu-item index="">
         <a href="https://github.com/pearmini/carpe-diem" target="_blank">Github</a>
       </el-menu-item>
@@ -35,7 +34,7 @@ export default {
 </script>
 
 <style>
-.el-menu {
+.nav-header-container .el-menu {
   display: flex;
   justify-content: flex-end;
 }
