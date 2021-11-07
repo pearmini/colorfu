@@ -10,13 +10,13 @@ Writing the word Fu is the tradition of Chinese New Year, people will write a bi
 
 ![fu](https://i.loli.net/2021/11/08/shFjeYXUEgGJ5AZ.png)
 
-What it if you can use more colors and more words to express more? Not only can you make your wallpapers beautiful, but also make them meaningful.
+What it if you can use more colors and more words to express more feelings? Not only can you make your wallpapers beautiful, but also make them meaningful.
 
 ![good mode](https://i.loli.net/2021/11/08/kdPIX5V2WxhoGeR.png)
 
 ## Features
 
-1. There are some interesting color pallette for you to help you express your feelings.
+1. There are some interesting color pallettes for you to help you express your feelings.
 
 ![color store](https://i.loli.net/2021/11/08/tHmdewQEgbDnikR.png)
 
@@ -26,9 +26,9 @@ What it if you can use more colors and more words to express more? Not only can 
 
 ## How to contribute
 
-- Add more patterns.([code](./src/utils/pattern), [config](./src/utils/attribute/pattern)).
+- Add more patterns.([code](./src/utils/pattern), [config](./src/utils/attribute/pattern))
 - Add more [colors or collections of colors](./src/data/color).
-- Add more [examples of collections of examples](./src/data/gallery).
+- Add more [examples or collections of examples](./src/data/gallery).
 
 ## Special Thanks
 
