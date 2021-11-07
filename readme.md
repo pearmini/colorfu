@@ -14,6 +14,8 @@ What it if you can use more colors and more words to express more feelings? Not 
 
 ![good mode](https://i.loli.net/2021/11/08/kdPIX5V2WxhoGeR.png)
 
+![be your self](https://i.loli.net/2021/11/08/hOeS96JyQ72fZ4V.png)
+
 ## Features
 
 1. There are some interesting color pallettes for you to help you express your feelings.
