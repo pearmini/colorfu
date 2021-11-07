@@ -25,7 +25,7 @@ import {
   Empty,
   Card,
   Link,
-  OptionGroup
+  OptionGroup,
 } from "element-ui";
 import CollapseTransition from "element-ui/lib/transitions/collapse-transition";
 import "element-ui/lib/theme-chalk/index.css";

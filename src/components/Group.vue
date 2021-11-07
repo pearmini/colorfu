@@ -1,8 +1,15 @@
 <template>
   <div class="group-container">
     <div class="group-container-header">
-      <span class="group-container-name">{{ name }}</span>
-      <slot name="header" />
+      <span class="group-container-name">
+        <el-popover class="item" effect="dark" width="300" trigger="hover" placement="bottom-start">
+          <p class="group-help-content">
+            {{ help }}
+          </p>
+          <i class="el-icon-question group-help-icon" slot="reference" />
+        </el-popover>
+        {{ name }}</span
+      >
     </div>
     <div class="group-children">
       <slot />
@@ -14,6 +21,7 @@
 export default {
   props: {
     name: String,
+    help: String,
   },
 };
 </script>
@@ -40,5 +48,15 @@ export default {
   align-items: center;
   border-bottom: 1px solid #e5e5e5;
   padding-bottom: 0.25em;
+}
+
+.group-help-icon {
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+.group-help-content {
+  word-wrap: break-word;
+  word-break: normal;
 }
 </style>
