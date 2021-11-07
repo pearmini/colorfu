@@ -12,6 +12,8 @@ Writing the word Fu is the tradition of Chinese New Year, people will write a bi
 
 What it if you can use more colors and more words to express more? Not only can you make your wallpapers beautiful, but also make them meaningful.
 
+![good mode](https://i.loli.net/2021/11/08/kdPIX5V2WxhoGeR.png)
+
 ## Features
 
 1. There are some interesting color pallette for you to help you express your feelings.
