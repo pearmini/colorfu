@@ -136,7 +136,7 @@ export default {
 .color-palette-tab-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  max-height: 480px;
+  max-height: 500px;
   overflow: scroll;
 }
 
