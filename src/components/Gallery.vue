@@ -1,6 +1,23 @@
 <template>
   <div class="gallery-container">
-    <el-tabs type="card" :value="gallery[0].name">
+    <div v-if="gallery.length === 1" class="gallery-card-container" style="margin-top: 50px">
+      <div
+        v-for="wallpaper in gallery[0].wallpapers"
+        :key="wallpaper.name"
+        class="gallery-card"
+        @click="() => handleClickCard(wallpaper.options)"
+      >
+        <wallpaper
+          :width="windowWidth"
+          :height="windowHeight"
+          styleHeight="100%"
+          styleWidth="100%"
+          :options="wallpaper.options"
+        />
+        <div style="margin-top: 3px">{{ wallpaper.name }}</div>
+      </div>
+    </div>
+    <el-tabs v-else type="card" :value="gallery[0].name">
       <el-tab-pane
         :label="collection.name"
         :name="collection.name"
@@ -65,6 +82,10 @@ export default {
 </script>
 
 <style>
+.gallery-card-container {
+  margin-bottom: 70px;
+}
+
 .gallery-container .el-tabs__nav {
   transform: translateX(-50%) !important;
   margin-left: 50%;
@@ -83,7 +104,6 @@ export default {
   border-radius: 4px;
   border: 1px solid #ebeef5;
   background-color: #fff;
-  overflow: hidden;
   color: #303133;
   transition: 0.3s;
   margin: 20px;

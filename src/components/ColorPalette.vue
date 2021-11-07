@@ -157,6 +157,7 @@ export default {
   height: 20px;
   border-radius: 2px;
   margin-right: 5px;
+  margin-top: 5px;
   cursor: grab;
 }
 

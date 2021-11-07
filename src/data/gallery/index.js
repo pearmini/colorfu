@@ -1,5 +1,3 @@
-import { colors } from "./colors";
-import { images } from "./images";
-import { patterns } from "./patterns";
+import { all } from "./all";
 
-export const gallery = [colors, images, patterns];
+export const gallery = [all];

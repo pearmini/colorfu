@@ -9,7 +9,7 @@
         </p>
         <div style="dispaly: flex">
           <el-button type="primary" @click="handleStarted">Make wallpaper</el-button>
-          <el-button @click="handleOpen" >Why is it</el-button>
+          <el-button @click="handleOpen">Why is it</el-button>
         </div>
       </div>
       <div class="device-container" ref="deviceContainer">
@@ -141,8 +141,8 @@ export default {
       this.$router.push({ path: "editor" });
     },
     handleOpen() {
-       window.open("https://github.com/pearmini/colorfu#why-is-it", "_blank");
-    }, 
+      window.open("https://github.com/pearmini/colorfu#why-is-it", "_blank");
+    },
     computedScreenSize() {
       // 因为性能问题，不能直接将 source size 过度到 target size
       // 这样每次 scroll 的时候都会重新绘制
