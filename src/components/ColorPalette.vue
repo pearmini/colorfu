@@ -30,8 +30,9 @@
           v-for="item in colorStore"
           :key="item.name"
         >
+          <p class="color-palette-des" v-html="item.des"></p>
           <div class="color-palette-tab-container">
-            <div v-for="color in item.colors" :key="color.name || color.values[0]">
+            <div v-for="color in item.colors" :key="color.name || color.values.join('')">
               <div @click="() => handleAddColors(color.values)">
                 <el-card
                   shadow="hover"
@@ -54,7 +55,11 @@
                 </el-card>
               </div>
               <div :style="{ height: 30 + 'px', width: cardSize + 'px', margin: ' 6px 8px' }">
-                {{ color.name }}
+                <span>{{ color.name }}</span>
+                <span v-if="color.link" class="color-palette-link"
+                  ><el-link :href="color.link" target="_blank" :underline="false"
+                    ><i class="el-icon-link" style="font-size: 16px" /></el-link
+                ></span>
               </div>
             </div>
           </div>
@@ -104,6 +109,13 @@ export default {
   padding: 5px;
 }
 
+.color-palette-container .el-dialog__header {
+  font-weight: bold;
+}
+
+.color-palette-container .el-dialog__body {
+  padding-top: 10px;
+}
 .color-palette-container .el-empty__image {
   width: 50px;
 }
@@ -129,7 +141,7 @@ export default {
 .color-palette-tab-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  max-height: 480px;
+  max-height: 500px;
   overflow: scroll;
 }
 
@@ -146,5 +158,16 @@ export default {
   border-radius: 2px;
   margin-right: 5px;
   cursor: grab;
+}
+
+.color-palette-des {
+  font-size: 16px;
+  text-align: start;
+  margin: 0.5em 8px 1em 8px;
+}
+
+.color-palette-link {
+  cursor: pointer;
+  padding-left: 10px;
 }
 </style>

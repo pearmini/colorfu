@@ -22,7 +22,7 @@
       @update="handleUpdate"
     />
   </collapse>
-  <group v-else-if="options.type === 'section'" :name="options.name">
+  <group v-else-if="options.type === 'section'" :name="options.name" :help="options.help">
     <attribute-tree
       v-for="child in options.children"
       :options="child"

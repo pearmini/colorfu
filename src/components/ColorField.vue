@@ -8,7 +8,7 @@
     }"
   >
     <field :name="name">
-      <el-color-picker v-model="color" size="small" />
+      <el-color-picker v-model="color" size="small" :predefine="predefineColors" />
     </field>
   </div>
 </template>
@@ -24,6 +24,15 @@ export default {
   data() {
     return {
       over: false,
+      predefineColors: [
+        "#ff4500",
+        "#ff8c00",
+        "#ffd700",
+        "#90ee90",
+        "#00ced1",
+        "#1e90ff",
+        "#c71585",
+      ],
     };
   },
   computed: {
