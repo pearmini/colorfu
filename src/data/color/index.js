@@ -5,4 +5,4 @@ import { overwatch } from "./overwatch";
 import { avengers } from "./avengers";
 import { artworks } from "./artworks";
 
-export const colorStore = [single, contrast, colorHunt, overwatch, avengers, artworks];
+export const colorStore = [single, contrast, avengers, overwatch, artworks, colorHunt];
