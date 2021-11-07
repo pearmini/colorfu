@@ -1,5 +1,6 @@
 export const brand = {
   name: "Brand",
+  des: "From some famous brands.",
   colors: [
     {
       name: "Twitter",

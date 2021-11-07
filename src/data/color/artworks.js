@@ -1,5 +1,6 @@
 export const artworks = {
   name: "Artworks",
+  des: "From some famous artworks.",
   colors: [
     {
       name: "IKB 79",

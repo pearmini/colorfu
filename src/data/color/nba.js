@@ -1,5 +1,7 @@
 export const nba = {
   name: "NBA",
+  des:
+    "<span>From logos of some teams in <a href='https://china.nba.com/' target='_blank'>NBA</a>.</span>",
   colors: [
     {
       name: "Celtics",

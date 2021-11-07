@@ -1,6 +1,8 @@
 export const colorHunt = {
   name: "Color Hunt",
   owner: false,
+  des:
+    "<span>From an awesome site <a href='https://colorhunt.co/' target='_blank'>Color Hunt</a>.</span>",
   colors: [
     {
       values: ["#110133", "#00918E", "#4DD599", "#FFDC34"],

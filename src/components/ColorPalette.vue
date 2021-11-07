@@ -30,8 +30,10 @@
           v-for="item in colorStore"
           :key="item.name"
         >
+          <p class="color-palette-des" v-html="item.des">
+          </p>
           <div class="color-palette-tab-container">
-            <div v-for="color in item.colors" :key="color.name || color.values[0]">
+            <div v-for="color in item.colors" :key="color.name || color.values.join('')">
               <div @click="() => handleAddColors(color.values)">
                 <el-card
                   shadow="hover"
@@ -153,5 +155,11 @@ export default {
   border-radius: 2px;
   margin-right: 5px;
   cursor: grab;
+}
+
+.color-palette-des {
+  font-size: 16px;
+  text-align: start;
+  margin: 0.5em 8px 1em 8px;
 }
 </style>

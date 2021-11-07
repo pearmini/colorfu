@@ -1,5 +1,7 @@
 export const overwatch = {
   name: "Overwatch",
+  des:
+    "<span>From heroes of video game <a href='https://ow.blizzard.cn/home' target='_blank'>Overwatch</a>.</span>",
   colors: [
     {
       name: "Cassidy",

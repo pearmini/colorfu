@@ -1,5 +1,7 @@
 export const avengers = {
   name: "Marvel Comics",
+  des:
+    "<span>From characters of <a href='https://www.marvel.com/' target='_blank'>Marvel Comics</a>.</span>",
   colors: [
     {
       name: "Scarlet Witch",
