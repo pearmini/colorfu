@@ -1,5 +1,6 @@
-import { Single } from "./single";
-import { Contrast } from "./contrast";
-import { ColorHunt } from "./color-hunt";
+import { single } from "./single";
+import { contrast } from "./contrast";
+import { colorHunt } from "./color-hunt";
+import { overwatch } from "./overwatch";
 
-export const colorStore = [Single, Contrast, ColorHunt];
+export const colorStore = [single, contrast, colorHunt, overwatch];

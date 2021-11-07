@@ -1,5 +1,6 @@
-export const ColorHunt = {
+export const colorHunt = {
   name: "Color Hunt",
+  owner: false,
   colors: [
     {
       name: "",

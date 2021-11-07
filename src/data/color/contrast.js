@@ -1,4 +1,4 @@
-export const Contrast = {
+export const contrast = {
   name: "Contrast",
   colors: [
     {

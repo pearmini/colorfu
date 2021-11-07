@@ -1,4 +1,4 @@
-export const Single = {
+export const single = {
   name: "Singe",
   colors: [
     {

@@ -104,6 +104,13 @@ export default {
   padding: 5px;
 }
 
+.color-palette-container .el-dialog__header {
+  font-weight: bold;
+}
+
+.color-palette-container .el-dialog__body {
+  padding-top: 10px;
+}
 .color-palette-container .el-empty__image {
   width: 50px;
 }
