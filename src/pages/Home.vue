@@ -4,10 +4,13 @@
       <div class="top-text">
         <h1>Make beautiful but also meaningful wallpapers.</h1>
         <p>
-          Carpe Diem is a platform to help peopele use words, colors, patterns and images to make
-          unique wallpapers with a fresh new style.
+          ColorFu is where people can use words, colors, patterns and images to make unique
+          wallpapers to express their feelings or ideas.
         </p>
-        <el-button type="primary" @click="handleStarted">Create</el-button>
+        <div style="dispaly: flex">
+          <el-button type="primary" @click="handleStarted">Make wallpaper</el-button>
+          <el-button @click="handleOpen" >Why is it</el-button>
+        </div>
       </div>
       <div class="device-container" ref="deviceContainer">
         <scale
@@ -137,6 +140,9 @@ export default {
       localStorage.setItem("cd-example", JSON.stringify(example));
       this.$router.push({ path: "editor" });
     },
+    handleOpen() {
+       window.open("https://github.com/pearmini/colorfu#why-is-it", "_blank");
+    }, 
     computedScreenSize() {
       // 因为性能问题，不能直接将 source size 过度到 target size
       // 这样每次 scroll 的时候都会重新绘制
@@ -179,7 +185,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 50%;
+  width: 40%;
   text-align: start;
 }
 
