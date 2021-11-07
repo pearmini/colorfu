@@ -1,4 +1,4 @@
-import fontURL from "../assets/font/en.woff2";
+import fontURL from "../assets/font/luckiest_guy.woff2";
 import { defaultImageURL } from "./image";
 
 export const color = {

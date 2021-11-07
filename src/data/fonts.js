@@ -1,4 +1,4 @@
-import LuckiestGuyURL from "../assets/font/en.woff2";
+import LuckiestGuyURL from "../assets/font/luckiest_guy.woff2";
 
 export const onlineFonts = [
   {
