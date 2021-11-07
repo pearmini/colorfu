@@ -16,7 +16,7 @@ export function dot() {
       type: "number",
       key: "size",
       name: "Size",
-      defaultValue: 2,
+      defaultValue: 150,
       min: 0
     },
     {
@@ -37,14 +37,14 @@ export function dot() {
       key: "width",
       name: "Width",
       min: 10,
-      defaultValue: 50
+      defaultValue: 210
     },
     {
       type: "number",
       key: "height",
       name: "Height",
       min: 10,
-      defaultValue: 50
+      defaultValue: 210
     },
     {
       type: "number",

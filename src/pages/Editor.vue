@@ -107,7 +107,7 @@ export default {
       downloadImage(this.canvas, "wallpaper");
     },
     handleDownloadFile() {
-      downloadFile(this.example, "wallpaper");
+      downloadFile(this.example, "index");
     },
     async handlePreview() {
       try {

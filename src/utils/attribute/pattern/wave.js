@@ -16,7 +16,7 @@ export function wave() {
       type: "number",
       key: "lineWidth",
       name: "Stroke Width",
-      defaultValue: 0,
+      defaultValue: 30,
       min: 0
     },
     {
@@ -24,20 +24,20 @@ export function wave() {
       key: "width",
       name: "Width",
       min: 10,
-      defaultValue: 50
+      defaultValue: 130
     },
     {
       type: "number",
       key: "height",
       name: "Height",
       min: 10,
-      defaultValue: 50
+      defaultValue: 130
     },
     {
       type: "number",
       key: "arcRadius",
       name: "ArcRadius",
-      defaultValue: 0
+      defaultValue: 30
     },
     {
       type: "number",
