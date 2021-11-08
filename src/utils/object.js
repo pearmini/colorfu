@@ -19,6 +19,7 @@ export function get(obj, key) {
 
 export function deepCopy(obj) {
   if (Array.isArray(obj)) return [...obj.map(deepCopy)];
+  if(obj === undefined || obj === null) return obj;
   if (typeof obj !== "object") return obj;
   return Object.entries(obj).reduce(
     (newObj, [key, value]) => ((newObj[key] = deepCopy(value)), newObj),
