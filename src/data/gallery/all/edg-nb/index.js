@@ -1,6 +1,6 @@
 import options from "./index.json";
 
-export const iMissYou = {
-  name: "I miss you",
+export const EDGNB = {
+  name: "EDG NB",
   options
 };

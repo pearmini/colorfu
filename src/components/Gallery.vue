@@ -4,17 +4,37 @@
       <div
         v-for="wallpaper in gallery[0].wallpapers"
         :key="wallpaper.name"
-        class="gallery-card"
         @click="() => handleClickCard(wallpaper.options)"
       >
-        <wallpaper
-          :width="windowWidth"
-          :height="windowHeight"
-          styleHeight="100%"
-          styleWidth="100%"
-          :options="wallpaper.options"
-        />
-        <div style="margin-top: 3px">{{ wallpaper.name }}</div>
+        <div
+          class="gallery-card"
+          :style="{
+            paddingBottom: (windowHeight / windowWidth) * 100 + '%',
+          }"
+        >
+          <div class="gallery-card-content">
+            <wallpaper
+              :width="windowWidth"
+              :height="windowHeight"
+              styleHeight="100%"
+              styleWidth="100%"
+              :options="wallpaper.options"
+            />
+          </div>
+        </div>
+        <div>
+          <span
+            >{{ wallpaper.name }}
+            <el-tooltip
+              effect="dark"
+              content="The image comes from Internet."
+              placement="top"
+              v-if="wallpaper.type === 'image'"
+            >
+              <i class="el-icon-warning-outline" style="cursor: pointer"></i>
+            </el-tooltip>
+          </span>
+        </div>
       </div>
     </div>
     <el-tabs v-else type="card" :value="gallery[0].name">
@@ -48,7 +68,6 @@
 <script>
 import { gallery } from "../data/gallery";
 import Wallpaper from "./Wallpaper.vue";
-import { useWindowSize } from "../mixins/useWindowSize";
 
 export default {
   components: {
@@ -57,10 +76,11 @@ export default {
   data() {
     return {
       gallery,
+      windowWidth: screen.width,
+      windowHeight: screen.height,
     };
   },
   name: "gallery",
-  mixins: [useWindowSize()],
   computed: {
     cardSize() {
       const col = 4;
@@ -101,16 +121,28 @@ export default {
 }
 
 .gallery-card {
-  border-radius: 4px;
-  border: 1px solid #ebeef5;
   background-color: #fff;
   color: #303133;
   transition: 0.3s;
-  margin: 20px;
   cursor: pointer;
+  width: 100%;
+  height: 0;
+  padding: 0;
+  position: relative;
 }
 
-.gallery-card:hover {
+.gallery-card-content {
+  border-radius: 4px;
+  border: 1px solid #ebeef5;
+  margin: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.gallery-card-content:hover {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 </style>

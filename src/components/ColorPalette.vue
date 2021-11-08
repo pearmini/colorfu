@@ -18,7 +18,7 @@
         :style="{
           float: 'left',
           cursor: 'pointer',
-          lineHeight: '20px',
+          lineHeight: '30px',
         }"
       ></i>
     </div>
@@ -156,8 +156,7 @@ export default {
   width: 20px;
   height: 20px;
   border-radius: 2px;
-  margin-right: 5px;
-  margin-top: 5px;
+  margin: 5px 5px 5px 0px;
   cursor: grab;
 }
 
