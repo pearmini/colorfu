@@ -1,5 +1,6 @@
 import { constrain, map } from "../utils/math";
 
+// Todo refactor
 export const useKeepLiveScrollProgress = maxY => {
   return {
     data: () => ({
@@ -32,7 +33,24 @@ export const useKeepLiveScrollProgress = maxY => {
         }
       }
     },
+    mounted() {
+      window.scrollTo(0, 0);
+    },
     activated() {
+      const container = document.getElementById("app-container");
+      if (this.scrollY < maxY) {
+        const app = document.getElementById("app");
+        app.style.width = "100%";
+        app.style.height = window.innerHeight + maxY + "px";
+        container.style.position = "fixed";
+        container.style.width = "100%";
+        container.style.marginTop = "0px";
+        window.scrollTo(0, this.scrollY);
+      } else {
+        const container = document.getElementById("app-container");
+        container.style.marginTop = maxY + "px";
+        window.scrollTo(0, maxY);
+      }
       window.addEventListener("wheel", this.handleMousewheel);
     },
     deactivated() {
@@ -42,7 +60,7 @@ export const useKeepLiveScrollProgress = maxY => {
 
       const container = document.getElementById("app-container");
       container.style.position = "static";
-      container.style.marginTop = "auto";
+      container.style.marginTop = "0px";
       window.removeEventListener("wheel", this.handleMousewheel);
     }
   };
