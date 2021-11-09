@@ -6,20 +6,24 @@
         :key="wallpaper.name"
         @click="() => handleClickCard(wallpaper.options)"
       >
-        <div
-          class="gallery-card"
-          :style="{
-            paddingBottom: (windowHeight / windowWidth) * 100 + '%',
-          }"
-        >
-          <div class="gallery-card-content">
-            <wallpaper
-              :width="windowWidth"
-              :height="windowHeight"
-              styleHeight="100%"
-              styleWidth="100%"
-              :options="wallpaper.options"
-            />
+        <div style="margin: 20px">
+          <!-- 设置固定宽高比 -->
+          <div
+            class="gallery-card"
+            :style="{
+              paddingBottom: (windowHeight / windowWidth) * 100 + '%',
+            }"
+          >
+          <!-- 撑开容器 -->
+            <div class="gallery-card-content">
+              <wallpaper
+                :width="windowWidth"
+                :height="windowHeight"
+                styleHeight="100%"
+                styleWidth="100%"
+                :options="wallpaper.options"
+              />
+            </div>
           </div>
         </div>
         <div>
@@ -134,7 +138,7 @@ export default {
 .gallery-card-content {
   border-radius: 4px;
   border: 1px solid #ebeef5;
-  margin: 20px;
+  /* margin: 20px; */
   position: absolute;
   top: 0;
   right: 0;
