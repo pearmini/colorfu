@@ -23,6 +23,7 @@ export function getTextOptions(options) {
     {
       name: "Text",
       type: "collapse",
+      defaultOpen: false,
       children: [
         {
           type: "select-group",
