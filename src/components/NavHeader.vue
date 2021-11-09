@@ -1,6 +1,6 @@
 <template>
   <div class="nav-header-container">
-    <span class="nav-logo">ColorFu</span>
+    <span class="nav-logo" @click="goHome">ColorFu</span>
     <el-menu
       mode="horizontal"
       :router="true"
@@ -31,6 +31,11 @@ export default {
       this.path = path;
     },
   },
+  methods: {
+    goHome() {
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
@@ -51,6 +56,7 @@ export default {
   font-size: 30px;
   font-family: Luckiest Guy;
   transform: translateY(5px);
+  cursor: pointer;
 }
 
 .nav-header-container .el-menu {
