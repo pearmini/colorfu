@@ -19,6 +19,7 @@
           :to="position.to"
           @onResize="handleResize"
           :fixed="true"
+          :offsetY="progress >= 1 ? 200 : 0"
         >
           <device :width="screenSize.width" :height="screenSize.height">
             <el-carousel
@@ -52,14 +53,11 @@
 import Wallpaper from "../components/Wallpaper.vue";
 import Device from "../components/Device.vue";
 import Scale from "../components/Scale.vue";
-import { useWindowScroll } from "../mixins/useWindowScroll";
+import { useKeepLiveScrollProgress } from "../mixins/useKeepLiveScrollProgress";
 import { useWindowSize } from "../mixins/useWindowSize";
 import { useElementBox } from "../mixins/useElementBox";
-import { map } from "../utils/math";
 import { color, pattern, image } from "../data/examples";
 import Gallery from "../components/Gallery.vue";
-
-const [MIN_Y, MAX_Y] = [0, 200];
 
 export default {
   components: {
@@ -76,7 +74,7 @@ export default {
       screenSize: {},
     };
   },
-  mixins: [useWindowScroll("", MIN_Y, MAX_Y), useWindowSize(), useElementBox("deviceContainer")],
+  mixins: [useKeepLiveScrollProgress(200), useWindowSize(), useElementBox("deviceContainer")],
   watch: {
     progress: {
       immediate: true,
@@ -92,9 +90,6 @@ export default {
     },
   },
   computed: {
-    progress() {
-      return map(this.scrollY, MIN_Y, MAX_Y, 0, 1);
-    },
     position() {
       const macAspect = 0.625;
       const ratio = 0.7;
