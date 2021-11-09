@@ -5,13 +5,13 @@ export const useFullscreen = () => ({
     };
   },
   mounted() {
-    document.addEventListener("fullscreenchange", this._handleFullscreenChange);
+    document.addEventListener("fullscreenchange", this.handleFullscreenChange);
   },
   destroyed() {
-    document.removeEventListener("fullscreenchange", this._handleFullscreenChange);
+    document.removeEventListener("fullscreenchange", this.handleFullscreenChange);
   },
   methods: {
-    _handleFullscreenChange() {
+    handleFullscreenChange() {
       this.fullscreen = document.fullscreenElement ? true : false;
     }
   }

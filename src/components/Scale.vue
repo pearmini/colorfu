@@ -45,6 +45,7 @@ export default {
       default: 10,
       type: Number,
     },
+    offsetY: Number,
   },
   computed: {
     transformed() {
@@ -53,7 +54,7 @@ export default {
       const { x: toX, y: toY, scale: toS } = to;
       const boundingBox = {
         ...(fixed && { x: map(progress, 0, 1, fromX, toX) }),
-        ...(fixed && { y: map(progress, 0, 1, fromY, toY) }),
+        ...(fixed && { y: map(progress, 0, 1, fromY, toY) + this.offsetY }),
         scale: map(progress, 0, 1, fromS, toS),
       };
       return boundingBox;

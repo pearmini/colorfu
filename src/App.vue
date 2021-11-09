@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <nav-header />
-    <keep-alive exclude="editor">
-      <router-view />
-    </keep-alive>
+    <div id="app-container">
+      <nav-header />
+      <keep-alive exclude="editor">
+        <router-view />
+      </keep-alive>
+    </div>
   </div>
 </template>
 
