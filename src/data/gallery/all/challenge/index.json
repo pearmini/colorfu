@@ -1,1 +1,14 @@
-{"text":{"content":"Face challenge","fontSize":200,"fontFamily":"Luckiest Guy","fontURL":"/fonts/luckiest_guy.ea045d18.woff2","type":"none","color":"#fff","mode":"autoFit","padding":0,"dy":30},"background":{"mode":"image","imageURL":"https://i.loli.net/2021/11/08/V4RyHP9pIcUGDzN.jpg"}}
+{
+  "text": {
+    "content": "Face challenge",
+    "fontSize": 200,
+    "fontFamily": "Luckiest Guy",
+    "fontURL": "/fonts/luckiest_guy.ea045d18.woff2",
+    "type": "none",
+    "color": "#fff",
+    "mode": "autoFit",
+    "padding": 0,
+    "dy": 30
+  },
+  "background": { "mode": "image", "imageURL": "http://pearmini.gitee.io/assets/colorfu/5.jpeg" }
+}
