@@ -22,9 +22,8 @@ export const all = {
     ironMan,
     thor,
     hulk,
-    kobe,
     jordan,
-    // dva,
+    kobe,
     cassidy,
     tracer,
     spring,
@@ -35,6 +34,6 @@ export const all = {
     mountain,
     bigWorld,
     falling,
-    challenge
-  ]
+    challenge,
+  ],
 };

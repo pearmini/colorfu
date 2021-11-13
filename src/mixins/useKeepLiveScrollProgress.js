@@ -1,16 +1,16 @@
 import { constrain, map } from "../utils/math";
 
 // Todo refactor
-export const useKeepLiveScrollProgress = maxY => {
+export const useKeepLiveScrollProgress = (maxY) => {
   return {
     data: () => ({
       scrollY: 0,
-      realScrollY: 0
+      realScrollY: 0,
     }),
     computed: {
       progress() {
         return map(this.scrollY, 0, maxY, 0, 1);
-      }
+      },
     },
     methods: {
       handleMousewheel() {
@@ -31,7 +31,7 @@ export const useKeepLiveScrollProgress = maxY => {
           container.style.position = "static";
           container.style.marginTop = maxY + "px";
         }
-      }
+      },
     },
     mounted() {
       window.scrollTo(0, 0);
@@ -54,6 +54,7 @@ export const useKeepLiveScrollProgress = maxY => {
       window.addEventListener("wheel", this.handleMousewheel);
     },
     deactivated() {
+      window.scrollTo(0, 0);
       const app = document.getElementById("app");
       app.style.width = "auto";
       app.style.height = "auto";
@@ -62,6 +63,6 @@ export const useKeepLiveScrollProgress = maxY => {
       container.style.position = "static";
       container.style.marginTop = "0px";
       window.removeEventListener("wheel", this.handleMousewheel);
-    }
+    },
   };
 };

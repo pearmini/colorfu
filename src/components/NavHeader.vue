@@ -10,7 +10,8 @@
       active-text-color="#999999"
     >
       <el-menu-item index="/">Home</el-menu-item>
-      <el-menu-item index="/editor"> Editor</el-menu-item>
+      <el-menu-item index="/editor">Editor</el-menu-item>
+      <el-menu-item index="/story">Story</el-menu-item>
       <el-menu-item index="">
         <a href="https://github.com/pearmini/carpe-diem" target="_blank">Github</a>
       </el-menu-item>

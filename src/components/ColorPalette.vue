@@ -55,7 +55,7 @@
                 </el-card>
               </div>
               <div :style="{ height: 30 + 'px', width: cardSize + 'px', margin: ' 6px 8px' }">
-                <span>{{ color.name }}</span>
+                <span>{{ color.name || "Learn More" }}</span>
                 <span v-if="color.link" class="color-palette-link"
                   ><el-link :href="color.link" target="_blank" :underline="false"
                     ><i class="el-icon-link" style="font-size: 16px" /></el-link
