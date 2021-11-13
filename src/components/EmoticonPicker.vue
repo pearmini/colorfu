@@ -44,19 +44,23 @@ export default {
 .emoticon-picker-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-bottom: 10px;
+}
+
+.emoticon-picker-header span{
+  display: inline-block;
+  margin-left: 0.5em;
 }
 
 .emoticon-picker-header > span {
   display: inline-block;
-  width: 40%;
   text-align: center;
   cursor: pointer;
 }
 
 .emoticon-picker-item {
-  padding: 5px 8px;
+  padding: 8px 10px;
   display: inline-block;
   cursor: pointer;
   border-radius: 4px;

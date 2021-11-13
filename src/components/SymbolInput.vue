@@ -1,12 +1,12 @@
 <template>
   <div class="symbol-input-container">
-    <el-popover placement="bottom" width="200" trigger="focus">
+    <el-popover placement="bottom" width="300" trigger="focus">
       <div class="emoji-input-popover">
         <el-tabs value="first">
-          <el-tab-pane label="(//▽//)" name="first">
+          <el-tab-pane label="w(ﾟДﾟ)w" name="first">
             <emoticon-picker @input="handleInput" />
           </el-tab-pane>
-          <el-tab-pane label="😀 🍉 🌈" name="second">
+          <el-tab-pane label="Emoji 😆" name="second">
             <emoji-picker @input="handleInput" />
           </el-tab-pane>
         </el-tabs>
