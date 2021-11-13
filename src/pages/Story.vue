@@ -1,11 +1,6 @@
 <template>
   <div class="story-container">
     <div class="story-header">
-      <img
-        src="https://i.loli.net/2021/11/08/shFjeYXUEgGJ5AZ.png"
-        width="40%"
-        class="story-image"
-      />
       <div>
         <h1>ColorFu's Story</h1>
         <p>
@@ -37,6 +32,11 @@
           </el-option>
         </el-select>
       </div>
+      <img
+        src="https://i.loli.net/2021/11/08/shFjeYXUEgGJ5AZ.png"
+        class="story-image"
+        width="32%"
+      />
     </div>
     <div class="story-body">
       <div v-if="selectedValue === 'emoji'">
@@ -265,7 +265,7 @@ export default {
 }
 
 .story-container .el-select {
-  float: right;
+  float: left;
   margin-top: 1em;
 }
 
@@ -276,7 +276,7 @@ export default {
 }
 
 .story-image {
-  margin-right: 5%;
+  margin-left: 5%;
   border-radius: 40px;
 }
 
