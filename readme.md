@@ -6,11 +6,13 @@ ColorFu is where people can use words, colors, patterns and images to make uniqu
 
 ## Why is it
 
-Writing the word Fu is the tradition of Chinese New Year, people will write a big Fu on red paper and stick it on the door to express the good expectations of the new year.
+Writing the word "福" (Fu) is the tradition of Chinese New Year, people will write a big "福" on red paper and stick it on the door to express the good expectations of the new year.
 
 ![fu](https://i.loli.net/2021/11/08/shFjeYXUEgGJ5AZ.png)
 
-What it if you can use more colors and more words to express more feelings? Not only can you make your wallpapers beautiful, but also make them meaningful.
+This is a great example that people use words and colors to express their feelings or ideas. And on the other hand, wallpaper is the most common thing we see everyday which should not be cold.
+
+What it if you can use more colors and more words to make wallpapers to express more feelings ? In that way, not only can you make your wallpapers beautiful, but also make them meaningful.
 
 ![good mode](https://i.loli.net/2021/11/08/kdPIX5V2WxhoGeR.png)
 
@@ -30,7 +32,8 @@ What it if you can use more colors and more words to express more feelings? Not 
 
 - Add more patterns.([code](./src/utils/pattern), [config](./src/utils/attribute/pattern))
 - Add more [colors or collections of colors](./src/data/color).
-- Add more [examples or collections of examples](./src/data/gallery).
+- Add more [examples](./src/data/gallery/all).
+- Add more [emojis](./src/data/emoji-by-group.json) or [emoticons](./src/data/emoticons.json).
 
 ## Special Thanks
 

@@ -14,7 +14,7 @@
           year.
         </p>
         <p>
-          This is a great example that people use words and colors to express thier feelings or
+          This is a great example that people use words and colors to express their feelings or
           ideas. And on the other hand, wallpaper is the most common thing we see everyday which
           should not be cold.
         </p>
