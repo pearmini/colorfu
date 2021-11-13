@@ -62,6 +62,8 @@ export default {
   padding: 3px;
   cursor: pointer;
   border-radius: 4px;
+  text-align: center;
+  font-size: 20px;
 }
 
 .emoji-picker-item:hover {
@@ -70,5 +72,9 @@ export default {
 
 .emoji-picker-container .el-tabs__header {
   margin-top: 0px !important;
+}
+
+.emoji-picker-container .el-tabs__item  {
+  font-size: 20px;
 }
 </style>

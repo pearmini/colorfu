@@ -120,7 +120,7 @@ export default {
       options: [
         { value: "color", label: "Color 🌈" },
         { value: "emoji", label: "Emoji 😆" },
-        { value: "emoticon", label: "Emoticon w(ﾟДﾟ)w" },
+        { value: "emoticon", label: "w(ﾟДﾟ)w" },
       ],
       selectedValue: "color",
       emojis,
@@ -298,7 +298,6 @@ export default {
 .story-emoji-container {
   display: grid;
   grid-template-columns: repeat(24, 1fr);
-  margin-bottom: 2em;
 }
 
 .story-emoji-container span {
@@ -360,5 +359,9 @@ export default {
 .story-color-name {
   display: inline-block;
   margin: 0.5em 0;
+}
+
+.story-body  {
+  margin-bottom: 2.5em;
 }
 </style>
