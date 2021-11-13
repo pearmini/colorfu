@@ -13,6 +13,9 @@
         />
       </div>
       <div class="tools-container">
+        <el-tooltip effect="dark" content="Help" placement="top">
+          <el-button type="primary" icon="el-icon-help" circle @click="handleHelp"></el-button>
+        </el-tooltip>
         <el-tooltip effect="dark" content="Preveiw" placement="top">
           <el-button type="primary" icon="el-icon-view" circle @click="handlePreview"></el-button>
         </el-tooltip>
@@ -53,7 +56,7 @@ export default {
     Wallpaper,
     AttributeTree,
   },
-  name:"editor",
+  name: "editor",
   data() {
     const example = localStorage.getItem("cd-example");
     return {
@@ -108,6 +111,9 @@ export default {
     },
     handleDownloadFile() {
       downloadFile(this.example, "index");
+    },
+    handleHelp() {
+      this.$router.push("/story");
     },
     async handlePreview() {
       try {

@@ -8,8 +8,8 @@
           wallpapers to express their feelings or ideas.
         </p>
         <div style="dispaly: flex">
-          <el-button type="primary" @click="handleStarted">Make wallpaper</el-button>
-          <el-button @click="handleOpen">Why is it</el-button>
+          <el-button type="primary" @click="handleStarted">Get Started</el-button>
+          <el-button @click="handleStory">Explore</el-button>
         </div>
       </div>
       <div class="device-container" ref="deviceContainer">
@@ -58,6 +58,7 @@ import { useWindowSize } from "../mixins/useWindowSize";
 import { useElementBox } from "../mixins/useElementBox";
 import { color, pattern, image } from "../data/examples";
 import Gallery from "../components/Gallery.vue";
+import { gotoEditor } from "../utils/gotoEditor";
 
 export default {
   components: {
@@ -132,11 +133,12 @@ export default {
     },
     handleSelectExample(example) {
       if (this.progress < 1) return;
-      localStorage.setItem("cd-example", JSON.stringify(example));
-      this.$router.push({ path: "editor" });
+      gotoEditor(this.$router, example);
     },
-    handleOpen() {
-      window.open("https://github.com/pearmini/colorfu#why-is-it", "_blank");
+    handleStory() {
+      this.$router.push({
+        path: "/story",
+      });
     },
     computedScreenSize() {
       // 因为性能问题，不能直接将 source size 过度到 target size

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import emojiByGroup from "../assets/data/emoji-by-group.json";
+import emojiByGroup from "../data/emoji-by-group.json";
 
 const groups = Object.keys(emojiByGroup).map((key) => ({
   name: key,

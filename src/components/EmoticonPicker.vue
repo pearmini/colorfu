@@ -20,7 +20,7 @@
 
 <script>
 import emoticon from "emoticon.js";
-import faces from "../assets/data/emoticons.json";
+import faces from "../data/emoticons.json";
 
 export default {
   data() {

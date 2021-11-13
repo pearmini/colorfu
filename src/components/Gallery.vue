@@ -14,7 +14,7 @@
               paddingBottom: (windowHeight / windowWidth) * 100 + '%',
             }"
           >
-          <!-- 撑开容器 -->
+            <!-- 撑开容器 -->
             <div class="gallery-card-content">
               <wallpaper
                 :width="windowWidth"
@@ -72,6 +72,7 @@
 <script>
 import { gallery } from "../data/gallery";
 import Wallpaper from "./Wallpaper.vue";
+import { gotoEditor } from "../utils/gotoEditor";
 
 export default {
   components: {
@@ -98,8 +99,7 @@ export default {
   },
   methods: {
     handleClickCard(options) {
-      localStorage.setItem("cd-example", JSON.stringify(options));
-      this.$router.push({ path: "editor" });
+      gotoEditor(this.$router, options);
     },
   },
 };
@@ -138,12 +138,13 @@ export default {
 .gallery-card-content {
   border-radius: 4px;
   border: 1px solid #ebeef5;
-  /* margin: 20px; */
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .gallery-card-content:hover {

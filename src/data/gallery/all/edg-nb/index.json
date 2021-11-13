@@ -1,1 +1,14 @@
-{"text":{"content":"EDG NB!","fontSize":200,"fontFamily":"Luckiest Guy","fontURL":"/fonts/luckiest_guy.ea045d18.woff2","type":"none","color":"#000000","mode":"autoFit","padding":0,"dy":30},"background":{"type":"none","color":"#FBB82C","mode":"pattern"}}
+{
+  "text": {
+    "content": "EDG NB!",
+    "fontSize": 200,
+    "fontFamily": "Luckiest Guy",
+    "fontURL": "/fonts/luckiest_guy.ea045d18.woff2",
+    "type": "none",
+    "color": "#000000",
+    "mode": "autoFit",
+    "padding": 0,
+    "dy": 30
+  },
+  "background": { "type": "none", "color": "#FBB82C", "mode": "pattern" }
+}
