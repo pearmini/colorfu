@@ -105,28 +105,13 @@
       </span>
     </el-dialog>
     <el-dialog title="Extract Colors From Image" :visible.sync="showImageExtracter">
-      <div class="color-palette-image-picker">
-        <image-picker v-model="imageURL" :allowOnline="false" :cacheImage="false" />
-        <div class="color-palette-image-color-container">
-          <div v-if="imageColors.length">Click to select colors you want to use.</div>
-          <span
-            :key="color"
-            v-for="(color, index) in imageColors"
-            class="color-palette-image-color-item"
-            @click="() => handleClickImageColorItem(index)"
-            :style="{
-              backgroundColor: color,
-              outlineWidth: selectedImageColorIndex.indexOf(index) === -1 ? '0px' : '4px',
-            }"
-          />
-        </div>
-      </div>
+      <image-color-picker v-model="selectedImageColors" />
       <span slot="footer" class="dialog-footer">
-        <el-button @click="showImageExtracter = false">Cancel</el-button>
+        <el-button @click="handleCloseImageColorPicker">Cancel</el-button>
         <el-button
           type="primary"
           @click="handleAddImageColors"
-          v-show="selectedImageColorIndex.length !== 0"
+          v-show="selectedImageColors.length !== 0"
           >Add</el-button
         >
       </span>
@@ -135,14 +120,9 @@
 </template>
 
 <script>
-import ColorThief from "colorthief";
 import { Message } from "element-ui";
 import { colorStore } from "../data/color/index";
-import ImagePicker from "./ImagePicker.vue";
-import { loadImage } from "../utils/load";
-import { rgbToHex } from "../utils/color";
-
-const colorThief = new ColorThief();
+import ImageColorPicker from "./ImageColorPicker.vue";
 
 export default {
   data() {
@@ -153,47 +133,30 @@ export default {
       colors: [],
       showButtons: false,
       showImageExtracter: false,
-      imageURL: "",
-      imageColors: [],
-      selectedImageColorIndex: [],
+      selectedImageColors: [],
     };
   },
-  watch: {
-    async imageURL(newValue) {
-      if (newValue === "") {
-        this.imageColors = [];
-        this.selectedImageColorIndex = [];
-        return;
-      }
-      try {
-        const img = await loadImage(newValue);
-        const colors = colorThief.getPalette(img).map((d) => rgbToHex(...d));
-        this.imageColors = colors;
-      } catch (e) {
-        Message.error("Extract colors from image failed!");
-      }
-    },
+  components: {
+    ImageColorPicker,
   },
-  components: { ImagePicker },
   methods: {
     handleAddImageColors() {
-      const colors = this.selectedImageColorIndex.map((i) => this.imageColors[i]);
+      const colors = [...this.selectedImageColors];
       this.handleAddColors(colors);
-      this.showImageExtracter = false;
+      this.handleCloseImageColorPicker();
     },
-    handleClickImageColorItem(index) {
-      const i = this.selectedImageColorIndex.indexOf(index);
-      if (i === -1) {
-        this.selectedImageColorIndex.push(index);
-      } else {
-        this.selectedImageColorIndex.splice(i, 1);
-      }
+    handleCloseImageColorPicker() {
+      this.showImageExtracter = false;
+      this.selectedImageColors = [];
     },
     handleAddColors(colors) {
       if (colors.length === 0) return;
       // 过滤掉已经有的颜色
       const colorSet = new Set(this.colors);
       const newColors = colors.filter((d) => !colorSet.has(d));
+      if (colors.length !== newColors.length) {
+        Message.warning("Repeat colors will not be added.");
+      }
 
       // 更新颜色
       this.colors.push(...newColors);
@@ -225,31 +188,6 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.color-palette-image-color-item {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  margin-right: 15px;
-  margin-top: 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  outline-color: #409eff;
-  outline-style: solid;
-}
-
-.color-palette-image-picker {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-  align-items: center;
-}
-
-.color-palette-image-color-container {
-  width: calc(100% - 250px);
-  text-align: start;
-  margin: 0 30px;
 }
 
 .color-palette-container .el-dialog__header {
