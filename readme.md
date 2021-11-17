@@ -24,7 +24,11 @@ What it if you can use more colors and more words to make wallpapers to express 
 
 ![color store](https://i.loli.net/2021/11/08/tHmdewQEgbDnikR.png)
 
-2. There are some emojis and emoticons for your to boost your imagination.
+2. Extracts colors from image.
+
+![image](https://i.loli.net/2021/11/17/tmiIwyrACF51pvj.png)
+
+3. There are some emojis and emoticons for your to boost your imagination.
 
 ![emojis](https://i.loli.net/2021/11/08/IudDlx8psqVPCwG.png)
 

@@ -1,7 +1,26 @@
 <template>
   <div class="color-palette-container">
-    <div @click="showColorsStore = true" v-if="colors.length === 0" style="cursor: pointer">
-      <el-empty description="No colors, click to add."> </el-empty>
+    <div
+      v-if="colors.length === 0"
+      class="color-empty-wrapper"
+      @mouseover="showButtons = true"
+      @mouseleave="showButtons = false"
+    >
+      <el-empty
+        description="No colors, hover to add."
+        :style="{
+          opacity: showButtons ? 0 : 1,
+        }"
+      >
+      </el-empty>
+      <div class="color-palette-btns" v-if="showButtons">
+        <el-button icon="el-icon-plus" type="primary" @click="showColorsStore = true"
+          >Color Store</el-button
+        >
+        <el-button icon="el-icon-plus" type="primary" @click="showImageExtracter = true"
+          >Image</el-button
+        >
+      </div>
     </div>
     <div v-else class="color-palette-colors">
       <span
@@ -12,15 +31,23 @@
         draggable="true"
         @dragstart="(e) => handleDragStart(e, color)"
       ></span>
-      <i
-        class="el-icon-circle-plus-outline"
-        @click="showColorsStore = true"
-        :style="{
-          float: 'left',
-          cursor: 'pointer',
-          lineHeight: '30px',
-        }"
-      ></i>
+      <el-popover placement="bottom" trigger="hover">
+        <el-button icon="el-icon-plus" type="primary" @click="showColorsStore = true"
+          >Color Store</el-button
+        >
+        <el-button icon="el-icon-plus" type="primary" @click="showImageExtracter = true"
+          >Image</el-button
+        >
+        <i
+          slot="reference"
+          class="el-icon-circle-plus-outline"
+          :style="{
+            float: 'left',
+            cursor: 'pointer',
+            lineHeight: '30px',
+          }"
+        ></i>
+      </el-popover>
     </div>
     <el-dialog title="Color Store" width="1000px" :visible.sync="showColorsStore">
       <el-tabs :value="colorStore[0].name">
@@ -69,11 +96,45 @@
         <el-button @click="showColorsStore = false">Cancel</el-button>
       </span>
     </el-dialog>
+    <el-dialog title="Extract Colors From Image" :visible.sync="showImageExtracter">
+      <div class="color-palette-image-picker">
+        <image-picker v-model="imageURL" :allowOnline="false" :cacheImage="false" />
+        <div class="color-palette-image-color-container">
+          <div v-if="imageColors.length">Click to select colors you want to use.</div>
+          <span
+            :key="color"
+            v-for="(color, index) in imageColors"
+            class="color-palette-image-color-item"
+            @click="() => handleClickImageColorItem(index)"
+            :style="{
+              backgroundColor: color,
+              outlineWidth: selectedImageColorIndex.indexOf(index) === -1 ? '0px' : '4px',
+            }"
+          />
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showImageExtracter = false">Cancel</el-button>
+        <el-button
+          type="primary"
+          @click="handleAddImageColors"
+          v-show="selectedImageColorIndex.length !== 0"
+          >Add</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import ColorThief from "colorthief";
+import { Message } from "element-ui";
 import { colorStore } from "../data/color/index";
+import ImagePicker from "./ImagePicker.vue";
+import { loadImage } from "../utils/load";
+import { rgbToHex } from "../utils/color";
+
+const colorThief = new ColorThief();
 
 export default {
   data() {
@@ -82,10 +143,46 @@ export default {
       colorStore,
       cardSize: 200,
       colors: [],
+      showButtons: false,
+      showImageExtracter: false,
+      imageURL: "",
+      imageColors: [],
+      selectedImageColorIndex: [],
     };
   },
+  watch: {
+    async imageURL(newValue) {
+      if (newValue === "") {
+        this.imageColors = [];
+        this.selectedImageColorIndex = [];
+        return;
+      }
+      try {
+        const img = await loadImage(newValue);
+        const colors = colorThief.getPalette(img).map((d) => rgbToHex(...d));
+        this.imageColors = colors;
+      } catch (e) {
+        Message.error("Extract colors from image failed!");
+      }
+    },
+  },
+  components: { ImagePicker },
   methods: {
+    handleAddImageColors() {
+      const colors = this.selectedImageColorIndex.map((i) => this.imageColors[i]);
+      this.handleAddColors(colors);
+      this.showImageExtracter = false;
+    },
+    handleClickImageColorItem(index) {
+      const i = this.selectedImageColorIndex.indexOf(index);
+      if (i === -1) {
+        this.selectedImageColorIndex.push(index);
+      } else {
+        this.selectedImageColorIndex.splice(i, 1);
+      }
+    },
     handleAddColors(colors) {
+      if (colors.length === 0) return;
       // 过滤掉已经有的颜色
       const colorSet = new Set(this.colors);
       const newColors = colors.filter((d) => !colorSet.has(d));
@@ -107,6 +204,44 @@ export default {
 <style >
 .color-palette-container .el-empty {
   padding: 5px;
+}
+
+.color-empty-wrapper {
+  cursor: pointer;
+  position: relative;
+}
+
+.color-palette-btns {
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.color-palette-image-color-item {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+  margin-top: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  outline-color: #409eff;
+  outline-style: solid;
+}
+
+.color-palette-image-picker {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+}
+
+.color-palette-image-color-container {
+  width: calc(100% - 250px);
+  text-align: start;
+  margin: 0 30px;
 }
 
 .color-palette-container .el-dialog__header {
