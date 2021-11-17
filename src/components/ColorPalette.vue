@@ -14,11 +14,15 @@
       >
       </el-empty>
       <div class="color-palette-btns" v-if="showButtons">
-        <el-button icon="el-icon-plus" type="primary" @click="showColorsStore = true"
+        <el-button icon="el-icon-plus" type="primary" @click="showColorsStore = true" size="small"
           >Color Store</el-button
         >
-        <el-button icon="el-icon-plus" type="primary" @click="showImageExtracter = true"
-          >Image</el-button
+        <el-button
+          icon="el-icon-plus"
+          type="primary"
+          @click="showImageExtracter = true"
+          size="small"
+          >From Image</el-button
         >
       </div>
     </div>
@@ -32,11 +36,15 @@
         @dragstart="(e) => handleDragStart(e, color)"
       ></span>
       <el-popover placement="bottom" trigger="hover">
-        <el-button icon="el-icon-plus" type="primary" @click="showColorsStore = true"
+        <el-button icon="el-icon-plus" type="primary" @click="showColorsStore = true" size="small"
           >Color Store</el-button
         >
-        <el-button icon="el-icon-plus" type="primary" @click="showImageExtracter = true"
-          >Image</el-button
+        <el-button
+          icon="el-icon-plus"
+          type="primary"
+          @click="showImageExtracter = true"
+          size="small"
+          >From Image</el-button
         >
         <i
           slot="reference"

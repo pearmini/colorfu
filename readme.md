@@ -24,7 +24,7 @@ What it if you can use more colors and more words to make wallpapers to express 
 
 ![color store](https://i.loli.net/2021/11/08/tHmdewQEgbDnikR.png)
 
-2. Extracts colors from image.
+2. Extract colors from image.
 
 ![image](https://i.loli.net/2021/11/17/tmiIwyrACF51pvj.png)
 
