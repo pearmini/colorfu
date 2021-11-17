@@ -2,7 +2,10 @@
   <div class="image-color-picker-container">
     <image-picker v-model="imageURL" :allowOnline="false" :cacheImage="false" />
     <div class="image-color-picker-colors">
-      <div v-if="imageColors.length">Click to select colors you want to use.</div>
+      <div v-if="imageColors.length" style="color: #606266; font-size: 14px">
+        Click to select {{ maxCount === Infinity ? "" : `up to ${maxCount} ` }}colors you want to
+        use.
+      </div>
       <span
         :key="color"
         v-for="(color, index) in imageColors"
@@ -56,7 +59,6 @@ export default {
       },
       set(newValue) {
         const colors = newValue.map((index) => this.imageColors[index]);
-        console.log(colors);
         this.$emit("input", colors);
       },
     },
@@ -82,13 +84,13 @@ export default {
   },
   methods: {
     handleClickImageColorItem(index) {
-      if (this.selectedImageColorIndex.length > this.maxCount) {
-        Message.error(`Only can select ${this.maxCount} colors.`);
-        return;
-      }
       const i = this.selectedImageColorIndex.indexOf(index);
       const newSelectedImageColorIndex = [...this.selectedImageColorIndex];
       if (i === -1) {
+        if (this.selectedImageColorIndex.length >= this.maxCount) {
+          Message.error(`Only can select ${this.maxCount} colors.`);
+          return;
+        }
         newSelectedImageColorIndex.push(index);
       } else {
         newSelectedImageColorIndex.splice(i, 1);

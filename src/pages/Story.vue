@@ -19,24 +19,31 @@
           them meaningful.
         </p>
         <p>
-          There are some colors and words provided by ColorFu. Find the stories behind them and use
-          them to make your own stories.
+          There are some colors and words provided by ColorFu, and you can even extract colors from
+          an image. Find the stories behind them and use them to make your own stories.
         </p>
-        <el-select v-model="selectedValue">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
+        <p>
+          <el-select v-model="selectedValue">
+            <el-option
+              v-for="item in types"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+          <el-select v-model="selectedMode" v-if="selectedValue === 'color'">
+            <el-option
+              v-for="item in modes"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </p>
       </div>
-      <img
-        src="https://i.loli.net/2021/11/08/shFjeYXUEgGJ5AZ.png"
-        class="story-image"
-        width="32%"
-      />
+      <img src="http://pearmini.gitee.io/assets/colorfu/fu.png" class="story-image" width="32%" />
     </div>
     <div class="story-body">
       <div v-if="selectedValue === 'emoji'">
@@ -65,7 +72,7 @@
           >{{ item }}</span
         >
       </div>
-      <div v-if="selectedValue === 'color'">
+      <div v-if="selectedValue === 'color' && selectedMode === 'store'">
         <div v-for="collection in colorStore" :key="collection.name" class="story-color-collection">
           <h2>{{ collection.name }}</h2>
           <p v-html="collection.des" class="story-color-collection-des" />
@@ -98,6 +105,19 @@
           </div>
         </div>
       </div>
+      <div
+        v-if="selectedValue === 'color' && selectedMode === 'image'"
+        style="text-align: left; margin-bottom: 2em"
+      >
+        <image-color-picker v-model="selectedImageColors" :maxCount="4" />
+        <el-button
+          v-if="selectedImageColors.length > 0"
+          type="primary"
+          class="storey-make-button"
+          @click="() => handleClickColors('ColorFu', selectedImageColors)"
+          >Make Wallpaper</el-button
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -107,6 +127,7 @@ import emojiByGroup from "../data/emoji-by-group.json";
 import faces from "../data/emoticons.json";
 import { colorStore } from "../data/color";
 import { gotoEditor } from "../utils/gotoEditor";
+import ImageColorPicker from "../components/ImageColorPicker.vue";
 
 const emojis = Object.values(emojiByGroup).flat();
 
@@ -117,17 +138,26 @@ function offset(name) {
 export default {
   data() {
     return {
-      options: [
+      types: [
         { value: "color", label: "Color 🌈" },
         { value: "emoji", label: "Emoji 😆" },
         { value: "emoticon", label: "w(ﾟДﾟ)w" },
       ],
+      modes: [
+        { value: "store", label: "From Color Store 🏳️‍🌈" },
+        { value: "image", label: "From Image 🏞️" },
+      ],
       selectedValue: "color",
+      selectedMode: "store",
       emojis,
       faces,
       colorStore,
       cardSize: 200,
+      selectedImageColors: [],
     };
+  },
+  components: {
+    ImageColorPicker,
   },
   methods: {
     handleClickEmoticon(emoticon) {
@@ -265,14 +295,18 @@ export default {
 }
 
 .story-container .el-select {
-  float: left;
   margin-top: 1em;
+  margin-right: 1em;
 }
 
 .story-header {
   display: flex;
   align-items: center;
-  margin: 2.5em 0;
+  margin: 1em 0;
+}
+
+.storey-make-button {
+  margin: 1.5em 0;
 }
 
 .story-image {
@@ -361,7 +395,7 @@ export default {
   margin: 0.5em 0;
 }
 
-.story-body  {
+.story-body {
   margin-bottom: 2.5em;
 }
 </style>
