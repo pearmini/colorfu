@@ -36,7 +36,7 @@ export const colorHunt = {
       link: "https://colorhunt.co/palette/28df9999f3bdd2f6c5f6f7d4",
     },
     {
-      values: ["#2D4059", "#2D4059", "#F07B3F", "#FFD460"],
+      values: ["#2D4059", "#ea5455", "#F07B3F", "#FFD460"],
       link: "https://colorhunt.co/palette/2d4059ea5455f07b3fffd460",
     },
     {

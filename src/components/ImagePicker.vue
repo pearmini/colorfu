@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-upload
-      class="image-uploader"
+      :class="['image-uploader', { 'image-height': imageURL === '' }]"
       action=""
       :auto-upload="false"
       :on-change="handleChange"
@@ -11,12 +11,14 @@
       <img
         :src="imageURL"
         class="image"
-        @mouseenter="hover = true"
         alt="invalid url"
+        @mouseenter="hover = true"
         @error="handleErrorImage"
+        v-if="imageURL !== ''"
       />
+      <i v-else class="el-icon-plus image-uploader-icon" @mouseenter="hover = true"></i>
       <div
-        v-if="hover"
+        v-if="hover && allowOnline"
         class="image-overlayer"
         @mouseleave="hover = false"
         @click="handleClickOverlayer"
@@ -27,7 +29,7 @@
         >
       </div>
     </el-upload>
-    <el-dialog title="Upload online image" :visible.sync="showUploadDialog">
+    <el-dialog title="Upload online image" :visible.sync="showUploadDialog" append-to-body>
       <el-input v-model="onelineImageURL" />
       <span slot="footer" class="dialog-footer">
         <el-button @click="showUploadDialog = false">Cancel</el-button>
@@ -47,6 +49,14 @@ export default {
   },
   props: {
     imageURL: String,
+    cacheImage: {
+      type: Boolean,
+      default: true,
+    },
+    allowOnline: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -71,6 +81,7 @@ export default {
     handleRemove() {
       this.uploaded = false;
       this.hover = false;
+      if (!this.cacheImage) this.$emit("change", "");
     },
     handleUploadOnline(e) {
       e.stopPropagation();
@@ -103,6 +114,20 @@ export default {
 <style>
 .image-uploader {
   width: 250px;
+  min-height: 10px;
+}
+
+.image-height {
+  height: 250px;
+}
+
+.image-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 250px;
+  height: 250px;
+  line-height: 250px;
+  text-align: center;
 }
 
 .image-uploader .el-upload {
@@ -115,6 +140,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  height: 100%;
 }
 
 .image-uploader .el-upload:hover {

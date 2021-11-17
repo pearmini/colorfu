@@ -9,6 +9,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "colorthief": "^2.3.2",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.6",
     "emoticon.js": "^1.0.0",
