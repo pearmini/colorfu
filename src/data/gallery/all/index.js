@@ -15,6 +15,10 @@ import { iMissYou } from "./i-miss-you";
 import { keepGoodMood } from "./keep-good-mood";
 import { niceDay } from "./have-a-nice-day";
 import { kobe } from "./kobe";
+import { eye } from "./eye";
+import { beer } from "./beer";
+import { weak } from "./weak";
+import { tree } from "./tree";
 
 export const all = {
   name: "all",
@@ -31,6 +35,10 @@ export const all = {
     keepGoodMood,
     iMissYou,
     niceDay,
+    eye,
+    beer,
+    weak,
+    tree,
     mountain,
     bigWorld,
     falling,
