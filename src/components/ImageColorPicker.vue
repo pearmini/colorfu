@@ -106,13 +106,16 @@ export default {
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  align-items: center;
+  position: relative;
 }
 
 .image-color-picker-colors {
   width: calc(100% - 250px);
   text-align: start;
-  margin: 0 30px;
+  margin-left: 20px;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  padding: 20px;
 }
 
 .image-color-picker-color-item {

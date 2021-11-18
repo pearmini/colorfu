@@ -1,7 +1,11 @@
 <template>
   <div>
     <el-upload
-      :class="['image-uploader', { 'image-height': imageURL === '' }]"
+      :class="[
+        'image-uploader',
+        { 'image-height': imageURL === '' },
+        { 'image-dash-border': uploaded },
+      ]"
       action=""
       :auto-upload="false"
       :on-change="handleChange"
@@ -18,15 +22,21 @@
       />
       <i v-else class="el-icon-plus image-uploader-icon" @mouseenter="hover = true"></i>
       <div
-        v-if="hover && allowOnline"
+        v-if="hover"
         class="image-overlayer"
         @mouseleave="hover = false"
         @click="handleClickOverlayer"
       >
-        <el-button v-if="!uploaded" icon="el-icon-upload" type="primary">Local</el-button>
-        <el-button v-if="!uploaded" icon="el-icon-upload" type="primary" @click="handleUploadOnline"
-          >Online</el-button
-        >
+        <div v-if="allowOnline">
+          <el-button v-if="!uploaded" icon="el-icon-upload" type="primary">Local</el-button>
+          <el-button
+            v-if="!uploaded"
+            icon="el-icon-upload"
+            type="primary"
+            @click="handleUploadOnline"
+            >Online</el-button
+          >
+        </div>
       </div>
     </el-upload>
     <el-dialog title="Upload online image" :visible.sync="showUploadDialog" append-to-body>
@@ -131,8 +141,8 @@ export default {
 }
 
 .image-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
   border-radius: 6px;
+  border: 1px dashed #d9d9d9;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -141,6 +151,12 @@ export default {
   align-items: flex-start;
   width: 100%;
   height: 100%;
+}
+
+.image-dash-border {
+  border: 1px dashed #d9d9d9;
+  padding: 10px;
+  border-radius: 6px;
 }
 
 .image-uploader .el-upload:hover {

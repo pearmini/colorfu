@@ -111,9 +111,9 @@
       >
         <image-color-picker v-model="selectedImageColors" :maxCount="4" />
         <el-button
-          v-if="selectedImageColors.length > 0"
           type="primary"
           class="storey-make-button"
+          :disabled="selectedImageColors.length === 0"
           @click="() => handleClickColors('ColorFu', selectedImageColors)"
           >Make Wallpaper</el-button
         >
@@ -306,7 +306,9 @@ export default {
 }
 
 .storey-make-button {
-  margin: 1.5em 0;
+  margin-top: 1.5em;
+  margin-bottom: 2.5em;
+  float: right;
 }
 
 .story-image {
