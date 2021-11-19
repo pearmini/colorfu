@@ -40,7 +40,13 @@
     :name="options.name"
   />
   <color-palette v-else-if="options.type === 'color-palette'" />
-  <color-field v-else-if="options.type === 'color'" v-model="value" :name="options.name" />
+  <color-field
+    v-else-if="options.type === 'color'"
+    v-model="value"
+    :name="options.name"
+    :color-key="options.key"
+    @update="handleUpdate"
+  />
   <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
     <el-input
       v-if="options.type === 'text'"

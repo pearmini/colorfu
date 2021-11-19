@@ -166,7 +166,8 @@ export default {
       this.colors.splice(index, 1);
     },
     handleDragStart(e, color) {
-      e.dataTransfer.setData("drag-color", color);
+      const data = JSON.stringify({ value: color });
+      e.dataTransfer.setData("drag-color", data);
     },
   },
 };
