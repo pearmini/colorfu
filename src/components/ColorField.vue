@@ -1,11 +1,14 @@
 <template>
   <div
+    class="color-field"
     @dragover="handleDragover"
     @drop="handleDrop"
     @dragleave="over = false"
     :style="{
       background: over ? '#eee' : 'white',
     }"
+    @dragstart="handleDragStart"
+    draggable
   >
     <field :name="name">
       <el-color-picker v-model="color" size="small" :predefine="predefineColors" />
@@ -19,6 +22,7 @@ export default {
   props: {
     name: String,
     value: String,
+    colorKey: String,
   },
   components: { Field },
   data() {
@@ -46,16 +50,30 @@ export default {
     },
   },
   methods: {
+    handleDragStart(e) {
+      const data = JSON.stringify({ value: this.value, key: this.colorKey });
+      e.dataTransfer.setData("drag-color", data);
+    },
     handleDragover(e) {
       e.preventDefault(); // 取消这个事件才能触发 drop 事件
       e.dataTransfer.dropEffect = "move"; // 取消默认的箭头
       this.over = true;
     },
     handleDrop(e) {
-      const color = e.dataTransfer.getData("drag-color");
-      this.$emit("input", color);
+      const string = e.dataTransfer.getData("drag-color");
+      const { value, key } = JSON.parse(string);
+      this.$emit("input", value);
       this.over = false;
+      if (key) {
+        this.$emit("update", { key, value: this.value });
+      }
     },
   },
 };
 </script>
+
+<style>
+.color-field {
+  cursor: grab;
+}
+</style>
