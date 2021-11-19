@@ -1,5 +1,13 @@
 <template>
-  <div class="color-palette-container">
+  <div
+    class="color-palette-container"
+    @dragover="handleDragover"
+    @drop="handleDrop"
+    @dragleave="over = false"
+    :style="{
+      borderColor: over ? '#409EFF' : '#d9d9d9',
+    }"
+  >
     <div
       v-if="colors.length === 0"
       class="color-empty-wrapper"
@@ -134,12 +142,24 @@ export default {
       showButtons: false,
       showImageExtracter: false,
       selectedImageColors: [],
+      over: false,
     };
   },
   components: {
     ImageColorPicker,
   },
   methods: {
+    handleDragover(e) {
+      e.preventDefault(); // 取消这个事件才能触发 drop 事件
+      e.dataTransfer.dropEffect = "move"; // 取消默认的箭头
+      this.over = true;
+    },
+    handleDrop(e) {
+      const string = e.dataTransfer.getData("drag-color");
+      const { value } = JSON.parse(string);
+      this.handleAddColors([value]);
+      this.over = false;
+    },
     handleAddImageColors() {
       const colors = [...this.selectedImageColors];
       this.handleAddColors(colors);
@@ -214,7 +234,8 @@ export default {
 }
 
 .color-palette-container {
-  border: 1px dashed #d9d9d9;
+  border-style: dashed;
+  border-width: 1px;
   border-radius: 6px;
   padding: 8px;
   margin: 0.25em 0;
