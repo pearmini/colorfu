@@ -6,7 +6,7 @@
           <p class="group-help-content">
             {{ help }}
           </p>
-          <i class="el-icon-question group-help-icon" slot="reference" />
+          <i class="el-icon-bell group-help-icon" slot="reference" />
         </el-popover>
         {{ name }}</span
       >

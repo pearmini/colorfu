@@ -13,28 +13,30 @@
         />
       </div>
       <div class="tools-container">
-        <el-tooltip effect="dark" content="Help" placement="top">
-          <el-button type="primary" icon="el-icon-help" circle @click="handleHelp"></el-button>
+        <el-tooltip effect="dark" content="Story" placement="top">
+          <el-button
+            type="primary"
+            icon="el-icon-present"
+            circle
+            @click="handleHelp"
+          ></el-button>
         </el-tooltip>
         <el-tooltip effect="dark" content="Preveiw" placement="top">
           <el-button type="primary" icon="el-icon-view" circle @click="handlePreview"></el-button>
         </el-tooltip>
-        <el-tooltip effect="dark" content="Download File" placement="top">
+        <el-popover placement="top" trigger="hover">
+          <el-button icon="el-icon-files" type="primary" @click="handleDownloadFile" size="small"
+            >File</el-button
+          >
           <el-button
-            type="primary"
-            icon="el-icon-download"
-            circle
-            @click="handleDownloadFile"
-          ></el-button>
-        </el-tooltip>
-        <el-tooltip effect="dark" content="Download Image" placement="top">
-          <el-button
-            type="primary"
             icon="el-icon-picture-outline"
-            circle
+            type="primary"
             @click="handleDownloadImage"
-          ></el-button>
-        </el-tooltip>
+            size="small"
+            >Image</el-button
+          >
+          <el-button slot="reference" type="primary" icon="el-icon-download" circle></el-button>
+        </el-popover>
       </div>
     </el-container>
   </el-container>
@@ -146,6 +148,10 @@ export default {
   bottom: 25px;
   right: 30px;
   z-index: 900;
+}
+
+.tools-container .el-button {
+  margin: 0 6px;
 }
 
 .preivew {
