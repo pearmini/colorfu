@@ -2,7 +2,8 @@
 
 ColorFu is where people can use words, colors, patterns and images to make unique wallpapers to express their feelings or ideas.
 
-![example](https://i.loli.net/2021/11/08/M7LhoxGfvARit3U.png)
+![home](https://i.loli.net/2021/11/21/cbs5Xv7VqWFdy8l.png)
+![example](https://i.loli.net/2021/11/21/rThjJi82VIsWZMa.png)
 
 ## Why is it
 
@@ -26,7 +27,7 @@ What it if you can use more colors and more words to make wallpapers to express 
 
 2. Extract colors from image.
 
-![image](https://i.loli.net/2021/11/17/tmiIwyrACF51pvj.png)
+![image](https://i.loli.net/2021/11/21/QFwx4K8mygNuMlL.png)
 
 3. There are some emojis and emoticons for your to boost your imagination.
 
