@@ -1,12 +1,14 @@
 import { line } from "./line";
 import { dot } from "./dot";
 import { wave } from "./wave";
+import { square } from "./square";
 import { get } from "../../object";
 
 const nameCreator = {
   line,
   dot,
-  wave
+  wave,
+  square
 };
 
 export function getPatternOptions(options, prefix) {

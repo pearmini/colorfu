@@ -103,7 +103,8 @@ export function getTextOptions(options) {
             { value: "none", label: "None" },
             { value: "line", label: "Line" },
             { value: "dot", label: "Dot" },
-            { value: "wave", label: "Wave" }
+            { value: "wave", label: "Wave" },
+            { value: "square", label: "Square" }
           ],
           relations: getPatternRelations(options, "text")
         },
