@@ -9,8 +9,10 @@ export function getAttributeOptions(options) {
       {
         type: "section",
         name: "Colors",
-        help:
-          "You can set all attributes related to color here. You can set each of them directly through color input, or add some colors from color store and drag to it.",
+        help: `
+        <p style="color: #606266;font-size:14px;line-height: 1.4;">Sets attributes related to color here.</p>
+        <img  src="http://pearmini.gitee.io/assets/colorfu/color-palette.gif" />
+        `,
         children: [
           {
             type: "collapse",
@@ -19,27 +21,31 @@ export function getAttributeOptions(options) {
             indent: false,
             children: [
               {
-                type: "color-palette"
-              }
-            ]
+                type: "color-palette",
+              },
+            ],
           },
-          ...getColorOptions(options)
-        ]
+          ...getColorOptions(options),
+        ],
       },
       {
         type: "section",
         name: "Words",
-        help:
-          "You can set attributes related to foreground words here. The words can auto fit the wallpaper, or compress to be constrained in it or simply use font size.",
-        children: getTextOptions(options)
+        help: `
+        <p style="color: #606266;font-size:14px;line-height: 1.4;">Sets attributes related to foreground words here.</p>
+        <img src="http://pearmini.gitee.io/assets/colorfu/size-preview.png" width="100%"/>
+        `,
+        children: getTextOptions(options),
       },
       {
         type: "section",
         name: "Background",
-        help:
-          "You can set attributes relate to background here. It can be an image or just some colors.",
-        children: getBackgroundOptions(options)
-      }
-    ]
+        help: `
+        <p style="color: #606266;font-size:14px;line-height: 1.4;">Sets attributes relate to background here.</p>
+        <img src="http://pearmini.gitee.io/assets/colorfu/background-preivew.png" width="100%"/>
+        `,
+        children: getBackgroundOptions(options),
+      },
+    ],
   };
 }

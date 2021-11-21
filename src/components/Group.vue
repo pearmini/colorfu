@@ -3,9 +3,7 @@
     <div class="group-container-header">
       <span class="group-container-name">
         <el-popover class="item" effect="dark" width="300" trigger="hover" placement="bottom-start">
-          <p class="group-help-content">
-            {{ help }}
-          </p>
+          <div class="group-help-content" v-html="help"></div>
           <i class="el-icon-bell group-help-icon" slot="reference" />
         </el-popover>
         {{ name }}</span
@@ -22,6 +20,11 @@ export default {
   props: {
     name: String,
     help: String,
+  },
+  data() {
+    return {
+      visible: true,
+    };
   },
 };
 </script>
