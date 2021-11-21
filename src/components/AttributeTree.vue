@@ -106,6 +106,9 @@
         {{ item.label }}
       </el-radio>
     </div>
+     <div v-if="options.type === 'boolean'">
+       <el-checkbox v-model="value"> </el-checkbox>
+    </div>
   </feild>
 </template>
 
