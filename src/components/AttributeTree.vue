@@ -60,7 +60,7 @@
       v-model="value"
       size="small"
     />
-    <image-picker v-if="options.type === 'image'" v-model="value" />
+    <image-picker v-if="options.type === 'image'" v-model="value" :allowOnline="false" />
     <el-select
       v-if="options.type === 'select'"
       v-model="value"

@@ -1,1 +1,2 @@
-export const defaultImageURL = "http://pearmini.gitee.io/assets/colorfu/2.jpg";
+import imageURL from "../assets/images/example.jpg";
+export const defaultImageURL = imageURL;
