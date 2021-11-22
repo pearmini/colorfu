@@ -19,7 +19,7 @@
           them meaningful.
         </p>
         <p>
-          There are some colors and words provided by ColorFu, and you can even extract colors from
+          There are some colors, patterns and words provided by ColorFu, and you can even extract colors from
           an image. Find the stories behind them and use them to make your own stories.
         </p>
         <p>
@@ -118,16 +118,28 @@
           >Make Wallpaper</el-button
         >
       </div>
+      <div v-if="selectedValue === 'pattern'" class="story-pattern-container">
+        <div
+          v-for="item in patterns"
+          :key="item.label"
+          class="story-pattern-item"
+          @click="() => handleClickPattern(item.label, item.textColor, item.options)"
+        >
+          <pattern-card :options="item.options" :size="patternSize" :name="item.label" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import ImageColorPicker from "../components/ImageColorPicker.vue";
+import PatternCard from "../components/PatternCard.vue";
 import emojiByGroup from "../data/emoji-by-group.json";
 import faces from "../data/emoticons.json";
 import { colorStore } from "../data/color";
+import { patterns } from "../data/pattern";
 import { gotoEditor } from "../utils/gotoEditor";
-import ImageColorPicker from "../components/ImageColorPicker.vue";
 
 const emojis = Object.values(emojiByGroup).flat();
 
@@ -140,6 +152,10 @@ export default {
     return {
       types: [
         { value: "color", label: "Color 🌈" },
+        {
+          value: "pattern",
+          label: "Pattern 👨‍👩‍👧‍👧",
+        },
         { value: "emoji", label: "Emoji 😆" },
         { value: "emoticon", label: "w(ﾟДﾟ)w" },
       ],
@@ -147,17 +163,20 @@ export default {
         { value: "store", label: "From Color Store 🏳️‍🌈" },
         { value: "image", label: "From Image 🏞️" },
       ],
-      selectedValue: "color",
+      selectedValue: "pattern",
       selectedMode: "store",
       emojis,
       faces,
+      patterns,
       colorStore,
       cardSize: 200,
       selectedImageColors: [],
+      patternSize: screen.width / 2,
     };
   },
   components: {
     ImageColorPicker,
+    PatternCard,
   },
   methods: {
     handleClickEmoticon(emoticon) {
@@ -285,6 +304,23 @@ export default {
       }
       gotoEditor(this.$router, options);
     },
+    handleClickPattern(name, color, background) {
+      const options = {
+        text: {
+          content: name,
+          fontSize: 200,
+          fontFamily: "Luckiest Guy",
+          fontURL: "/fonts/luckiest_guy.ea045d18.woff2",
+          type: "none",
+          color,
+          mode: "autoFit",
+          padding: 0,
+          dy: offset(name),
+        },
+        background,
+      };
+      gotoEditor(this.$router, options);
+    },
   },
 };
 </script>
@@ -399,5 +435,14 @@ export default {
 
 .story-body {
   margin-bottom: 2.5em;
+}
+
+.story-pattern-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.story-pattern-item {
+  margin: 12px;
 }
 </style>

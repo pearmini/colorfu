@@ -3,7 +3,6 @@
 ColorFu is where people can use words, colors, patterns and images to make unique wallpapers to express their feelings or ideas.
 
 ![home](https://i.loli.net/2021/11/21/cbs5Xv7VqWFdy8l.png)
-![example](https://i.loli.net/2021/11/21/rThjJi82VIsWZMa.png)
 
 ## Why is it
 
@@ -14,6 +13,8 @@ Writing the word "福" (Fu) is the tradition of Chinese New Year, people will wr
 This is a great example that people use words and colors to express their feelings or ideas. And on the other hand, wallpaper is the most common thing we see everyday which should not be cold.
 
 What it if you can use more colors and more words to make wallpapers to express more feelings ? In that way, not only can you make your wallpapers beautiful, but also make them meaningful.
+
+![example](https://i.loli.net/2021/11/21/rThjJi82VIsWZMa.png)
 
 ![good mode](https://i.loli.net/2021/11/08/kdPIX5V2WxhoGeR.png)
 
