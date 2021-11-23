@@ -163,7 +163,7 @@ export default {
         { value: "store", label: "From Color Store 🏳️‍🌈" },
         { value: "image", label: "From Image 🏞️" },
       ],
-      selectedValue: "pattern",
+      selectedValue: "color",
       selectedMode: "store",
       emojis,
       faces,
