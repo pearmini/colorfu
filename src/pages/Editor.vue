@@ -14,12 +14,7 @@
       </div>
       <div class="tools-container">
         <el-tooltip effect="dark" content="Story" placement="top">
-          <el-button
-            type="primary"
-            icon="el-icon-present"
-            circle
-            @click="handleHelp"
-          ></el-button>
+          <el-button type="primary" icon="el-icon-present" circle @click="handleHelp"></el-button>
         </el-tooltip>
         <el-tooltip effect="dark" content="Preveiw" placement="top">
           <el-button type="primary" icon="el-icon-view" circle @click="handlePreview"></el-button>
@@ -109,7 +104,16 @@ export default {
       set(this.example, key, value);
     },
     handleDownloadImage() {
-      downloadImage(this.canvas, "wallpaper");
+      try {
+        downloadImage(this.canvas, "wallpaper");
+      } catch (e) {
+        Message.info({
+          message:
+            "The online image can't be downloaded, You can take a screenshot in preview mode or upload local image!",
+          duration: 5000,
+        });
+        console.log(e);
+      }
     },
     handleDownloadFile() {
       downloadFile(this.example, "index");
