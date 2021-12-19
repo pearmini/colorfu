@@ -1,6 +1,6 @@
 <template>
   <div class="symbol-input-container">
-    <el-popover placement="bottom" width="300" trigger="focus">
+    <el-popover placement="top" width="300" trigger="focus">
       <div class="emoji-input-popover">
         <el-tabs value="first">
           <el-tab-pane label="w(ﾟДﾟ)w" name="first">
@@ -20,6 +20,8 @@
         :style="{
           width: 200 + 'px',
         }"
+        type="textarea"
+        autosize
       />
     </el-popover>
   </div>

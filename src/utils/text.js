@@ -17,6 +17,19 @@ export function measureTextByDOM(text, font) {
   return [span.clientWidth, span.clientHeight];
 }
 
+export function measureMultilineTextByDOM(text, font) {
+  const lines = text.split("\n");
+  return lines.reduce(
+    (size, line) => {
+      const [width, height] = measureTextByDOM(line, font);
+      const maxWidth = Math.max(size[0], width);
+      const totalHeight = size[1] + height;
+      return [maxWidth, totalHeight];
+    },
+    [-Infinity, 0]
+  );
+}
+
 let measureTextSpan;
 function createSpan() {
   if (measureTextSpan) return measureTextSpan;
