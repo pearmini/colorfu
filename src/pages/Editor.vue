@@ -96,11 +96,12 @@ import Wallpaper from "../components/Wallpaper.vue";
 import AttributeTree from "../components/AttributeTree.vue";
 import { getAttributeOptions } from "../utils/attribute";
 import { downloadImage, downloadFile } from "../utils/file";
-import { set, deepCopy, get } from "../utils/object";
+import { set, deepCopy } from "../utils/object";
 import { useWindowSize } from "../mixins/useWindowSize";
 import { useFullscreen } from "../mixins/useFullscreen";
 import { useElementBox } from "../mixins/useElementBox";
 import { color } from "../data/examples";
+import { adaptOptions } from "../utils/adapt";
 
 export default {
   components: {
@@ -110,9 +111,10 @@ export default {
   name: "editor",
   data() {
     const example = localStorage.getItem("cd-example");
+    const deviceType = localStorage.getItem("cd-type");
     return {
       example: example ? JSON.parse(example) : color,
-      activeDevice: 1,
+      activeDevice: deviceType === "pc" ? 1 : 7,
       customWidth: screen.width,
       customHeight: screen.height,
       rotate: false,
@@ -139,14 +141,10 @@ export default {
   mixins: [useWindowSize(), useFullscreen(), useElementBox("preview")],
   watch: {
     deviceSize(newValue, oldValue) {
-      const mode = get(this.example, "text.mode");
-      if (mode === "autoFit") return;
-      const oldSize = get(this.example, "text.fontSize");
-      const [oldWidth] = oldValue;
-      const [newWidth] = newValue;
-      const scale = newWidth / oldWidth;
-      const newSize = oldSize * scale;
-      this.handleUpdateExample({ key: "text.fontSize", value: newSize });
+      const [, oldHeight] = oldValue;
+      const [, newHeight] = newValue;
+      const scale = newHeight / oldHeight;
+      this.example = adaptOptions(this.example, scale);
     },
   },
   computed: {
