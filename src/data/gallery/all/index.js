@@ -19,6 +19,10 @@ import { eye } from "./eye";
 import { beer } from "./beer";
 import { weak } from "./weak";
 import { tree } from "./tree";
+import { life } from "./life";
+import { face } from "./face";
+import { showOff } from "./show-off";
+import { goal } from "./goal";
 
 export const all = {
   name: "all",
@@ -27,6 +31,10 @@ export const all = {
     thor,
     hulk,
     jordan,
+    life,
+    showOff,
+    face,
+    goal,
     kobe,
     cassidy,
     tracer,
