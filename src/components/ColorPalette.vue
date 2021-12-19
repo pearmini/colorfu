@@ -28,7 +28,7 @@
         <el-button
           icon="el-icon-plus"
           type="primary"
-          @click="showImageExtracter = true"
+          @click="showImageExtractor = true"
           size="small"
           >From Image</el-button
         >
@@ -50,7 +50,7 @@
         <el-button
           icon="el-icon-plus"
           type="primary"
-          @click="showImageExtracter = true"
+          @click="showImageExtractor = true"
           size="small"
           >From Image</el-button
         >
@@ -112,7 +112,7 @@
         <el-button @click="showColorsStore = false">Cancel</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="Extract Colors From Image" :visible.sync="showImageExtracter">
+    <el-dialog title="Extract Colors From Image" :visible.sync="showImageExtractor">
       <image-color-picker v-model="selectedImageColors" />
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleCloseImageColorPicker">Cancel</el-button>
@@ -140,7 +140,7 @@ export default {
       cardSize: 200,
       colors: [],
       showButtons: false,
-      showImageExtracter: false,
+      showImageExtractor: false,
       selectedImageColors: [],
       over: false,
     };
@@ -166,7 +166,7 @@ export default {
       this.handleCloseImageColorPicker();
     },
     handleCloseImageColorPicker() {
-      this.showImageExtracter = false;
+      this.showImageExtractor = false;
       this.selectedImageColors = [];
     },
     handleAddColors(colors) {
