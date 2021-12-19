@@ -29,7 +29,7 @@
               >
                 <el-carousel-item v-for="example in phoneExamples" :key="example.mode">
                   <div
-                    @click="handleSelectExample(example)"
+                    @click="handleSelectExample(example, 'phone')"
                     :style="{
                       cursor: progress >= 1 ? 'pointer' : 'default',
                     }"
@@ -173,9 +173,9 @@ export default {
         path: "/editor",
       });
     },
-    handleSelectExample(example) {
+    handleSelectExample(example, activeType) {
       if (this.progress < 1) return;
-      gotoEditor(this.$router, example);
+      gotoEditor(this.$router, example, activeType);
     },
     handleStory() {
       this.$router.push({
