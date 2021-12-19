@@ -1,6 +1,6 @@
 <template>
-  <div v-loading="loading" :style="styleSize" class="transition">
-    <canvas ref="canvas" class="transition" :style="styleSize" />
+  <div v-loading="loading" :style="styleSize" :class="{ transition: animate }">
+    <canvas ref="canvas" :class="{ transition: animate }" :style="styleSize" />
   </div>
 </template>
 
@@ -15,6 +15,10 @@ export default {
     options: Object,
     width: Number,
     height: Number,
+    animate: {
+      type: Boolean,
+      default: true,
+    },
     styleWidth: [Number, String],
     styleHeight: [Number, String],
   },
