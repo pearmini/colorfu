@@ -1,6 +1,6 @@
 import { createPattern } from "./pattern";
 import { createContext } from "./canvas";
-import { measureTextByDOM, getTextFontSize } from "./text";
+import { measureTextByDOM, getTextFontSize, measureMultilineTextByDOM } from "./text";
 
 export function drawWallpaper(canvas, width, height, options) {
   const context = createContext(canvas, width, height);
@@ -37,6 +37,7 @@ function drawText(
 
   const containerWidth = width - padding * 2;
   const containerHeight = width - padding * 2;
+  // 目前只根据宽来自适应
   const finalFontSize =
     mode === "autoFit"
       ? getTextFontSize(content, containerWidth, { fontSize: 200, fontFamily })
@@ -49,21 +50,22 @@ function drawText(
   context.save();
 
   // constrain words within the container
+  const font = {
+    fontSize: finalFontSize,
+    fontFamily,
+  };
+  const x = width / 2;
+  const y = height / 2 + dy;
   if (mode === "constrain") {
-    const font = {
-      fontSize: finalFontSize,
-      fontFamily
-    };
-    const [textWidth, textHeight] = measureTextByDOM(content, font);
-
+    const [textWidth, textHeight] = measureMultilineTextByDOM(content, font);
     const sx = textWidth > containerWidth ? containerWidth / textWidth : 1;
     const sy = textHeight > containerHeight ? containerHeight / textHeight : 1;
-    context.translate(width / 2, height / 2);
+    context.translate(x, y);
     context.scale(sx, sy);
-    context.translate(-width / 2, -height / 2);
+    context.translate(-x, -y);
   }
 
-  context.fillText(content, width / 2, height / 2 + dy);
+  drawMultilineText(context, content, x, y, font);
   context.restore();
 }
 
@@ -82,4 +84,15 @@ function drawImage(context, image, width, height) {
   const sx = (imageWidth - sw) / 2;
   const sy = (imageHeight - sh) / 2;
   context.drawImage(image, sx, sy, sw, sh, 0, 0, width, height);
+}
+
+function drawMultilineText(context, content, centerX, centerY, font) {
+  const lines = content.split("\n");
+  const [, textHeight] = measureTextByDOM(lines[0], font);
+  const totalHeight = textHeight * (lines.length - 1);
+  const y = centerY - totalHeight / 2;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    context.fillText(line, centerX, y + i * textHeight);
+  }
 }
