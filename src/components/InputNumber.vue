@@ -9,14 +9,14 @@
       size="small"
     ></el-input-number>
     <template v-slot:name>
-      <span @mousedown="handleMouseDown" :style="curosrStyle">{{ name }}</span>
+      <span @mousedown="handleMouseDown" :style="cursorStyle">{{ name }}</span>
     </template>
     <div
-      class="input-number-overlayer"
-      v-if="showOverlayer"
+      class="input-number-overlay"
+      v-if="showOverlay"
       @mouseup="handleMouseUp"
       @mousemove="handleMouseMove"
-      :style="curosrStyle"
+      :style="cursorStyle"
     ></div>
   </field>
 </template>
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      showOverlayer: false,
+      showOverlay: false,
       x: 0,
       initValue: 0,
     };
@@ -54,7 +54,7 @@ export default {
         this.$emit("input", value);
       },
     },
-    curosrStyle() {
+    cursorStyle() {
       let cursor;
       if (this.value <= this.min) {
         cursor = "e-resize";
@@ -70,12 +70,12 @@ export default {
   },
   methods: {
     handleMouseDown({ clientX }) {
-      this.showOverlayer = true;
+      this.showOverlay = true;
       this.x = clientX;
       this.initValue = this.value;
     },
     handleMouseUp() {
-      this.showOverlayer = false;
+      this.showOverlay = false;
     },
     handleMouseMove({ clientX }) {
       const offsetX = clientX - this.x;
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style>
-.input-number-overlayer {
+.input-number-overlay {
   position: fixed;
   width: 100%;
   height: 100%;

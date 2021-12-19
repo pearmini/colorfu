@@ -23,9 +23,9 @@
       <i v-else class="el-icon-plus image-uploader-icon" @mouseenter="hover = true"></i>
       <div
         v-if="hover"
-        class="image-overlayer"
+        class="image-overlay"
         @mouseleave="hover = false"
-        @click="handleClickOverlayer"
+        @click="handleClickOverlay"
       >
         <div v-if="allowOnline">
           <el-button v-if="!uploaded" icon="el-icon-upload" type="primary">Local</el-button>
@@ -40,7 +40,7 @@
       </div>
     </el-upload>
     <el-dialog title="Upload online image" :visible.sync="showUploadDialog" append-to-body>
-      <el-input v-model="onelineImageURL" />
+      <el-input v-model="onlineImageURL" />
       <span slot="footer" class="dialog-footer">
         <el-button @click="showUploadDialog = false">Cancel</el-button>
         <el-button type="primary" @click="handleConfirmOnline">Confirm</el-button>
@@ -73,7 +73,7 @@ export default {
       uploaded: false,
       hover: false,
       showUploadDialog: false,
-      onelineImageURL: "",
+      onlineImageURL: "",
       preImageURL: "",
     };
   },
@@ -97,17 +97,17 @@ export default {
       e.stopPropagation();
       this.showUploadDialog = true;
     },
-    handleClickOverlayer(e) {
+    handleClickOverlay(e) {
       if (this.uploaded) {
         Message.error("Please delete uploaded image first!");
         e.stopPropagation();
       }
     },
     handleConfirmOnline() {
-      if (!this.onelineImageURL) {
+      if (!this.onlineImageURL) {
         Message.error("Please provide non-empty url!");
       } else {
-        this.$emit("change", this.onelineImageURL);
+        this.$emit("change", this.onlineImageURL);
       }
       this.showUploadDialog = false;
     },
@@ -168,7 +168,7 @@ export default {
   display: block;
 }
 
-.image-overlayer {
+.image-overlay {
   position: absolute;
   width: 100%;
   height: 100%;

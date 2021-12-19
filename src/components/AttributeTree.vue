@@ -47,7 +47,7 @@
     :color-key="options.key"
     @update="handleUpdate"
   />
-  <feild v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
+  <field v-else :name="options.name" :flex="options.type === 'image' ? 'col' : 'row'">
     <el-input
       v-if="options.type === 'text'"
       :placeholder="options.placeholder"
@@ -109,12 +109,12 @@
      <div v-if="options.type === 'boolean'">
        <el-checkbox v-model="value"> </el-checkbox>
     </div>
-  </feild>
+  </field>
 </template>
 
 <script>
 import { get } from "../utils/object";
-import Feild from "./Field.vue";
+import Field from "./Field.vue";
 import Group from "./Group.vue";
 import ImagePicker from "./ImagePicker.vue";
 import InputNumber from "./InputNumber.vue";
@@ -126,7 +126,7 @@ import ColorField from "./ColorField.vue";
 export default {
   name: "attribute-tree",
   components: {
-    Feild,
+    Field,
     Group,
     ImagePicker,
     InputNumber,
@@ -181,5 +181,10 @@ export default {
   height: 32px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.radio-container .el-radio {
+  margin-right: 12px;
 }
 </style>

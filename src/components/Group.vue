@@ -2,12 +2,19 @@
   <div class="group-container">
     <div class="group-container-header">
       <span class="group-container-name">
-        <el-popover class="item" effect="dark" width="300" trigger="hover" placement="bottom-start">
+        <el-popover
+          class="item"
+          effect="dark"
+          width="300"
+          trigger="hover"
+          placement="bottom-start"
+          v-if="help"
+        >
           <div class="group-help-content" v-html="help"></div>
           <i class="el-icon-bell group-help-icon" slot="reference" />
         </el-popover>
-        {{ name }}</span
-      >
+        {{ name }}
+      </span>
     </div>
     <div class="group-children">
       <slot />

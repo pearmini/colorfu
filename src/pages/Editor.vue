@@ -4,7 +4,7 @@
       <attribute-tree :options="attribute" :values="example" @update="handleUpdateExample" />
     </el-aside>
     <el-container>
-      <div :class="{ preivew: fullscreen }" :style="wallpaperStyles">
+      <div :class="{ preview: fullscreen }" :style="wallpaperStyles">
         <wallpaper
           :options="example"
           :width="screenWidth"
@@ -158,7 +158,7 @@ export default {
   margin: 0 6px;
 }
 
-.preivew {
+.preview {
   position: fixed;
   left: 0;
   top: 0;
