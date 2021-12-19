@@ -1,6 +1,6 @@
 import { deepCopy, set, get } from "./object";
 
-export function adaptOptions(options, scale) {
+export function adaptOptions(options, scale = 1) {
   const newOptions = deepCopy(options);
   const dy = get(newOptions, "text.dy") || 0;
   set(newOptions, "text.mode", "autoFit");
