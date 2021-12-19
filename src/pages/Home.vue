@@ -7,7 +7,7 @@
           ColorFu is where people can use words, colors, patterns and images to make unique
           wallpapers to express their feelings or ideas.
         </p>
-        <div style="dispaly: flex">
+        <div style="display: flex">
           <el-button type="primary" @click="handleStarted">Get Started</el-button>
           <el-button @click="handleStory">Explore</el-button>
         </div>
@@ -95,14 +95,14 @@ export default {
       const macAspect = 0.625;
       const ratio = 0.7;
       const deviceContainerAspect = this.deviceContainerHeight / this.deviceContainerWidth;
-      let deivceWidth;
+      let deviceWidth;
       let deviceHeight;
       if (deviceContainerAspect > macAspect) {
-        deivceWidth = this.deviceContainerWidth * ratio;
-        deviceHeight = deivceWidth * macAspect;
+        deviceWidth = this.deviceContainerWidth * ratio;
+        deviceHeight = deviceWidth * macAspect;
       } else {
         deviceHeight = this.deviceContainerHeight * ratio;
-        deivceWidth = deviceHeight / macAspect;
+        deviceWidth = deviceHeight / macAspect;
       }
 
       return {
@@ -112,9 +112,9 @@ export default {
           scale: 1,
         },
         to: {
-          x: this.deviceContainerX + (this.deviceContainerWidth - deivceWidth) / 2,
+          x: this.deviceContainerX + (this.deviceContainerWidth - deviceWidth) / 2,
           y: this.deviceContainerY + (this.deviceContainerHeight - deviceHeight) / 2,
-          scale: deivceWidth / this.windowWidth,
+          scale: deviceWidth / this.windowWidth,
         },
       };
     },

@@ -26,7 +26,10 @@ import {
   Card,
   Link,
   OptionGroup,
-  Checkbox
+  Checkbox,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
 } from "element-ui";
 import CollapseTransition from "element-ui/lib/transitions/collapse-transition";
 import "element-ui/lib/theme-chalk/index.css";
@@ -65,11 +68,14 @@ Vue.use(Card);
 Vue.use(OptionGroup);
 Vue.use(Link);
 Vue.use(Checkbox);
+Vue.use(Dropdown);
+Vue.use(DropdownItem);
+Vue.use(DropdownMenu);
 Vue.component(CollapseTransition.name, CollapseTransition);
 
 locale.use(lang);
 
 new Vue({
-  render: h => h(App),
-  router
+  render: (h) => h(App),
+  router,
 }).$mount("#app");
