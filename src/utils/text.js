@@ -1,6 +1,9 @@
-export function getTextFontSize(text, containerWidth, font) {
-  const [textWidth] = measureTextByDOM(text, font);
-  return ((containerWidth * 0.8) / textWidth) * font.fontSize;
+export function getTextFontSize(text, containerWidth, containerHeight, font) {
+  const [textWidth, textHeight] = measureMultilineTextByDOM(text, font);
+  const sx = (containerWidth / textWidth) * 0.8;
+  const sy = containerHeight / textHeight;
+  const scale = Math.min(sx, sy);
+  return font.fontSize * scale;
 }
 
 export function measureTextByDOM(text, font) {

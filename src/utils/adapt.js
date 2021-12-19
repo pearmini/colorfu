@@ -1,9 +1,10 @@
-import { deepCopy, set } from "./object";
+import { deepCopy, set, get } from "./object";
 
 export function adaptOptions(options, scale) {
   const newOptions = deepCopy(options);
+  const dy = get(newOptions, "text.dy") || 0;
   set(newOptions, "text.mode", "autoFit");
-  set(newOptions, "text.dy", 30);
+  set(newOptions, "text.dy", Math.min(dy, 30));
   set(newOptions, "text.padding", 0);
 
   // 缩放一些数值属性

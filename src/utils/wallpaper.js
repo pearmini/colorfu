@@ -37,10 +37,9 @@ function drawText(
 
   const containerWidth = width - padding * 2;
   const containerHeight = width - padding * 2;
-  // 目前只根据宽来自适应
   const finalFontSize =
     mode === "autoFit"
-      ? getTextFontSize(content, containerWidth, { fontSize: 200, fontFamily })
+      ? getTextFontSize(content, containerWidth, containerHeight, { fontSize: 200, fontFamily })
       : fontSize;
 
   context.font = `bolder ${finalFontSize}px ${fontFamily}`;
