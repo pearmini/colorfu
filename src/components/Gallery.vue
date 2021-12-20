@@ -1,5 +1,5 @@
 <template>
-  <div class="gallery-container" style="margin-top: 50px">
+  <div class="gallery-container" style="margin-bottom: 50px">
     <div class="device-radio">
       <i
         class="el-icon-monitor device-icon"
