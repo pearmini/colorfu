@@ -53,12 +53,12 @@
       </div>
     </div>
     <scale
-      :progress="progress"
+      :progress="macProgress"
       :from="position.from"
       :to="position.to"
-      @onResize="handleResize"
       :fixed="true"
       :offsetY="progress >= 1 ? 200 : 0"
+      @onResize="handleResize"
     >
       <device :width="screenSize.width" :height="screenSize.height">
         <el-carousel :height="screenSize.height + 'px'" :style="{ width: screenSize.width + 'px' }">
@@ -90,7 +90,7 @@ import { color, pattern, image, showOff, falling, tree } from "../data/examples"
 import Gallery from "../components/Gallery.vue";
 import { gotoEditor } from "../utils/gotoEditor";
 import { adaptOptions } from "../utils/adapt";
-import { map } from "../utils/math";
+import { constrain, map } from "../utils/math";
 
 export default {
   components: {
@@ -158,7 +158,15 @@ export default {
       };
     },
     translateX() {
-      return map(this.progress, 0, 1, 1500, 0);
+      return map(this.phoneProgress, 0, 1, 1000, 0);
+    },
+    macProgress() {
+      const progress = constrain(this.progress, 0, 0.8);
+      return map(progress, 0, 0.8, 0, 1);
+    },
+    phoneProgress() {
+      const progress = constrain(this.progress, 0.8, 1);
+      return map(progress, 0.8, 1, 0, 1);
     },
   },
   methods: {
@@ -192,9 +200,9 @@ export default {
       const sourceHeight = this.windowHeight;
       const targetHeight = macHeight;
       const height =
-        this.progress <= 0
+        this.macProgress <= 0
           ? sourceHeight
-          : this.progress >= 1
+          : this.macProgress >= 1
           ? targetHeight
           : this.screenSize.height;
 
