@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy:gh-pages": "gh-pages -d dist"
   },
   "dependencies": {
     "colorthief": "^2.3.2",
@@ -27,6 +28,7 @@
     "babel-plugin-component": "^1.1.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "gh-pages": "^4.0.0",
     "husky": "^7.0.0",
     "vue-template-compiler": "^2.6.11"
   },
