@@ -28,7 +28,7 @@
     "babel-plugin-component": "^1.1.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "gh-pages": "^4.0.0",
+    "gh-pages": "^5.0.0",
     "husky": "^7.0.0",
     "vue-template-compiler": "^2.6.11"
   },
