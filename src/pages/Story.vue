@@ -43,7 +43,7 @@
           </el-select>
         </p>
       </div>
-      <img src="http://pearmini.gitee.io/assets/colorfu/fu.png" class="story-image" width="32%" />
+      <img :src="FU_IMAGE" class="story-image" width="32%" />
     </div>
     <div class="story-body">
       <div v-if="selectedValue === 'emoji'">
@@ -140,6 +140,7 @@ import faces from "../data/emoticons.json";
 import { colorStore } from "../data/color";
 import { patterns } from "../data/pattern";
 import { gotoEditor } from "../utils/gotoEditor";
+import FU_IMAGE from "../assets/images/fu.png";
 
 const emojis = Object.values(emojiByGroup).flat();
 
@@ -172,6 +173,7 @@ export default {
       cardSize: 200,
       selectedImageColors: [],
       patternSize: screen.width / 2,
+      FU_IMAGE,
     };
   },
   components: {

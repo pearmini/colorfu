@@ -11,7 +11,6 @@
     "dy": 30
   },
   "background": {
-    "mode": "image",
-    "imageURL": "http://pearmini.gitee.io/assets/colorfu/3.jpg"
+    "mode": "image"
   }
 }

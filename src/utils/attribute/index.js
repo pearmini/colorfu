@@ -1,6 +1,9 @@
 import { getTextOptions } from "./text";
 import { getBackgroundOptions } from "./background";
 import { getColorOptions } from "./color";
+import COLOR_PALETTE from "../../assets/images/color-palette.gif";
+import SIZE_PREVIEW from "../../assets/images/size-preview.png";
+import BACKGROUND_PREVIEW from "../../assets/images/background-preivew.png";
 
 export function getAttributeOptions(options) {
   return {
@@ -11,7 +14,7 @@ export function getAttributeOptions(options) {
         name: "Colors",
         help: `
         <p style="color: #606266;font-size:14px;line-height: 1.4;">Sets attributes related to color here.</p>
-        <img  src="http://pearmini.gitee.io/assets/colorfu/color-palette.gif" />
+        <img  src=${COLOR_PALETTE} />
         `,
         children: [
           {
@@ -33,7 +36,7 @@ export function getAttributeOptions(options) {
         name: "Words",
         help: `
         <p style="color: #606266;font-size:14px;line-height: 1.4;">Sets attributes related to foreground words here.</p>
-        <img src="http://pearmini.gitee.io/assets/colorfu/size-preview.png" width="100%"/>
+        <img src=${SIZE_PREVIEW} width="100%"/>
         `,
         children: getTextOptions(options),
       },
@@ -42,7 +45,7 @@ export function getAttributeOptions(options) {
         name: "Background",
         help: `
         <p style="color: #606266;font-size:14px;line-height: 1.4;">Sets attributes relate to background here.</p>
-        <img src="http://pearmini.gitee.io/assets/colorfu/background-preivew.png" width="100%"/>
+        <img src=${BACKGROUND_PREVIEW} width="100%"/>
         `,
         children: getBackgroundOptions(options),
       },

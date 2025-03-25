@@ -10,5 +10,5 @@
     "padding": 0,
     "dy": 30
   },
-  "background": { "mode": "image", "imageURL": "http://pearmini.gitee.io/assets/colorfu/5.jpeg" }
+  "background": { "mode": "image" }
 }
