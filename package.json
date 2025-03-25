@@ -15,7 +15,7 @@
     "element-ui": "^2.15.6",
     "emoticon.js": "^1.0.0",
     "file-saver": "^2.0.5",
-    "vue": "^2.6.11",
+    "vue": "^3.0.0",
     "vue-router": "^3.5.1"
   },
   "devDependencies": {
